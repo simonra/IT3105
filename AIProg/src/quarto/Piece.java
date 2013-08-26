@@ -1,6 +1,12 @@
 package quarto;
 
 public class Piece {
+	
+	public Color color;
+	public Height height;
+	public Shape shape;
+	public Solidity solidity;
+	
 	private boolean red;
 	private boolean big;
 	private boolean bracket;

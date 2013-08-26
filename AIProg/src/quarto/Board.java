@@ -38,4 +38,57 @@ public class Board {
 	public void PlacePiece(Piece piece, int x, int y){
 		board[x][y]	= piece;	
 	}
+	
+	public void PrintBoard(){
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				String pieceString = "";
+				//bruk system.print innenfor samme rad
+				//Sjekk om feltet er tomt
+				if(board[i][j] == null){
+					pieceString = "    ";
+				}else{
+					if(board[i][j].isRed()) pieceString += "r";
+					else pieceString += "b";
+					if(board[i][j].isStar()) pieceString += "¤";
+					else pieceString += "#";
+					if(board[i][j].isBig()) pieceString.toUpperCase();
+					if(board[i][j].isBracket()) pieceString = "[" + pieceString + "]";
+					else pieceString = "(" + pieceString + ")";
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
