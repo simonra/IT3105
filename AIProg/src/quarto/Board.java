@@ -48,14 +48,23 @@ public class Board {
 				if(board[i][j] == null){
 					pieceString = "    ";
 				}else{
-					if(board[i][j].isRed()) pieceString += "r";
+//					if(board[i][j].isRed()) pieceString += "r";
+//					else pieceString += "b";
+//					if(board[i][j].isStar()) pieceString += "¤";
+//					else pieceString += "#";
+//					if(board[i][j].isBig()) pieceString.toUpperCase();
+//					if(board[i][j].isBracket()) pieceString = "[" + pieceString + "]";
+//					else pieceString = "(" + pieceString + ")";
+					
+					if(board[i][j].color == Color.RED) pieceString += "r";
 					else pieceString += "b";
-					if(board[i][j].isStar()) pieceString += "¤";
+					if(board[i][j].solidity == Solidity.HOLLOW) pieceString += "¤";
 					else pieceString += "#";
-					if(board[i][j].isBig()) pieceString.toUpperCase();
-					if(board[i][j].isBracket()) pieceString = "[" + pieceString + "]";
+					if(board[i][j].height == Height.TALL) pieceString.toUpperCase();
+					if(board[i][j].shape == Shape.SQUARE) pieceString = "[" + pieceString + "]";
 					else pieceString = "(" + pieceString + ")";
 				}
+				System.out.print(pieceString);
 			}
 			System.out.println();
 		}

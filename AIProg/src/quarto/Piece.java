@@ -18,6 +18,13 @@ public class Piece {
 		this.bracket = bracket;
 		this.star = star;
 	}
+	
+	public Piece(Color color, Height height, Shape shape, Solidity solidity){
+		this.color = color;
+		this.height = height;
+		this.shape = shape;
+		this.solidity = solidity;
+	}
 
 	public boolean isRed() {
 		return red;
