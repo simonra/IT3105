@@ -53,7 +53,11 @@ public class Board {
 	}
 	
 	public void PlacePiece(Piece piece, int x, int y){
-		board[x][y]	= piece;	
+		board[x][y]	= piece;
+	}
+	
+	public void RemovePieceFromPool(Piece piece){
+		Pieces.remove(piece);
 	}
 	
 	public ArrayList<Piece> getPieces() {
