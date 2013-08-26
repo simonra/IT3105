@@ -81,7 +81,7 @@ public class Board {
 					else pieceString += "b";
 					if(board[i][j].solidity == Solidity.HOLLOW) pieceString += "¤";
 					else pieceString += "#";
-					if(board[i][j].height == Height.TALL) pieceString.toUpperCase();
+					if(board[i][j].height == Height.TALL) pieceString = pieceString.toUpperCase();
 					if(board[i][j].shape == Shape.SQUARE) pieceString = "[" + pieceString + "]";
 					else pieceString = "(" + pieceString + ")";
 				}

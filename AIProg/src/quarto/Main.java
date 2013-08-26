@@ -8,7 +8,7 @@ public class Main {
 		System.out.println("asdf");
 		
 		board.PlacePiece(board.getPieces().get(0), 0, 0);
-		board.PlacePiece(board.getPieces().get(6), 3, 3);
+		board.PlacePiece(board.getPieces().get(13), 3, 3);
 		board.PrintBoard();
 	}
 }
