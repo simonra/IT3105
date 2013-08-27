@@ -77,4 +77,7 @@ public class Logic {
 	}
 	
 	
+	//TODO: Metode som finner seire i neste trekk (i.e. hvilke brikker motstanderen for enhver pris ikke må få neste trekk) (Burkes til novice-heurestikken)
+	
+	
 }
