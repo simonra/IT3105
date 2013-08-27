@@ -63,6 +63,14 @@ public class Board {
 	public ArrayList<Piece> getPieces() {
 		return Pieces;
 	}
+	
+	public Piece[][] getBoard() {
+		return board;
+	}
+	
+	
+	
+	
 
 	public void PrintBoard(){
 		for (int i = 0; i < 4; i++) {
