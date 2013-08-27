@@ -1,5 +1,7 @@
 package quarto;
 
+import java.util.ArrayList;
+
 public class Logic {
 	
 	//Sjekker om spillet er vunnet
@@ -78,6 +80,39 @@ public class Logic {
 	
 	
 	//TODO: Metode som finner seire i neste trekk (i.e. hvilke brikker motstanderen for enhver pris ikke må få neste trekk) (Burkes til novice-heurestikken)
-	
-	
+	public ArrayList<Piece> PiecesThatWinOnNextMove(Board board){
+		ArrayList<Piece> piecesThatShouldntBeHandedOver = new ArrayList<Piece>();
+		
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
