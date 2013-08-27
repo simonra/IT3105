@@ -48,5 +48,33 @@ public class Logic {
 			return false;
 	}
 	
+	//Sjekker om tre pieces er like (til bruk i heurestikk)
+	public boolean comparePieces(Piece p1, Piece p2, Piece p3){
+		if(p1.color == p2.color && p2.color == p3.color)
+			return true;
+		else if(p1.height == p2.height && p2.height == p3.height)
+			return true;
+		else if(p1.shape == p2.shape && p2.shape == p3.shape)
+			return true;
+		else if(p1.solidity == p2.solidity && p2.solidity == p3.solidity)
+			return true;
+		else
+			return false;
+	}
+	
+	//Sjekker om 2Pieces er like (til bruk i heurestikk)
+	public boolean comparePieces(Piece p1, Piece p2){
+		if(p1.color == p2.color)
+			return true;
+		else if(p1.height == p2.height)
+			return true;
+		else if(p1.shape == p2.shape)
+			return true;
+		else if(p1.solidity == p2.solidity)
+			return true;
+		else
+			return false;
+	}
+	
 	
 }
