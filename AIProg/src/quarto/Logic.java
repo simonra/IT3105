@@ -2,10 +2,8 @@ package quarto;
 
 public class Logic {
 	
+	//Sjekker om spillet er vunnet
 	public boolean isWon(Board board){
-		
-//		board.getBoard()[0][0]
-				
 		//Sjekker rader:
 		if(comparePieces(board.getBoard()[0][0], board.getBoard()[0][1], board.getBoard()[0][2], board.getBoard()[0][3]))
 			return true;
@@ -26,18 +24,17 @@ public class Logic {
 		else if(comparePieces(board.getBoard()[0][3], board.getBoard()[1][3], board.getBoard()[2][3], board.getBoard()[3][3]))
 			return true;
 		
-		//Sjekker diagonaler?
+		//Sjekker diagonaler:
+		if(comparePieces(board.getBoard()[0][0], board.getBoard()[1][1], board.getBoard()[2][2], board.getBoard()[3][3]))
+			return true;
+		else if(comparePieces(board.getBoard()[3][0], board.getBoard()[2][1], board.getBoard()[1][2], board.getBoard()[0][3]))
+			return true;
 		
-		
-//		for (int i = 0; i < 4; i++) {
-//			for (int j = 0; j < 4; j++) {
-//				
-//			}
-//		}
-//		
+		//Hvis det ikke var noen vinning-condittions oppfylt:
 		return false;
 	}
 	
+	//Sjekker om 4 pieces er like
 	public boolean comparePieces(Piece p1, Piece p2, Piece p3, Piece p4){
 		if(p1.color == p2.color && p2.color == p3.color && p3.color == p4.color)
 			return true;
