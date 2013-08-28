@@ -68,6 +68,21 @@ public class Logic {
 			return false;
 	}
 	
+	public ArrayList<Enum> CommonFeatures(Piece p1, Piece p2, Piece p3){
+		ArrayList<Enum> enumsToReturn = new ArrayList<Enum>();
+		if(p1 == null || p2 == null || p3 == null)
+			return null;
+		if(p1.color == p2.color && p2.color == p3.color)
+			enumsToReturn.add(p1.color);
+		if(p1.height == p2.height && p2.height == p3.height)
+			enumsToReturn.add(p1.height);
+		if(p1.shape == p2.shape && p2.shape == p3.shape)
+			enumsToReturn.add(p1.shape);
+		if(p1.solidity == p2.solidity && p2.solidity == p3.solidity)
+			enumsToReturn.add(p1.solidity);
+		return enumsToReturn;
+	}
+	
 	//Sjekker om 2Pieces er like (til bruk i heurestikk)
 	public boolean comparePieces(Piece p1, Piece p2){
 		if(p1 == null || p2 == null)
@@ -104,9 +119,10 @@ public class Logic {
 				tempList.add(board.getBoard()[i][0]);
 			
 			if(tempList.size() == 3){
-				comparePieces(tempList.get(0), tempList.get(1), tempList.get(2));
+				ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
 				//^få den til å returnere hva som matchet
 				//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
+				
 			}
 		}
 		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
