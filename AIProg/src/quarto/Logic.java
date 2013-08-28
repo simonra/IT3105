@@ -38,6 +38,8 @@ public class Logic {
 	
 	//Sjekker om 4 pieces er like
 	public boolean comparePieces(Piece p1, Piece p2, Piece p3, Piece p4){
+		if(p1 == null || p2 == null || p3 == null || p4 == null)
+			return false;
 		if(p1.color == p2.color && p2.color == p3.color && p3.color == p4.color)
 			return true;
 		else if(p1.height == p2.height && p2.height == p3.height && p3.height == p4.height)
@@ -52,6 +54,8 @@ public class Logic {
 	
 	//Sjekker om tre pieces er like (til bruk i heurestikk)
 	public boolean comparePieces(Piece p1, Piece p2, Piece p3){
+		if(p1 == null || p2 == null || p3 == null)
+			return false;
 		if(p1.color == p2.color && p2.color == p3.color)
 			return true;
 		else if(p1.height == p2.height && p2.height == p3.height)
@@ -66,6 +70,8 @@ public class Logic {
 	
 	//Sjekker om 2Pieces er like (til bruk i heurestikk)
 	public boolean comparePieces(Piece p1, Piece p2){
+		if(p1 == null || p2 == null)
+			return false;
 		if(p1.color == p2.color)
 			return true;
 		else if(p1.height == p2.height)
@@ -81,8 +87,35 @@ public class Logic {
 	
 	//TODO: Metode som finner seire i neste trekk (i.e. hvilke brikker motstanderen for enhver pris ikke må få neste trekk) (Burkes til novice-heurestikken)
 	public ArrayList<Piece> PiecesThatWinOnNextMove(Board board){
+		//Arraylisten som inneholder brikkene som ikke kan gies til den andre siden.
 		ArrayList<Piece> piecesThatShouldntBeHandedOver = new ArrayList<Piece>();
 		
+		//Sjekk hver rad for om den inneholder 3 pieces
+		for (int i = 0; i < board.getBoard().length; i++) {
+			
+			ArrayList<Piece> tempList = new ArrayList<Piece>();
+			if(board.getBoard()[i][0] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[i][1] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[i][2] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[i][3] != null)
+				tempList.add(board.getBoard()[i][0]);
+			
+			if(tempList.size() == 3){
+				comparePieces(tempList.get(0), tempList.get(1), tempList.get(2));
+				//^få den til å returnere hva som matchet
+				//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
+			}
+		}
+		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
+		
+		//Sjekk hver kolonne for om den inneholder 3 pieces
+		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
+		
+		//Sjekk hver diagonal for om den inneholder 3 pieces
+		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
 		return null;
 	}
 }
