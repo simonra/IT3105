@@ -3,7 +3,9 @@ package quarto;
 import java.util.ArrayList;
 
 public class Board {
+	/**Ubrukte brikker*/
 	private ArrayList<Piece> Pieces;
+	/**Brettet med brikker*/
 	private Piece[][] board;
 	
 	public Board(){

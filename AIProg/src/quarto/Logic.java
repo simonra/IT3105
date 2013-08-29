@@ -122,7 +122,16 @@ public class Logic {
 				ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
 				//^få den til å returnere hva som matchet
 				//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
-				
+				for (Piece p : board.getPieces()) {
+					if(features.contains(p.color))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.height))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.shape))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.solidity))
+						piecesThatShouldntBeHandedOver.add(p);
+				}
 			}
 		}
 		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
