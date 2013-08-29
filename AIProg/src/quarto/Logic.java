@@ -102,7 +102,7 @@ public class Logic {
 	
 	//TODO: Metode som finner seire i neste trekk (i.e. hvilke brikker motstanderen for enhver pris ikke må få neste trekk) (Burkes til novice-heurestikken)
 	public ArrayList<Piece> PiecesThatWinOnNextMove(Board board){
-		//Arraylisten som inneholder brikkene som ikke kan gies til den andre siden.
+		/**Arraylisten som inneholder brikkene som ikke kan gies til den andre siden.*/
 		ArrayList<Piece> piecesThatShouldntBeHandedOver = new ArrayList<Piece>();
 		
 		//Sjekk hver rad for om den inneholder 3 pieces
@@ -134,10 +134,37 @@ public class Logic {
 				}
 			}
 		}
-		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
 		
 		//Sjekk hver kolonne for om den inneholder 3 pieces
 		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
+		for (int i = 0; i < board.getBoard().length; i++) {
+			
+			ArrayList<Piece> tempList = new ArrayList<Piece>();
+			if(board.getBoard()[0][i] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[1][i] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[2][i] != null)
+				tempList.add(board.getBoard()[i][0]);
+			if(board.getBoard()[3][i] != null)
+				tempList.add(board.getBoard()[i][0]);
+			
+			if(tempList.size() == 3){
+				ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
+				//^få den til å returnere hva som matchet
+				//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
+				for (Piece p : board.getPieces()) {
+					if(features.contains(p.color))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.height))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.shape))
+						piecesThatShouldntBeHandedOver.add(p);
+					else if(features.contains(p.solidity))
+						piecesThatShouldntBeHandedOver.add(p);
+				}
+			}
+		}
 		
 		//Sjekk hver diagonal for om den inneholder 3 pieces
 		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
