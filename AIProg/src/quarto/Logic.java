@@ -112,11 +112,11 @@ public class Logic {
 			if(board.getBoard()[i][0] != null)
 				tempList.add(board.getBoard()[i][0]);
 			if(board.getBoard()[i][1] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[i][1]);
 			if(board.getBoard()[i][2] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[i][2]);
 			if(board.getBoard()[i][3] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[i][3]);
 			
 			if(tempList.size() == 3){
 				ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
@@ -141,13 +141,13 @@ public class Logic {
 			
 			ArrayList<Piece> tempList = new ArrayList<Piece>();
 			if(board.getBoard()[0][i] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[0][i]);
 			if(board.getBoard()[1][i] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[1][i]);
 			if(board.getBoard()[2][i] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[2][i]);
 			if(board.getBoard()[3][i] != null)
-				tempList.add(board.getBoard()[i][0]);
+				tempList.add(board.getBoard()[3][i]);
 			
 			if(tempList.size() == 3){
 				ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
@@ -168,7 +168,62 @@ public class Logic {
 		
 		//Sjekk hver diagonal for om den inneholder 3 pieces
 		//Hvis så, finn om det finnes en gjennværende piece som ikke kan handes over
-		return null;
+		ArrayList<Piece> tempList = new ArrayList<Piece>();
+		if(board.getBoard()[0][0] != null)
+			tempList.add(board.getBoard()[0][0]);
+		if(board.getBoard()[1][1] != null)
+			tempList.add(board.getBoard()[1][1]);
+		if(board.getBoard()[2][2] != null)
+			tempList.add(board.getBoard()[2][2]);
+		if(board.getBoard()[3][3] != null)
+			tempList.add(board.getBoard()[3][3]);
+		
+		if(tempList.size() == 3){
+			ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
+			//^få den til å returnere hva som matchet
+			//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
+			for (Piece p : board.getPieces()) {
+				if(features.contains(p.color))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.height))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.shape))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.solidity))
+					piecesThatShouldntBeHandedOver.add(p);
+			}
+		}
+		
+		tempList = new ArrayList<Piece>();
+		if(board.getBoard()[0][0] != null)
+			tempList.add(board.getBoard()[0][3]);
+		if(board.getBoard()[1][1] != null)
+			tempList.add(board.getBoard()[1][2]);
+		if(board.getBoard()[2][2] != null)
+			tempList.add(board.getBoard()[2][1]);
+		if(board.getBoard()[3][3] != null)
+			tempList.add(board.getBoard()[3][0]);
+		
+		if(tempList.size() == 3){
+			ArrayList<Enum> features = CommonFeatures(tempList.get(0), tempList.get(1), tempList.get(2));
+			//^få den til å returnere hva som matchet
+			//nedenfor: søk igjennom brikker som er igjenn for å se hva det er de matcher
+			for (Piece p : board.getPieces()) {
+				if(features.contains(p.color))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.height))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.shape))
+					piecesThatShouldntBeHandedOver.add(p);
+				else if(features.contains(p.solidity))
+					piecesThatShouldntBeHandedOver.add(p);
+			}
+		}
+		
+		if(piecesThatShouldntBeHandedOver.size() > 0)
+			return piecesThatShouldntBeHandedOver;
+		else
+			return null;
 	}
 }
 
