@@ -4,11 +4,15 @@ public class AlphaBetaPruning {
 	
 	private int originalDepth;
 	private Node bestNodeForNextMove;
-	public Node getBestNodeForNextMove(Node node, int depth){
+	private Move bestNextMove;
+	private double bestAlphaSeenSoFar;
+	/**Returns the best move for the board passed to it, and the depth desired to search*/
+	public Move getBestNodeForNextMove(Board board, int depth){
 		originalDepth = depth;
-		
-		double ab = alphabeta(null, 0, 0, 0, true);
-		return bestNodeForNextMove;
+		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
+		Node node = new Node(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, null, true, board);
+		double ab = alphabeta(node, depth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, true);
+		return bestNextMove;
 	}
 	
 	/*Algorithm as given on http://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning#Pseudocode*/
@@ -28,11 +32,11 @@ public class AlphaBetaPruning {
 			for (Node childNode : node.getChildren()) {
 				alpha = Math.max(alpha, alphabeta(childNode, depth-1, alpha, beta, !maximizingPlayer));
 				//TODO: Save best board state:
-				/*if (alpha > previousBestAlpha){
-					updatePreviousBestAlpha();
-					saveMoveOrBoardStateThatWouldLeadToThis();
-					bestMove = childNode.firstMoveThatWouldLeadToThis
-				}*/
+				if (depth == originalDepth && alpha > bestAlphaSeenSoFar){
+					bestAlphaSeenSoFar = alpha;
+//					saveMoveOrBoardStateThatWouldLeadToThis();
+					bestNodeForNextMove = childNode;
+				}
 				if(beta <= alpha)
 					break;
 					//Or return alpha
