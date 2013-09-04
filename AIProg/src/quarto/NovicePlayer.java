@@ -3,7 +3,7 @@ package quarto;
 public class NovicePlayer implements Player {
 
 	@Override
-	public void placePiece() {
+	public void placePiece(Board board, Piece currentPiece) {
 		// TODO Auto-generated method stub
 
 	}

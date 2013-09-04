@@ -23,7 +23,9 @@ public class Game {
 			board.PrintBoard();
 
 			// place piece
-			placePiece();
+			System.out.println("Please place " + currentPiece.pieceString()
+					+ " with coordinates xy");
+			currentPlayer.placePiece(board, currentPiece);
 
 			// Wincheck
 			if (winCheck()) {
@@ -47,14 +49,6 @@ public class Game {
 
 			switchPlayer();
 		}
-	}
-
-	private void placePiece() {
-		System.out.println("Please place " + currentPiece.pieceString()
-				+ " with coordinates xy");
-		String xy = ui.readCoordinates();
-		board.PlacePiece(currentPiece, Integer.parseInt("" + xy.charAt(0)),
-				Integer.parseInt("" + xy.charAt(1)));
 	}
 
 	// Player 1 chooses piece for player 2
