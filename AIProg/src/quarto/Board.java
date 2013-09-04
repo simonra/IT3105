@@ -70,6 +70,7 @@ public class Board {
 	}
 
 	public void PrintBoard() {
+		System.out.println("================");
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				String pieceString = "";
@@ -84,6 +85,7 @@ public class Board {
 			}
 			System.out.println();
 		}
+		System.out.println("================");
 	}
 
 	public void printPieces() {
