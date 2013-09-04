@@ -86,7 +86,15 @@ public class Board {
 		return board;
 	}
 
+	public void setPieces(ArrayList<Piece> pieces) {
+		this.Pieces = new ArrayList<>();
+		for (Piece piece : pieces) {
+			this.Pieces.add(piece);
+		}
+	}
+
 	public void PrintBoard() {
+		System.out.println();
 		System.out.println("==================");
 		for (int i = 0; i < 4; i++) {
 			System.out.print("|");
