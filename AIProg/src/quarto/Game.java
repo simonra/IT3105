@@ -4,11 +4,13 @@ public class Game {
 	private Player player1;
 	private Player player2;
 	private UI ui = new UI();
+	private Board board = new Board();
 
 	public void gameLoop() {
 		playerSelection();
-
+		printInfo();
 		while (true) {
+
 			break;
 		}
 	}
@@ -16,6 +18,12 @@ public class Game {
 	// Player 1 chooses piece for player 2
 	// Player 2 places piece
 	// Player 2 chooses piece for player 1
+
+	/** Printer brett og pieces */
+	private void printInfo() {
+		board.PrintBoard();
+		board.printPieces();
+	}
 
 	private void playerSelection() {
 		System.out.println("Select player 1 (human, random, novice, ai#)");

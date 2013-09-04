@@ -97,29 +97,7 @@ public class Board {
 				if (board[i][j] == null) {
 					pieceString = "    ";
 				} else {
-					// if(board[i][j].isRed()) pieceString += "r";
-					// else pieceString += "b";
-					// if(board[i][j].isStar()) pieceString += "¤";
-					// else pieceString += "#";
-					// if(board[i][j].isBig()) pieceString.toUpperCase();
-					// if(board[i][j].isBracket()) pieceString = "[" +
-					// pieceString + "]";
-					// else pieceString = "(" + pieceString + ")";
-
-					if (board[i][j].color == Color.RED)
-						pieceString += "r";
-					else
-						pieceString += "b";
-					if (board[i][j].solidity == Solidity.HOLLOW)
-						pieceString += "¤";
-					else
-						pieceString += "#";
-					if (board[i][j].height == Height.TALL)
-						pieceString = pieceString.toUpperCase();
-					if (board[i][j].shape == Shape.SQUARE)
-						pieceString = "[" + pieceString + "]";
-					else
-						pieceString = "(" + pieceString + ")";
+					pieceString = board[i][j].buildPiece();
 				}
 				System.out.print(pieceString);
 			}
@@ -127,4 +105,9 @@ public class Board {
 		}
 	}
 
+	public void printPieces() {
+		for (Piece piece : Pieces) {
+			System.out.print(piece.buildPiece() + "  ");
+		}
+	}
 }

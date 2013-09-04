@@ -26,13 +26,9 @@ public class Main {
 			break;
 		}
 
-		Board board = new Board();
-		System.out.println("asdf");
-		board.PrintBoard();
-		System.out.println("asdf");
-
-		board.PlacePiece(board.getPieces().get(0), 0, 0);
-		board.PlacePiece(board.getPieces().get(13), 3, 3);
-		board.PrintBoard();
+		// Useless code below
+		// board.PlacePiece(board.getPieces().get(0), 0, 0);
+		// board.PlacePiece(board.getPieces().get(13), 3, 3);
+		// board.PrintBoard();
 	}
 }
