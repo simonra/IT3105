@@ -10,7 +10,7 @@ public class AlphaBetaPruning {
 	public Node getBestNodeForNextMove(Board board, Piece givenPiece, int depth){
 		originalDepth = depth;
 		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
-		Node node = new Node(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, null, true, board, givenPiece);
+		Node node = new Node(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, null, true, board, givenPiece, null);
 		double ab = alphabeta(node, depth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, true);
 		return bestNodeForNextMove;
 	}

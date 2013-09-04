@@ -18,7 +18,7 @@ public class Node {
 	 * @param board The board/gamestate for this movenode
 	 * @param givenPiece The piece that has to be played in this node
 	 */
-	public Node(double alpha, double beta, Move firstMoveToThisState, boolean maximizer, Board board, Piece givenPiece){
+	public Node(double alpha, double beta, Move firstMoveToThisState, boolean maximizer, Board board, Piece givenPiece, Piece pieceToGive){
 		logic = new Logic();
 		
 		this.alpha = alpha;
