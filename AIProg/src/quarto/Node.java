@@ -16,15 +16,17 @@ public class Node {
 	 * @param firstMoveToThisState The initial move in the search tree that would lead to this node. Usefull for determining which move is the best move in the search
 	 * @param maximizer Boolean, tells if this is a max or min node in the ab-search
 	 * @param board The board/gamestate for this movenode
-	 * @param givenPiece The piece that has to be played in this node
+	 * @param pieceToPlace The piece that has to be played in this node
+	 * @param pieceToGive The piece that one gives to the children of this node to place
 	 */
-	public Node(double alpha, double beta, Move firstMoveToThisState, boolean maximizer, Board board, Piece givenPiece, Piece pieceToGive){
+	public Node(double alpha, double beta, Move firstMoveToThisState, boolean maximizer, Board board, Piece pieceToPlace, Piece pieceToGive){
 		logic = new Logic();
 		
 		this.alpha = alpha;
 		this.beta = beta;
 		this.firstMoveToThisState = firstMoveToThisState;
-		this.givenPiece = givenPiece;
+		this.pieceToPlace = pieceToPlace;
+		this.pieceToGive = pieceToGive;
 		this.maximizer = maximizer;
 		this.board = board;
 		
@@ -38,11 +40,15 @@ public class Node {
 	public double beta;
 	public boolean maximizer;
 	public Move firstMoveToThisState;
-	public Piece givenPiece;
+	public Piece pieceToPlace;
+	public Piece pieceToGive;
 	Logic logic;
 	
+	/**The children of this node (they are nodes)*/
 	private ArrayList<Node> children;
+	/**The board corresponding to this node*/
 	private Board board;
+	/**Whether this node is a terminal node or not (won, lost, drawn, etc.)*/
 	public boolean terminal;
 	
 	public ArrayList<Node> getChildren(){
@@ -89,27 +95,49 @@ public class Node {
 			terminal = true;
 	}
 	
+	/** Generates the children of this node*/
 	private void generateChildren(){
+		//Checks if the node is terminal (Has no children)
 		if(terminal)
 			return;
+		//If not, instanciates the children.
 		children = new ArrayList<Node>();
+		//Itterates through each place a child can be placed
 		for (int i = 0; i < board.getBoard().length; i++) {
 			for (int j = 0; j < board.getBoard()[i].length; j++) {
+				//If a boardtile is empty, begins the magic
 				if(board.getBoard()[i][j] == null){
-					for (Piece pieceToGive : board.getPieces()) {
+					/*For each leftover piece, generate a node with the current piece to place placed at [i,j] 
+					 * and the piecetogive as the piece given to the next node to place, and generate a piece 
+					 * it must say to its child that it must give*/
+					for (Piece pieceChildMustGive : board.getPieces()) {
 						//Creates the new board with the piece played
 						Board tempBoard = new Board();
 						tempBoard = board;
-						tempBoard.PlacePiece(givenPiece, i, j);
-						tempBoard.RemovePieceFromPool(givenPiece);
-						//Checks and creates the first move that would lead to this node
+						tempBoard.PlacePiece(pieceToPlace, i, j);
+						
+						//Removes the piece the child must give from the pool of pieces the child can give on
+						tempBoard.RemovePieceFromPool(pieceChildMustGive);
+						
+						//Checks (and creates if this is the first layer) the first move that would lead to this node
 						Move tempMove;
 						if(firstMoveToThisState == null)
-							tempMove = new Move(givenPiece, i, j);
+							tempMove = new Move(pieceToPlace, i, j);
 						else
 							tempMove = firstMoveToThisState;
-						//Creates the new node
-						children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceToGive));
+						
+						/*If this is a child of the root node, the piece to give is not specified. We therefore make 
+						 * children with all of them*/
+						if(pieceToGive == null){
+							for (Piece pieceRootGivesToChildToGive : tempBoard.getPieces()) {
+								/*pieceChildMustGive now placed as the piece the child must play, 
+								 * because it is removed from the potential pool in the outside loop*/
+								tempBoard.RemovePieceFromPool(pieceRootGivesToChildToGive);
+								children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceChildMustGive, pieceRootGivesToChildToGive));
+							}
+						}else{
+							children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceToGive, pieceChildMustGive));
+							//Creates the new node
 					}
 				}
 			}
