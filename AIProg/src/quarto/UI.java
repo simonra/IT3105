@@ -49,4 +49,30 @@ public class UI {
 		return player;
 	}
 
+	public String readCoordinates() {
+		String xy = readInput();
+
+		while (true) {
+			int x = Integer.parseInt("" + xy.charAt(0));
+			int y = Integer.parseInt("" + xy.charAt(1));
+			if (xy.length() == 2 && x <= 3 && y <= 3)
+				return xy;
+			System.out.println("Please enter valid coordinates (xy)");
+			xy = readInput();
+		}
+	}
+
+	public int selectPiece() {
+		String p = readInput();
+		while (true) {
+			if (p.length() == 1) {
+				try {
+					return Integer.parseInt(p);
+				} catch (Exception e) {
+				}
+				System.out.println("Please enter valid input (an integer)");
+				p = readInput();
+			}
+		}
+	}
 }

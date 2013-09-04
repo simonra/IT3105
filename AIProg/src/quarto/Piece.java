@@ -58,7 +58,7 @@ public class Piece {
 		this.star = star;
 	}
 
-	public String buildPiece() {
+	public String pieceString() {
 		String pieceString = "";
 		if (color == Color.RED)
 			pieceString += "r";

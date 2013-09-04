@@ -13,25 +13,6 @@ public class Board {
 	public Board() {
 		board = new Piece[4][4];
 		Pieces = new ArrayList<Piece>();
-		// for (int i = 0; i < 16; i++) {
-		// Piece p = new Piece(false, false, false, false);
-		// }
-		// Pieces.add(new Piece(false, false, false, false));
-		// Pieces.add(new Piece(false, false, false, true));
-		// Pieces.add(new Piece(false, false, true, false));
-		// Pieces.add(new Piece(false, false, true, true));
-		// Pieces.add(new Piece(false, true, false, false));
-		// Pieces.add(new Piece(false, true, false, true));
-		// Pieces.add(new Piece(false, true, true, false));
-		// Pieces.add(new Piece(false, true, true, true));
-		// Pieces.add(new Piece(true, false, false, false));
-		// Pieces.add(new Piece(true, false, false, true));
-		// Pieces.add(new Piece(true, false, true, false));
-		// Pieces.add(new Piece(true, false, true, true));
-		// Pieces.add(new Piece(true, true, false, false));
-		// Pieces.add(new Piece(true, true, false, true));
-		// Pieces.add(new Piece(true, true, true, false));
-		// Pieces.add(new Piece(true, true, true, true));
 
 		Pieces.add(new Piece(Color.RED, Height.SHORT, Shape.CIRCLE,
 				Solidity.HOLLOW));
@@ -97,7 +78,7 @@ public class Board {
 				if (board[i][j] == null) {
 					pieceString = "    ";
 				} else {
-					pieceString = board[i][j].buildPiece();
+					pieceString = board[i][j].pieceString();
 				}
 				System.out.print(pieceString);
 			}
@@ -107,7 +88,13 @@ public class Board {
 
 	public void printPieces() {
 		for (Piece piece : Pieces) {
-			System.out.print(piece.buildPiece() + "  ");
+			System.out.print(piece.pieceString() + "  ");
 		}
+	}
+
+	public Piece selectPiece(int pos) {
+		Piece p = Pieces.get(pos);
+		RemovePieceFromPool(p);
+		return p;
 	}
 }
