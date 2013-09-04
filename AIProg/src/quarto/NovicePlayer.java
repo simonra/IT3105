@@ -8,4 +8,10 @@ public class NovicePlayer implements Player {
 
 	}
 
+	@Override
+	public int selectPiece(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

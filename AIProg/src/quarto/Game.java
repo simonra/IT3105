@@ -6,19 +6,19 @@ public class Game {
 	private UI ui = new UI();
 	private Board board = new Board();
 	private Logic logic = new Logic();
-	private CurrentPlayer currentPlayer = CurrentPlayer.player1;
+	private Player currentPlayer;
 	private Piece currentPiece;
 
 	public void gameLoop() {
 		playerSelection();
-		currentPlayer = CurrentPlayer.player1;
+		currentPlayer = p1;
 
-		// print please select piece
 		// Første runde
 		System.out.println("Please select a piece to give to your opponent");
 		board.printPieces();
 
-		currentPiece = board.selectPiece(ui.selectPiece());
+		currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
+
 		while (true) {
 			board.PrintBoard();
 
@@ -43,7 +43,7 @@ public class Game {
 			board.PrintBoard();
 			board.printPieces();
 
-			currentPiece = board.selectPiece(ui.selectPiece());
+			currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
 
 			switchPlayer();
 		}
@@ -68,10 +68,10 @@ public class Game {
 	}
 
 	public void switchPlayer() {
-		if (currentPlayer == CurrentPlayer.player1) {
-			currentPlayer = CurrentPlayer.player2;
+		if (currentPlayer == p1) {
+			currentPlayer = p2;
 		} else {
-			currentPlayer = CurrentPlayer.player1;
+			currentPlayer = p1;
 		}
 	}
 
