@@ -3,25 +3,32 @@ package quarto;
 public class Main {
 	public static void main(String[] args) {
 		UI ui = new UI();
+		Game game = new Game();
 
 		// Bestemme hva slags spillere man skal ha
 		System.out.println("Welcome to Quarto!");
 
-		System.out.println("Select player 1 (human, random, novice, ai#)");
-		String player1 = ui.selectPlayer();
-
-		System.out.println("Select player 2 (human, random, novice, ai#)");
-		String player2 = ui.selectPlayer();
+		game.gameLoop();
 
 		// Oppsett av brett
 
-		Board board = new Board();
-		System.out.println("asdf");
-		board.PrintBoard();
-		System.out.println("asdf");
+		while (true) {
+			// Print remaining pieces
+			// Print board
+			// Print currently held piece
 
-		board.PlacePiece(board.getPieces().get(0), 0, 0);
-		board.PlacePiece(board.getPieces().get(13), 3, 3);
-		board.PrintBoard();
+			// Place piece
+			// Check win
+			// Pick piece for other player
+
+			// Change player
+
+			break;
+		}
+
+		// Useless code below
+		// board.PlacePiece(board.getPieces().get(0), 0, 0);
+		// board.PlacePiece(board.getPieces().get(13), 3, 3);
+		// board.PrintBoard();
 	}
 }

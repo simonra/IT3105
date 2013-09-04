@@ -1,25 +1,25 @@
 package quarto;
 
 public class Piece {
-	
+
 	public Color color;
 	public Height height;
 	public Shape shape;
 	public Solidity solidity;
-	
+
 	private boolean red;
 	private boolean big;
 	private boolean bracket;
 	private boolean star;
-	
+
 	public Piece(boolean red, boolean big, boolean bracket, boolean star) {
 		this.red = red;
 		this.big = big;
 		this.bracket = bracket;
 		this.star = star;
 	}
-	
-	public Piece(Color color, Height height, Shape shape, Solidity solidity){
+
+	public Piece(Color color, Height height, Shape shape, Solidity solidity) {
 		this.color = color;
 		this.height = height;
 		this.shape = shape;
@@ -56,5 +56,25 @@ public class Piece {
 
 	public void setStar(boolean star) {
 		this.star = star;
-	}	
+	}
+
+	public String buildPiece() {
+		String pieceString = "";
+		if (color == Color.RED)
+			pieceString += "r";
+		else
+			pieceString += "b";
+		if (solidity == Solidity.HOLLOW)
+			pieceString += "¤";
+		else
+			pieceString += "#";
+		if (height == Height.TALL)
+			pieceString = pieceString.toUpperCase();
+		if (shape == Shape.SQUARE)
+			pieceString = "[" + pieceString + "]";
+		else
+			pieceString = "(" + pieceString + ")";
+		return pieceString;
+	}
+
 }
