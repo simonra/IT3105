@@ -135,7 +135,7 @@ public class Node {
 								tempBoard.RemovePieceFromPool(pieceRootGivesToChildToGive);
 								children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceChildMustGive, pieceRootGivesToChildToGive));
 							}
-						}else{
+						}else
 							children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceToGive, pieceChildMustGive));
 					}
 				}
