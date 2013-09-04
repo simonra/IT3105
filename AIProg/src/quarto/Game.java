@@ -5,11 +5,29 @@ public class Game {
 	private Player player2;
 	private UI ui = new UI();
 	private Board board = new Board();
+	private Logic logic = new Logic();
+	private CurrentPlayer currentPlayer;
 
 	public void gameLoop() {
 		playerSelection();
 		printInfo();
+
+		// print please select piece
+
 		while (true) {
+			// printInfo: board + pieces
+
+			// place piece
+
+			// Wincheck
+			if (winCheck()) {
+				System.out.println(currentPlayer + " is the winner!");
+				break;
+			}
+
+			// select piece for opponent
+
+			switchPlayer();
 
 			break;
 		}
@@ -19,7 +37,22 @@ public class Game {
 	// Player 2 places piece
 	// Player 2 chooses piece for player 1
 
-	/** Printer brett og pieces */
+	public boolean winCheck() {
+		if (logic.isWon(board))
+			return true;
+		return false;
+
+	}
+
+	public void switchPlayer() {
+		if (currentPlayer == CurrentPlayer.player1) {
+			currentPlayer = CurrentPlayer.player2;
+		} else {
+			currentPlayer = CurrentPlayer.player1;
+		}
+	}
+
+	/** Prints the board and remaining pieces */
 	private void printInfo() {
 		board.PrintBoard();
 		board.printPieces();
