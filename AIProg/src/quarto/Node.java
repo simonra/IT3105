@@ -16,7 +16,7 @@ public class Node {
 	 * @param firstMoveToThisState The initial move in the search tree that would lead to this node. Usefull for determining which move is the best move in the search
 	 * @param maximizer Boolean, tells if this is a max or min node in the ab-search
 	 * @param board The board/gamestate for this movenode
-	 * @param pieceToPlace The piece that has to be played in this node
+	 * @param pieceToPlace The piece that has to be played in this node. The generateChildren method expects this piece to be removed from the passed boards list of available pieces.
 	 * @param pieceToGive The piece that one gives to the children of this node to place
 	 */
 	public Node(double alpha, double beta, Move firstMoveToThisState, boolean maximizer, Board board, Piece pieceToPlace, Piece pieceToGive){
