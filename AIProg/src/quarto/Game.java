@@ -44,16 +44,11 @@ public class Game {
 					.println("Please select a piece to give to your opponent");
 			board.PrintBoard();
 			board.printPieces();
-
 			currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
 
 			switchPlayer();
 		}
 	}
-
-	// Player 1 chooses piece for player 2
-	// Player 2 places piece
-	// Player 2 chooses piece for player 1
 
 	public boolean winCheck() {
 		if (logic.isWon(board))
@@ -67,12 +62,6 @@ public class Game {
 		} else {
 			currentPlayer = p1;
 		}
-	}
-
-	/** Prints the board and remaining pieces */
-	private void printInfo() {
-		board.PrintBoard();
-		board.printPieces();
 	}
 
 	private void playerSelection() {
