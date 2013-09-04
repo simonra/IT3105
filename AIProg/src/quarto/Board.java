@@ -70,8 +70,9 @@ public class Board {
 	}
 
 	public void PrintBoard() {
-		System.out.println("================");
+		System.out.println("==================");
 		for (int i = 0; i < 4; i++) {
+			System.out.print("|");
 			for (int j = 0; j < 4; j++) {
 				String pieceString = "";
 				// bruk system.print innenfor samme rad
@@ -83,9 +84,10 @@ public class Board {
 				}
 				System.out.print(pieceString);
 			}
+			System.out.print("|");
 			System.out.println();
 		}
-		System.out.println("================");
+		System.out.println("==================");
 	}
 
 	public void printPieces() {
