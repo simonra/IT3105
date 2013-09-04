@@ -8,20 +8,7 @@ public class NovicePlayer implements Player {
 	@Override
 	// Prøver å finne et vinnende trekk
 	public void placePiece(Board board, Piece currentPiece) {
-		Board tempBoard = new Board();
-		ArrayList<Piece> tempList = new ArrayList<>();
-
-		// Kopierer listen over pieces
-		for (Piece piece : board.getPieces()) {
-			tempList.add(piece);
-		}
-
-		// Kopierer brettet
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				tempBoard.getBoard()[i][j] = board.getBoard()[i][j];
-			}
-		}
+		Board tempBoard = new Board(board);
 
 		// Sjekker om det finnes et trekk hvor man vinner
 		for (int i = 0; i < 4; i++) {
@@ -52,6 +39,7 @@ public class NovicePlayer implements Player {
 	@Override
 	public int selectPiece(Board board) {
 		ArrayList<Piece> keepPieces = logic.PiecesThatWinOnNextMove(board);
+
 		for (Piece piece : board.getPieces()) {
 			if (keepPieces != null && !keepPieces.contains(piece)) {
 				return board.getPieces().indexOf(piece);

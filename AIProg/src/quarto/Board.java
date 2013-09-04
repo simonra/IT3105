@@ -48,6 +48,23 @@ public class Board {
 				Solidity.SOLID));
 	}
 
+	public Board(Board board) {
+		// Kopierer listen over pieces
+		Pieces = new ArrayList<Piece>();
+
+		for (Piece piece : board.getPieces()) {
+			Pieces.add(piece);
+		}
+
+		// Kopierer brettet
+		this.board = new Piece[4][4];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				this.board[i][j] = board.getBoard()[i][j];
+			}
+		}
+	}
+
 	public Board(ArrayList<Piece> pieces, Piece[][] board) {
 		Pieces = pieces;
 		this.board = board;
