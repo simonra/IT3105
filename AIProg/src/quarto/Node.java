@@ -137,7 +137,6 @@ public class Node {
 							}
 						}else{
 							children.add(new Node(alpha, beta, tempMove, !maximizer, tempBoard, pieceToGive, pieceChildMustGive));
-							//Creates the new node
 					}
 				}
 			}
