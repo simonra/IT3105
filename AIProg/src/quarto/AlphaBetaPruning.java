@@ -6,13 +6,13 @@ public class AlphaBetaPruning {
 	private Node bestNodeForNextMove;
 	private Move bestNextMove;
 	private double bestAlphaSeenSoFar;
-	/**Returns the best move for the board passed to it, and the depth desired to search*/
-	public Move getBestNodeForNextMove(Board board, int depth){
+	/**Returns the best move for the board passed to it, and the depth desired to search. Node.firstmoveToThisNode contains the move which the player should make. Node.pieceGiven contains the piece which the player should give.*/
+	public Node getBestNodeForNextMove(Board board, Piece givenPiece, int depth){
 		originalDepth = depth;
 		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
-		Node node = new Node(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, null, true, board);
+		Node node = new Node(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, null, true, board, givenPiece);
 		double ab = alphabeta(node, depth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, true);
-		return bestNextMove;
+		return bestNodeForNextMove;
 	}
 	
 	/*Algorithm as given on http://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning#Pseudocode*/
