@@ -25,6 +25,8 @@ public class Game {
 				break;
 			}
 
+			// Drawcheck
+
 			// select piece for opponent
 
 			switchPlayer();
@@ -41,7 +43,6 @@ public class Game {
 		if (logic.isWon(board))
 			return true;
 		return false;
-
 	}
 
 	public void switchPlayer() {
