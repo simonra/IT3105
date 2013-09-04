@@ -31,7 +31,9 @@ public class AlphaBetaPruning {
 			 * (It's parent minimizer would never choose its branch anyway) )*/
 			for (Node childNode : node.getChildren()) {
 				alpha = Math.max(alpha, alphabeta(childNode, depth-1, alpha, beta, !maximizingPlayer));
-				//TODO: Save best board state:
+				/*Sjekker om vi er rotnoden og oppdaterer alfaen (beste trekket). 
+				 * Hvis man gjør det, oppdater det beste barnet man tar vare på. 
+				 * (Å lagre den beste alfaverdien er en legacy-feature jeg ikke vet om brekker noe hvis fjernes)*/
 				if (depth == originalDepth && alpha > bestAlphaSeenSoFar){
 					bestAlphaSeenSoFar = alpha;
 //					saveMoveOrBoardStateThatWouldLeadToThis();
