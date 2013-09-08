@@ -84,7 +84,7 @@ public class Node {
 
 	/** The current heuristic */
 	private double someHeuristic() {
-		Logic logic = new Logic();
+		logic = new Logic();
 		// Total number of lines you can win on = 10
 		ArrayList<Piece> nextWinPieces = logic.PiecesThatWinOnNextMove(board);
 		int numberOfUnspentPieces = board.getPieces().size();
