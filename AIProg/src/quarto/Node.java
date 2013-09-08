@@ -130,10 +130,11 @@ public class Node {
 //			return 50;
 	}
 
+	/**Checks if this node is a terminal node or not, i.e. won or drawn*/
 	public void terminalCheck() {
-		if (logic.isWon(board))
-			terminal = true;
 		if (board.getPieces().size() == 0)
+			terminal = true;
+		if (logic.isWon(board))
 			terminal = true;
 	}
 
@@ -145,8 +146,8 @@ public class Node {
 		// If not, instanciates the children.
 		children = new ArrayList<Node>();
 		// Itterates through each place a child can be placed
-		for (int i = 0; i < board.getBoard().length; i++) {
-			for (int j = 0; j < board.getBoard()[i].length; j++) {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
 				// If a boardtile is empty, begins the magic
 				if (board.getBoard()[i][j] == null) {
 					/*
