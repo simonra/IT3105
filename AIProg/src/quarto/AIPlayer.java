@@ -2,7 +2,7 @@ package quarto;
 
 public class AIPlayer implements Player {
 
-	private Node node = new Node(0, 0, null, false, new Board(), null, null);
+	private Node node = new Node(new Logic(), 0, 0, null, false, new Board(), null, null);
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 
 	@Override

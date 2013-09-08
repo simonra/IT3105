@@ -33,10 +33,10 @@ public class Node {
 	 * @param pieceToGive
 	 *            The piece that one gives to the children of this node to place
 	 */
-	public Node(double alpha, double beta, Move firstMoveToThisState,
+	public Node(Logic logic, double alpha, double beta, Move firstMoveToThisState,
 			boolean maximizer, Board board, Piece pieceToPlace,
 			Piece pieceToGive) {
-		logic = new Logic();
+		this.logic = logic;
 
 		this.alpha = alpha;
 		this.beta = beta;
@@ -182,13 +182,13 @@ public class Node {
 								Board tempBoard2 = new Board(tempBoard);
 								tempBoard2.setPieces(tempPieces);
 
-								children.add(new Node(alpha, beta, tempMove,
+								children.add(new Node(logic, alpha, beta, tempMove,
 										!maximizer, tempBoard2,
 										pieceChildMustGive,
 										pieceRootGivesToChildToGive));
 							}
 						} else
-							children.add(new Node(alpha, beta, tempMove,
+							children.add(new Node(logic, alpha, beta, tempMove,
 									!maximizer, tempBoard, pieceToGive,
 									pieceChildMustGive));
 					}
