@@ -33,7 +33,8 @@ public class AlphaBetaPruning {
 				alpha = Math.max(alpha, alphabeta(childNode, depth-1, alpha, beta, !maximizingPlayer));
 				/*Sjekker om vi er rotnoden og oppdaterer alfaen (beste trekket). 
 				 * Hvis man gjør det, oppdater det beste barnet man tar vare på. 
-				 * (Å lagre den beste alfaverdien er en legacy-feature jeg ikke vet om brekker noe hvis fjernes)*/
+				 * (Å lagre den beste alfaverdien er en legacy-feature jeg ikke vet om brekker noe hvis fjernes)
+				 * ^Nvm, m� lagres for at det beste trekket skal kunne velges (letteste variablen � lagre for sjekking)*/
 				if (depth == originalDepth && alpha > bestAlphaSeenSoFar){
 					bestAlphaSeenSoFar = alpha;
 //					saveMoveOrBoardStateThatWouldLeadToThis();
