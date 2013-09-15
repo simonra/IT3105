@@ -6,6 +6,11 @@ public class AIPlayer implements Player {
 			null, null);
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 	private Player novicePlayer = new NovicePlayer();
+	private int depth;
+
+	public AIPlayer(int depth) {
+		this.depth = depth;
+	}
 
 	@Override
 	public void placePiece(Board board, Piece currentPiece) {
@@ -15,7 +20,7 @@ public class AIPlayer implements Player {
 			return;
 		}
 
-		node = ab.getBestNodeForNextMove(board, currentPiece, 2);
+		node = ab.getBestNodeForNextMove(board, currentPiece, depth);
 		board.PlacePiece(currentPiece, node.firstMoveToThisState.x,
 				node.firstMoveToThisState.y);
 	}

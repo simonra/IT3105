@@ -75,8 +75,14 @@ public class Game {
 			p1 = new RandomPlayer();
 		if (player1String.equals("novice"))
 			p1 = new NovicePlayer();
+		if (player1String.equals("ai1"))
+			p1 = new AIPlayer(1);
 		if (player1String.equals("ai2"))
-			p1 = new AIPlayer();
+			p1 = new AIPlayer(2);
+		if (player1String.equals("ai3"))
+			p1 = new AIPlayer(3);
+		if (player1String.equals("ai4"))
+			p1 = new AIPlayer(4);
 
 		System.out.println("Select player 2 (human, random, novice, ai#)");
 		String player2String = ui.selectPlayer();
@@ -86,7 +92,13 @@ public class Game {
 			p2 = new RandomPlayer();
 		if (player2String.equals("novice"))
 			p2 = new NovicePlayer();
+		if (player2String.equals("ai1"))
+			p2 = new AIPlayer(1);
 		if (player2String.equals("ai2"))
-			p2 = new AIPlayer();
+			p2 = new AIPlayer(2);
+		if (player2String.equals("ai3"))
+			p2 = new AIPlayer(3);
+		if (player2String.equals("ai4"))
+			p2 = new AIPlayer(4);
 	}
 }
