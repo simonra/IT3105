@@ -74,6 +74,11 @@ public class Board {
 		board[x][y] = piece;
 	}
 
+	public void PlacePiece(Move move) {
+		PlacePiece(move.currentPiece, move.x, move.y);
+		RemovePieceFromPool(move.currentPiece);
+	}
+
 	public void RemovePieceFromPool(Piece piece) {
 		Pieces.remove(piece);
 	}

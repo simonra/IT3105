@@ -3,7 +3,6 @@ package quarto;
 import java.util.ArrayList;
 
 public class Logic {
-	// TODO gjøre om til static
 	// Sjekker om spillet er vunnet
 	public static boolean isWon(Board board) {
 		// Sjekker rader:

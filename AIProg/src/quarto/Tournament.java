@@ -31,6 +31,9 @@ public class Tournament {
 		switchPlayer();
 
 		while (true) {
+			// System.out.println("Before placepiece");
+			// board.printPieces();
+			// board.PrintBoard();
 
 			currentPlayer.placePiece(board, currentPiece);
 
@@ -41,6 +44,7 @@ public class Tournament {
 				} else {
 					p2wins++;
 				}
+				System.out.println(currentPlayer.getName() + " wins!");
 				break;
 			}
 
@@ -48,7 +52,9 @@ public class Tournament {
 			if (board.getPieces().size() == 0) {
 				break;
 			}
-
+			// System.out.println("Before selectpiece");
+			// board.PrintBoard();
+			// board.printPieces();
 			currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
 
 			switchPlayer();

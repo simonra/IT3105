@@ -45,10 +45,8 @@ public class Node {
 	 * @param pieceToGive
 	 *            The piece that one gives to the children of this node to place
 	 */
-	public Node(boolean maximizer, Board board, Piece pieceToPlace,
-			Piece pieceToGive) {
-		this.pieceToPlace = pieceToPlace;
-		this.pieceToGive = pieceToGive;
+	public Node(boolean maximizer, Board board, Move move) {
+		this.move = move;
 		this.maximizer = maximizer;
 		this.board = new Board(board);
 		this.terminal = false;
@@ -121,60 +119,36 @@ public class Node {
 
 	/** Generates the children of this node */
 	private void generateChildren() {
-		// Checks if the node is terminal (Has no children)
 		if (terminal)
 			return;
-		// If not, instanciates the children.
-		children = new ArrayList<Node>();
-		// Iterates through each place a child can be placed
 
-		if (pieceToGive != null) {
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 4; j++) {
-					if (board.getBoard()[i][j] == null) {
-						for (Piece pieceChildMustGive : board.getPieces()) {
-							// Creates the new board with the piece played
-							Board tempBoard = new Board(board);
-							tempBoard.PlacePiece(pieceToPlace, i, j);
+		children = new ArrayList<>();
 
-							// Removes the piece the child must give from the
-							// pool
-							// of pieces the child can give on
-							tempBoard.RemovePieceFromPool(pieceChildMustGive);
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
 
-							// Checks (and creates if this is the first layer)
-							// the
-							// first move that would lead to this node
-							children.add(new Node(!maximizer, tempBoard,
-									pieceToGive, pieceChildMustGive));
-						}
+				if (board.getBoard()[i][j] != null)
+					continue;
+
+				if (move.givePiece == null) {
+					for (Piece childGivePiece : board.getPieces()) {
+
+						Move childMove = new Move(move.currentPiece, i, j,
+								childGivePiece);
+						Board childBoard = new Board(board);
+						childBoard.PlacePiece(childMove);
+						Node childNode = new Node(!maximizer, childBoard,
+								childMove);
+						children.add(childNode);
 					}
+					continue;
 				}
-			}
-		} else {
-			ArrayList<Piece> tempList = Logic.CopyArrayList(board.getPieces());
-			for (Piece pieceRootGives : tempList) {
-				for (int i = 0; i < 4; i++) {
-					for (int j = 0; j < 4; j++) {
-						if (board.getBoard()[i][j] == null) {
-							for (Piece pieceChildMustGive : board.getPieces()) {
-								// Creates the new board with the piece played
-								Board tempBoard = new Board(board);
-								tempBoard.PlacePiece(pieceToPlace, i, j);
-
-								// Removes the piece the child must give from
-								// the pool of pieces the child can give on
-								tempBoard
-										.RemovePieceFromPool(pieceChildMustGive);
-
-								// Checks (and creates if this is the first
-								// layer)
-								// the first move that would lead to this node
-								children.add(new Node(!maximizer, tempBoard,
-										pieceRootGives, pieceChildMustGive));
-							}
-						}
-					}
+				for (Piece childPiece : board.getPieces()) {
+					Move childMove = new Move(move.givePiece, i, j, childPiece);
+					Board childBoard = new Board(board);
+					childBoard.PlacePiece(childMove);
+					Node childNode = new Node(!maximizer, childBoard, childMove);
+					children.add(childNode);
 				}
 			}
 		}
