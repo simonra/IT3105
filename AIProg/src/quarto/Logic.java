@@ -262,4 +262,12 @@ public class Logic {
 		else
 			return null;
 	}
+
+	public ArrayList<Piece> CopyArrayList(ArrayList<Piece> listToCopy) {
+		ArrayList<Piece> returnList = new ArrayList<>();
+		for (Piece piece : listToCopy) {
+			returnList.add(piece);
+		}
+		return returnList;
+	}
 }

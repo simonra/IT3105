@@ -77,63 +77,49 @@ public class Node {
 	/** Calculates and returns the heuristic of this node (if requested) */
 	public double getHeuristic() {
 		// The obvious condittion for what value should be returned
-		if (maximizer && logic.isWon(board))
-			return -100;
-		if (!maximizer && logic.isWon(board))
-			return 100;
-		return 0;
-		// return someHeuristic();
+		if (logic.isWon(board)) {
+			if (maximizer) {
+				return -100;
+			} else {
+				return 100;
+			}
+		}
+
+		return someHeuristic();
 	}
 
 	/** The current heuristic (the magic part of it) */
 	private double someHeuristic() {
-		/*
-		 * Forslag til ny heurestikk: Å sette brikker i de fire midterste
-		 * plassene er negativt, fordi det er større sjangser for å messe opp
-		 * (kan påvirke diagonaler i tillegg). Heurestikken blir derfor at hvis
-		 * det er ledige plasser langs kantene +50, hvis man må sette i midten
-		 * -50. Ikke bra, men bedre enn det vi har nå?
-		 */
+		int certainThreeInARow = 0;
 		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (i == 0 || i == 3 || j == 0 || j == 3) {
-					if (board.getBoard()[i][j] == null)
-						return 50;
-				}
-			}
+			if (board.getBoard()[0][i] == null ^ board.getBoard()[1][i] == null
+					^ board.getBoard()[2][i] == null
+					^ board.getBoard()[3][i] == null)
+				certainThreeInARow++;
 		}
-		return -50;
 
-		// Gammelt, muligens for tungt.
-		// // Total number of lines you can win on = 10
-		// ArrayList<Piece> nextWinPieces =
-		// logic.PiecesThatWinOnNextMove(board);
-		// int numberOfUnspentPieces = board.getPieces().size();
-		// if (nextWinPieces != null && nextWinPieces.size() == 0) {
-		// // TODO funkyMath
-		// return 0;
-		// }
-		//
-		// // Novice-heuristic
-		// if (nextWinPieces != null
-		// && nextWinPieces.size() == numberOfUnspentPieces && maximizer)
-		// return -100;
-		// if (nextWinPieces != null
-		// && nextWinPieces.size() == numberOfUnspentPieces && !maximizer)
-		// return 100;
-		// /*
-		// * If there is an odd number of non-vinning pieces I can hand over, I
-		// * can guarantee that if the opponen plays optimaly (and can't create
-		// * new vinning options), I can force him to hand me a winning piece.
-		// * Similairly, he can do the same if I have an even number of
-		// * non-vinning pieces at disposition.
-		// */
-		// if (nextWinPieces != null
-		// && (numberOfUnspentPieces - nextWinPieces.size()) % 2 == 0
-		// && maximizer)
-		// return -50;
-		// else
-		// return 50;
+		for (int i = 0; i < 4; i++) {
+			if (board.getBoard()[i][0] == null ^ board.getBoard()[i][1] == null
+					^ board.getBoard()[i][2] == null
+					^ board.getBoard()[i][3] == null)
+				certainThreeInARow++;
+		}
+
+		if (board.getBoard()[0][0] == null ^ board.getBoard()[1][1] == null
+				^ board.getBoard()[2][2] == null
+				^ board.getBoard()[3][3] == null)
+			certainThreeInARow++;
+
+		if (board.getBoard()[3][0] == null ^ board.getBoard()[2][1] == null
+				^ board.getBoard()[1][2] == null
+				^ board.getBoard()[0][3] == null)
+			certainThreeInARow++;
+
+		if (maximizer)
+			return certainThreeInARow;
+		else {
+			return -certainThreeInARow;
+		}
 	}
 
 	/** Checks if this node is a terminal node or not, i.e. won or drawn */
@@ -151,68 +137,58 @@ public class Node {
 			return;
 		// If not, instanciates the children.
 		children = new ArrayList<Node>();
-		// Itterates through each place a child can be placed
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				// If a boardtile is empty, begins the magic
-				if (board.getBoard()[i][j] == null) {
-					/*
-					 * For each leftover piece, generate a node with the current
-					 * piece to place placed at [i,j] and the piecetogive as the
-					 * piece given to the next node to place, and generate a
-					 * piece it must say to its child that it must give
-					 */
-					for (Piece pieceChildMustGive : board.getPieces()) {
-						// Creates the new board with the piece played
-						Board tempBoard = new Board(board);
-						tempBoard.PlacePiece(pieceToPlace, i, j);
+		// Iterates through each place a child can be placed
 
-						// Removes the piece the child must give from the pool
-						// of pieces the child can give on
-						tempBoard.RemovePieceFromPool(pieceChildMustGive);
+		if (pieceToGive != null) {
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (board.getBoard()[i][j] == null) {
+						for (Piece pieceChildMustGive : board.getPieces()) {
+							// Creates the new board with the piece played
+							Board tempBoard = new Board(board);
+							tempBoard.PlacePiece(pieceToPlace, i, j);
 
-						// Checks (and creates if this is the first layer) the
-						// first move that would lead to this node
-						Move tempMove;
-						if (firstMoveToThisState == null)
-							tempMove = new Move(pieceToPlace, i, j);
-						else
-							tempMove = firstMoveToThisState;
+							// Removes the piece the child must give from the
+							// pool
+							// of pieces the child can give on
+							tempBoard.RemovePieceFromPool(pieceChildMustGive);
 
-						/*
-						 * If this is a child of the root node, the piece to
-						 * give is not specified. We therefore make children
-						 * with all of them
-						 */
-
-						if (pieceToGive == null) {
-							ArrayList<Piece> tempPieces = new ArrayList<Piece>();
-							for (Piece piece : board.getPieces()) {
-								tempPieces.add(piece);
-							}
-							for (Piece pieceRootGivesToChildToGive : tempPieces) {
-								/*
-								 * pieceChildMustGive now placed as the piece
-								 * the child must play, because it is removed
-								 * from the potential pool in the outside loop
-								 */
-								// tempBoard
-								// .RemovePieceFromPool(pieceRootGivesToChildToGive);
-
-								// TODO vi kommenterte ut denne
-								// tempPieces.remove(pieceRootGivesToChildToGive);
-								Board tempBoard2 = new Board(tempBoard);
-								tempBoard2.setPieces(tempPieces);
-
-								children.add(new Node(logic, alpha, beta,
-										tempMove, !maximizer, tempBoard2,
-										pieceChildMustGive,
-										pieceRootGivesToChildToGive));
-							}
-						} else
+							// Checks (and creates if this is the first layer)
+							// the
+							// first move that would lead to this node
+							Move tempMove = firstMoveToThisState;
 							children.add(new Node(logic, alpha, beta, tempMove,
 									!maximizer, tempBoard, pieceToGive,
 									pieceChildMustGive));
+						}
+					}
+				}
+			}
+		} else {
+			ArrayList<Piece> tempList = logic.CopyArrayList(board.getPieces());
+			for (Piece pieceRootGives : tempList) {
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (board.getBoard()[i][j] == null) {
+							for (Piece pieceChildMustGive : board.getPieces()) {
+								// Creates the new board with the piece played
+								Board tempBoard = new Board(board);
+								tempBoard.PlacePiece(pieceToPlace, i, j);
+
+								// Removes the piece the child must give from
+								// the pool of pieces the child can give on
+								tempBoard
+										.RemovePieceFromPool(pieceChildMustGive);
+
+								// Checks (and creates if this is the first
+								// layer)
+								// the first move that would lead to this node
+								Move tempMove = new Move(pieceToPlace, i, j);
+								children.add(new Node(logic, alpha, beta,
+										tempMove, !maximizer, tempBoard,
+										pieceRootGives, pieceChildMustGive));
+							}
+						}
 					}
 				}
 			}
