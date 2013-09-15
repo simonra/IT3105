@@ -3,6 +3,7 @@ package quarto;
 import java.util.ArrayList;
 
 public class NovicePlayer implements Player {
+	private String name = "novice";
 	Logic logic = new Logic();
 
 	@Override
@@ -47,5 +48,10 @@ public class NovicePlayer implements Player {
 		}
 
 		return (int) Math.floor(Math.random() * board.getPieces().size());
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

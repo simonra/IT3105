@@ -1,6 +1,7 @@
 package quarto;
 
 public class RandomPlayer implements Player {
+	private String name = "random";
 
 	@Override
 	public void placePiece(Board board, Piece currentPiece) {
@@ -17,5 +18,10 @@ public class RandomPlayer implements Player {
 	@Override
 	public int selectPiece(Board board) {
 		return (int) Math.floor(Math.random() * board.getPieces().size());
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

@@ -59,7 +59,7 @@ public class CopyOfAlphaBetaPruning {
 								!maximizingPlayer));
 
 				if (depth == originalDepth && alpha > bestAlphaSeenSoFar) {
-					bestAlphaSeenSoFar = alpha;
+					bestAlphaSeenSoFar = alpha; // mulig usikkerhet
 					bestNodeForNextMove = childNode;
 				}
 				if (beta <= alpha)

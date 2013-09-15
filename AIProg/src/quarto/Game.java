@@ -32,7 +32,7 @@ public class Game {
 			// Wincheck
 			if (winCheck()) {
 				board.PrintBoard();
-				System.out.println(currentPlayer + " is the winner!");
+				System.out.println(currentPlayer.getName() + " is the winner!");
 				break;
 			}
 

@@ -1,7 +1,7 @@
 package quarto;
 
 public class HumanPlayer implements Player {
-
+	private String name = "human";
 	UI ui = new UI();
 
 	public void placePiece(Board board, Piece currentPiece) {
@@ -13,6 +13,11 @@ public class HumanPlayer implements Player {
 	@Override
 	public int selectPiece(Board board) {
 		return ui.selectPiece();
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }

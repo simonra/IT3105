@@ -20,8 +20,8 @@ public class Tournament {
 			gameLoop();
 		}
 
-		System.out.println(p1 + ": " + p1wins);
-		System.out.println(p2 + ": " + p2wins);
+		System.out.println(p1.getName() + ": " + p1wins);
+		System.out.println(p2.getName() + ": " + p2wins);
 	}
 
 	public void gameLoop() {

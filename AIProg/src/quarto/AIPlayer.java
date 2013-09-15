@@ -7,9 +7,11 @@ public class AIPlayer implements Player {
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 	private Player novicePlayer = new NovicePlayer();
 	private int depth;
+	private String name = "ai";
 
 	public AIPlayer(int depth) {
 		this.depth = depth;
+		name += depth;
 	}
 
 	@Override
@@ -32,5 +34,10 @@ public class AIPlayer implements Player {
 		}
 
 		return board.getPieces().indexOf(node.pieceToGive);
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

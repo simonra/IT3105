@@ -81,8 +81,8 @@ public class Node {
 			return -100;
 		if (!maximizer && logic.isWon(board))
 			return 100;
-		// return 0;
-		return someHeuristic();
+		return 0;
+		// return someHeuristic();
 	}
 
 	/** The current heuristic (the magic part of it) */
