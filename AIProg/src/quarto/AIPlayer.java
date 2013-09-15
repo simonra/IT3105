@@ -17,13 +17,18 @@ public class AIPlayer implements Player {
 	public void placePiece(Board board, Piece currentPiece) {
 
 		// Hvis det er de første 8 trekkene, spill som novice
-		if (board.getPieces().size() > 12) {
-			novicePlayer.placePiece(board, currentPiece);
-			return;
+		while (true) {
+			int x = (int) (Math.floor(Math.random() * 4));
+			int y = (int) (Math.floor(Math.random() * 4));
+			if (board.getBoard()[x][y] == null) {
+				board.PlacePiece(currentPiece, x, y);
+				return;
+			}
 		}
 
 		move = ab.getNextMove(board, currentPiece, depth);
 		board.PlacePiece(currentPiece, move.x, move.y);
+
 	}
 
 	@Override
