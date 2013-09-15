@@ -13,7 +13,7 @@ public class Tournament {
 	public void tournamet() {
 		playerSelection();
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 50; i++) {
 			board = new Board();
 
 			gameLoop();
