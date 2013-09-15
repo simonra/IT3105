@@ -11,13 +11,16 @@ public class Game {
 
 	public void gameLoop() {
 		playerSelection();
-		currentPlayer = p1;
+		currentPlayer = p2;
 
 		// Første runde
 		System.out.println("Please select a piece to give to your opponent");
 		board.printPieces();
 
+		// mulig man må skifte slik at player 2 velger brikke
 		currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
+
+		switchPlayer();
 
 		while (true) {
 			board.PrintBoard();
