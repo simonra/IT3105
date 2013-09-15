@@ -3,9 +3,9 @@ package quarto;
 import java.util.ArrayList;
 
 public class Logic {
-
+	// TODO gjøre om til static
 	// Sjekker om spillet er vunnet
-	public boolean isWon(Board board) {
+	public static boolean isWon(Board board) {
 		// Sjekker rader:
 		if (comparePieces(board.getBoard()[0][0], board.getBoard()[0][1],
 				board.getBoard()[0][2], board.getBoard()[0][3]))
@@ -47,8 +47,8 @@ public class Logic {
 	}
 
 	// Sjekker om 4 pieces er like
-	public boolean comparePieces(Piece piece1, Piece piece2, Piece piece3,
-			Piece piece4) {
+	public static boolean comparePieces(Piece piece1, Piece piece2,
+			Piece piece3, Piece piece4) {
 		if (piece1 == null || piece2 == null || piece3 == null
 				|| piece4 == null)
 			return false;
@@ -71,7 +71,7 @@ public class Logic {
 	}
 
 	// Sjekker om tre pieces er like (til bruk i heurestikk)
-	public boolean comparePieces(Piece piece1, Piece piece2, Piece piece3) {
+	public static boolean comparePieces(Piece piece1, Piece piece2, Piece piece3) {
 		if (piece1 == null || piece2 == null || piece3 == null)
 			return false;
 		if (piece1.color == piece2.color && piece2.color == piece3.color)
@@ -88,7 +88,7 @@ public class Logic {
 			return false;
 	}
 
-	public ArrayList<Enum> CommonFeatures(Piece p1, Piece p2, Piece p3) {
+	public static ArrayList<Enum> CommonFeatures(Piece p1, Piece p2, Piece p3) {
 		ArrayList<Enum> enumsToReturn = new ArrayList<Enum>();
 		if (p1 == null || p2 == null || p3 == null)
 			return enumsToReturn;
@@ -104,7 +104,7 @@ public class Logic {
 	}
 
 	// Sjekker om 2Pieces er like (til bruk i heurestikk)
-	public boolean comparePieces(Piece p1, Piece p2) {
+	public static boolean comparePieces(Piece p1, Piece p2) {
 		if (p1 == null || p2 == null)
 			return false;
 		if (p1.color == p2.color)
@@ -122,7 +122,7 @@ public class Logic {
 	// TODO: Metode som finner seire i neste trekk (i.e. hvilke brikker
 	// motstanderen for enhver pris ikke må få neste trekk) (Burkes til
 	// novice-heurestikken)
-	public ArrayList<Piece> PiecesThatWinOnNextMove(Board board) {
+	public static ArrayList<Piece> PiecesThatWinOnNextMove(Board board) {
 		/**
 		 * Arraylisten som inneholder brikkene som ikke kan gies til den andre
 		 * siden.
@@ -263,7 +263,7 @@ public class Logic {
 			return null;
 	}
 
-	public ArrayList<Piece> CopyArrayList(ArrayList<Piece> listToCopy) {
+	public static ArrayList<Piece> CopyArrayList(ArrayList<Piece> listToCopy) {
 		ArrayList<Piece> returnList = new ArrayList<>();
 		for (Piece piece : listToCopy) {
 			returnList.add(piece);

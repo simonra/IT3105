@@ -2,8 +2,7 @@ package quarto;
 
 public class AIPlayer implements Player {
 
-	private Node node = new Node(new Logic(), 0, 0, null, false, new Board(),
-			null, null);
+	private Move move;
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 	private Player novicePlayer = new NovicePlayer();
 	private int depth;
@@ -16,15 +15,15 @@ public class AIPlayer implements Player {
 
 	@Override
 	public void placePiece(Board board, Piece currentPiece) {
-		// TODO fikse depth
+
+		// Hvis det er de første 8 trekkene, spill som novice
 		if (board.getPieces().size() > 8) {
 			novicePlayer.placePiece(board, currentPiece);
 			return;
 		}
 
-		node = ab.getBestNodeForNextMove(board, currentPiece, depth);
-		board.PlacePiece(currentPiece, node.firstMoveToThisState.x,
-				node.firstMoveToThisState.y);
+		move = ab.getNextMove(board, currentPiece, depth);
+		board.PlacePiece(currentPiece, move.x, move.y);
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class AIPlayer implements Player {
 			return novicePlayer.selectPiece(board);
 		}
 
-		return board.getPieces().indexOf(node.pieceToGive);
+		return board.getPieces().indexOf(move.givePiece);
 	}
 
 	@Override

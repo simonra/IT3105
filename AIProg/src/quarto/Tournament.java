@@ -5,7 +5,6 @@ public class Tournament {
 	private Player p2;
 	private UI ui = new UI();
 	private Board board = new Board();
-	private Logic logic = new Logic();
 	private Player currentPlayer;
 	private Piece currentPiece;
 	private int p1wins = 0;
@@ -57,7 +56,7 @@ public class Tournament {
 	}
 
 	public boolean winCheck() {
-		if (logic.isWon(board))
+		if (Logic.isWon(board))
 			return true;
 		return false;
 	}

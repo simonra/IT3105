@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class NovicePlayer implements Player {
 	private String name = "novice";
-	Logic logic = new Logic();
 
 	@Override
 	// Prøver å finne et vinnende trekk
@@ -16,7 +15,7 @@ public class NovicePlayer implements Player {
 			for (int j = 0; j < 4; j++) {
 				if (board.getBoard()[i][j] == null) {
 					tempBoard.PlacePiece(currentPiece, i, j);
-					if (logic.isWon(tempBoard)) {
+					if (Logic.isWon(tempBoard)) {
 						board.PlacePiece(currentPiece, i, j);
 						return;
 					}
@@ -39,7 +38,7 @@ public class NovicePlayer implements Player {
 
 	@Override
 	public int selectPiece(Board board) {
-		ArrayList<Piece> keepPieces = logic.PiecesThatWinOnNextMove(board);
+		ArrayList<Piece> keepPieces = Logic.PiecesThatWinOnNextMove(board);
 
 		for (Piece piece : board.getPieces()) {
 			if (keepPieces != null && !keepPieces.contains(piece)) {

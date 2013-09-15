@@ -10,6 +10,18 @@ import java.util.ArrayList;
  */
 public class Node {
 
+	public double value;
+	public boolean maximizer;
+	public Piece pieceToPlace;
+	public Piece pieceToGive;
+	public Move move;
+	/** The children of this node (they are nodes) */
+	private ArrayList<Node> children;
+	/** The board corresponding to this node */
+	private Board board;
+	/** Whether this node is a terminal node or not (won, lost, drawn, etc.) */
+	public boolean terminal;
+
 	/**
 	 * The constructor for the node. Takes parameters, initializes the logic
 	 * used in this node, and checks whether this node is (a) terminal (node).
@@ -33,39 +45,16 @@ public class Node {
 	 * @param pieceToGive
 	 *            The piece that one gives to the children of this node to place
 	 */
-	public Node(Logic logic, double alpha, double beta,
-			Move firstMoveToThisState, boolean maximizer, Board board,
-			Piece pieceToPlace, Piece pieceToGive) {
-		this.logic = logic;
-
-		this.alpha = alpha;
-		this.beta = beta;
-		this.firstMoveToThisState = firstMoveToThisState;
+	public Node(boolean maximizer, Board board, Piece pieceToPlace,
+			Piece pieceToGive) {
 		this.pieceToPlace = pieceToPlace;
 		this.pieceToGive = pieceToGive;
 		this.maximizer = maximizer;
 		this.board = new Board(board);
+		this.terminal = false;
 
-		terminal = false;
 		terminalCheck();
-
 	}
-
-	public double value;
-	public double alpha;
-	public double beta;
-	public boolean maximizer;
-	public Move firstMoveToThisState;
-	public Piece pieceToPlace;
-	public Piece pieceToGive;
-	Logic logic;
-
-	/** The children of this node (they are nodes) */
-	private ArrayList<Node> children;
-	/** The board corresponding to this node */
-	private Board board;
-	/** Whether this node is a terminal node or not (won, lost, drawn, etc.) */
-	public boolean terminal;
 
 	public ArrayList<Node> getChildren() {
 		if (children == null) {
@@ -77,7 +66,7 @@ public class Node {
 	/** Calculates and returns the heuristic of this node (if requested) */
 	public double getHeuristic() {
 		// The obvious condittion for what value should be returned
-		if (logic.isWon(board)) {
+		if (Logic.isWon(board)) {
 			if (maximizer) {
 				return -100;
 			} else {
@@ -126,7 +115,7 @@ public class Node {
 	public void terminalCheck() {
 		if (board.getPieces().size() == 0)
 			terminal = true;
-		if (logic.isWon(board))
+		if (Logic.isWon(board))
 			terminal = true;
 	}
 
@@ -156,16 +145,14 @@ public class Node {
 							// Checks (and creates if this is the first layer)
 							// the
 							// first move that would lead to this node
-							Move tempMove = firstMoveToThisState;
-							children.add(new Node(logic, alpha, beta, tempMove,
-									!maximizer, tempBoard, pieceToGive,
-									pieceChildMustGive));
+							children.add(new Node(!maximizer, tempBoard,
+									pieceToGive, pieceChildMustGive));
 						}
 					}
 				}
 			}
 		} else {
-			ArrayList<Piece> tempList = logic.CopyArrayList(board.getPieces());
+			ArrayList<Piece> tempList = Logic.CopyArrayList(board.getPieces());
 			for (Piece pieceRootGives : tempList) {
 				for (int i = 0; i < 4; i++) {
 					for (int j = 0; j < 4; j++) {
@@ -183,9 +170,7 @@ public class Node {
 								// Checks (and creates if this is the first
 								// layer)
 								// the first move that would lead to this node
-								Move tempMove = new Move(pieceToPlace, i, j);
-								children.add(new Node(logic, alpha, beta,
-										tempMove, !maximizer, tempBoard,
+								children.add(new Node(!maximizer, tempBoard,
 										pieceRootGives, pieceChildMustGive));
 							}
 						}
