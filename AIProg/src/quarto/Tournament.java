@@ -1,6 +1,6 @@
 package quarto;
 
-public class Game {
+public class Tournament {
 	private Player p1;
 	private Player p2;
 	private UI ui = new UI();
@@ -8,44 +8,41 @@ public class Game {
 	private Logic logic = new Logic();
 	private Player currentPlayer;
 	private Piece currentPiece;
+	private int p1wins = 0;
+	private int p2wins = 0;
+
+	public void tournamet() {
+		playerSelection();
+
+		for (int i = 0; i < 100; i++) {
+			gameLoop();
+		}
+	}
 
 	public void gameLoop() {
-		playerSelection();
 		currentPlayer = p2;
-
-		// Første runde
-		System.out.println("Please select a piece to give to your opponent");
-		board.printPieces();
 
 		currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
 
 		switchPlayer();
 
 		while (true) {
-			board.PrintBoard();
-
-			// place piece
-			System.out.println("Please place " + currentPiece.pieceString()
-					+ " with coordinates xy");
-			currentPlayer.placePiece(board, currentPiece);
 
 			// Wincheck
 			if (winCheck()) {
-				board.PrintBoard();
-				System.out.println(currentPlayer + " is the winner!");
+				if (currentPlayer == p1) {
+					p1wins++;
+				} else {
+					p2wins++;
+				}
 				break;
 			}
 
 			// Drawcheck
 			if (board.getPieces().size() == 0) {
-				System.out.println("The game is a draw.");
 				break;
 			}
 
-			System.out
-					.println("Please select a piece to give to your opponent");
-			board.PrintBoard();
-			board.printPieces();
 			currentPiece = board.selectPiece(currentPlayer.selectPiece(board));
 
 			switchPlayer();

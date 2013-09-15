@@ -33,9 +33,9 @@ public class Node {
 	 * @param pieceToGive
 	 *            The piece that one gives to the children of this node to place
 	 */
-	public Node(Logic logic, double alpha, double beta, Move firstMoveToThisState,
-			boolean maximizer, Board board, Piece pieceToPlace,
-			Piece pieceToGive) {
+	public Node(Logic logic, double alpha, double beta,
+			Move firstMoveToThisState, boolean maximizer, Board board,
+			Piece pieceToPlace, Piece pieceToGive) {
 		this.logic = logic;
 
 		this.alpha = alpha;
@@ -73,64 +73,70 @@ public class Node {
 		}
 		return children;
 	}
-	/**Calculates and returns the heuristic of this node (if requested)*/
+
+	/** Calculates and returns the heuristic of this node (if requested) */
 	public double getHeuristic() {
-		//The obvious condittion for what value should be returned
-		if (maximizer && logic.isWon(board) )
-			return 100;
-		if (!maximizer && logic.isWon(board) )
+		// The obvious condittion for what value should be returned
+		if (maximizer && logic.isWon(board))
 			return -100;
+		if (!maximizer && logic.isWon(board))
+			return 100;
+		// return 0;
 		return someHeuristic();
 	}
 
-	/** The current heuristic (the magic part of it)*/
+	/** The current heuristic (the magic part of it) */
 	private double someHeuristic() {
-		/*Forslag til ny heurestikk: Å sette brikker i de fire midterste plassene er negativt, 
-		 * fordi det er større sjangser for å messe opp (kan påvirke diagonaler i tillegg). 
-		 * Heurestikken blir derfor at hvis det er ledige plasser langs kantene +50, hvis man må sette i midten -50.
-		 * Ikke bra, men bedre enn det vi har nå?*/
+		/*
+		 * Forslag til ny heurestikk: Å sette brikker i de fire midterste
+		 * plassene er negativt, fordi det er større sjangser for å messe opp
+		 * (kan påvirke diagonaler i tillegg). Heurestikken blir derfor at hvis
+		 * det er ledige plasser langs kantene +50, hvis man må sette i midten
+		 * -50. Ikke bra, men bedre enn det vi har nå?
+		 */
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (i == 0 || i == 3 || j == 0 || j == 3) {
 					if (board.getBoard()[i][j] == null)
-						return 50;					
+						return 50;
 				}
 			}
 		}
 		return -50;
-		
-		//Gammelt, muligens for tungt.
-//		// Total number of lines you can win on = 10
-//		ArrayList<Piece> nextWinPieces = logic.PiecesThatWinOnNextMove(board);
-//		int numberOfUnspentPieces = board.getPieces().size();
-//		if (nextWinPieces != null && nextWinPieces.size() == 0) {
-//			// TODO funkyMath
-//			return 0;
-//		}
-//
-//		// Novice-heuristic
-//		if (nextWinPieces != null
-//				&& nextWinPieces.size() == numberOfUnspentPieces && maximizer)
-//			return -100;
-//		if (nextWinPieces != null
-//				&& nextWinPieces.size() == numberOfUnspentPieces && !maximizer)
-//			return 100;
-//		/*
-//		 * If there is an odd number of non-vinning pieces I can hand over, I
-//		 * can guarantee that if the opponen plays optimaly (and can't create
-//		 * new vinning options), I can force him to hand me a winning piece.
-//		 * Similairly, he can do the same if I have an even number of
-//		 * non-vinning pieces at disposition.
-//		 */
-//		if (nextWinPieces != null
-//				&& (numberOfUnspentPieces - nextWinPieces.size()) % 2 == 0
-//				&& maximizer)
-//			return -50;
-//		else
-//			return 50;
+
+		// Gammelt, muligens for tungt.
+		// // Total number of lines you can win on = 10
+		// ArrayList<Piece> nextWinPieces =
+		// logic.PiecesThatWinOnNextMove(board);
+		// int numberOfUnspentPieces = board.getPieces().size();
+		// if (nextWinPieces != null && nextWinPieces.size() == 0) {
+		// // TODO funkyMath
+		// return 0;
+		// }
+		//
+		// // Novice-heuristic
+		// if (nextWinPieces != null
+		// && nextWinPieces.size() == numberOfUnspentPieces && maximizer)
+		// return -100;
+		// if (nextWinPieces != null
+		// && nextWinPieces.size() == numberOfUnspentPieces && !maximizer)
+		// return 100;
+		// /*
+		// * If there is an odd number of non-vinning pieces I can hand over, I
+		// * can guarantee that if the opponen plays optimaly (and can't create
+		// * new vinning options), I can force him to hand me a winning piece.
+		// * Similairly, he can do the same if I have an even number of
+		// * non-vinning pieces at disposition.
+		// */
+		// if (nextWinPieces != null
+		// && (numberOfUnspentPieces - nextWinPieces.size()) % 2 == 0
+		// && maximizer)
+		// return -50;
+		// else
+		// return 50;
 	}
 
-	/**Checks if this node is a terminal node or not, i.e. won or drawn*/
+	/** Checks if this node is a terminal node or not, i.e. won or drawn */
 	public void terminalCheck() {
 		if (board.getPieces().size() == 0)
 			terminal = true;
@@ -198,8 +204,8 @@ public class Node {
 								Board tempBoard2 = new Board(tempBoard);
 								tempBoard2.setPieces(tempPieces);
 
-								children.add(new Node(logic, alpha, beta, tempMove,
-										!maximizer, tempBoard2,
+								children.add(new Node(logic, alpha, beta,
+										tempMove, !maximizer, tempBoard2,
 										pieceChildMustGive,
 										pieceRootGivesToChildToGive));
 							}
