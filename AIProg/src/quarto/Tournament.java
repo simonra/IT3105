@@ -13,7 +13,7 @@ public class Tournament {
 	public void tournamet() {
 		playerSelection();
 
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 20; i++) {
 			board = new Board();
 
 			gameLoop();
@@ -50,6 +50,7 @@ public class Tournament {
 
 			// Drawcheck
 			if (board.getPieces().size() == 0) {
+				System.out.println("Draw!");
 				break;
 			}
 			// System.out.println("Before selectpiece");

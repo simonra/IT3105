@@ -69,6 +69,7 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	@Override
 	public void moveDone(int positionIndex, int pieceIndex) {
+		System.out.println(positionIndex);
 		int x = InternetConvert.getXY(positionIndex, 0);
 		int y = InternetConvert.getXY(positionIndex, 1);
 
@@ -89,14 +90,14 @@ public class InternetPlayer implements MeteorGameObserver {
 				int y = (int) (Math.floor(Math.random() * 4));
 				if (board.getBoard()[x][y] == null) {
 					board.PlacePiece(currentPiece, x, y);
-					return Integer.parseInt("" + x + y);
+					return x + y * 4;
 				}
 			}
 		}
 
 		move = ab.getNextMove(board, currentPiece, 4);
 		board.PlacePiece(currentPiece, move.x, move.y);
-		return Integer.parseInt("" + move.x + move.y);
+		return move.x + move.y * 4;
 	}
 
 	public int selectPiece(Board board) {

@@ -6,7 +6,7 @@ public class Main {
 		// Game game = new Game();
 		// Tournament tournament = new Tournament();
 		//
-		// System.out.println("Welcome to Quarto!");
+		System.out.println("Welcome to Quarto!");
 		// tournament.tournamet();
 		// game.gameLoop();
 	}
