@@ -69,9 +69,10 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	@Override
 	public void moveDone(int positionIndex, int pieceIndex) {
-		System.out.println(positionIndex);
-		int x = InternetConvert.getXY(positionIndex, 0);
-		int y = InternetConvert.getXY(positionIndex, 1);
+		System.out.println("Position Index:" + positionIndex);
+		System.out.println("Piece Index: " + pieceIndex);
+		int x = positionIndex % 4;
+		int y = (int) Math.floor(positionIndex / 4);
 
 		board.PlacePiece(currentPiece, x, y);
 		board.RemovePieceFromPool(currentPiece);
