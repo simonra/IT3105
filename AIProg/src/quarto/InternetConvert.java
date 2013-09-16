@@ -49,10 +49,11 @@ public class InternetConvert {
 
 	public static int getXY(int positionIndex, int pos) {
 		String s = "" + positionIndex;
+		System.out.println(s);
 		return Integer.parseInt("" + s.charAt(pos));
 	}
-	
-	public static int getPieceFromNet(int pieceInt) {
+
+	public static Piece getPieceFromNet(int pieceInt) {
 		Piece p;
 		switch (pieceInt) {
 		case 0:

@@ -72,12 +72,10 @@ public class InternetPlayer implements MeteorGameObserver {
 		int x = InternetConvert.getXY(positionIndex, 0);
 		int y = InternetConvert.getXY(positionIndex, 1);
 
-		// hente piece fra pieceindex
+		board.PlacePiece(currentPiece, x, y);
+		board.RemovePieceFromPool(currentPiece);
 
-		// plassere piece via board.placePiece
-		// fjerne piece fra board.pieces
-		System.out.println("Du mottok dette movet:" + positionIndex
-				+ " og spiller valgte denne brikkken:" + pieceIndex);
+		currentPiece = InternetConvert.getPieceFromNet(pieceIndex);
 	}
 
 	public String getName() {
