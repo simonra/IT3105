@@ -6,8 +6,8 @@ public class InternetConvert {
 		return Integer.parseInt(s);
 	}
 
-	public static int selectPieceToNetCommand(Move move) {
-		Piece p = move.givePiece;
+	public static int selectPieceToNetCommand(Piece piece) {
+		Piece p = piece;
 		switch (p.pieceString()) {
 		case "(r#)":
 			return 0;
@@ -45,5 +45,10 @@ public class InternetConvert {
 			break;
 		}
 		return 0;
+	}
+
+	public static int getXY(int positionIndex, int pos) {
+		String s = "" + positionIndex;
+		return Integer.parseInt("" + s.charAt(pos));
 	}
 }

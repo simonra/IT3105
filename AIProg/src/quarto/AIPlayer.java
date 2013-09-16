@@ -17,12 +17,14 @@ public class AIPlayer implements Player {
 	public void placePiece(Board board, Piece currentPiece) {
 
 		// Hvis det er de første 8 trekkene, spill som novice
-		while (true) {
-			int x = (int) (Math.floor(Math.random() * 4));
-			int y = (int) (Math.floor(Math.random() * 4));
-			if (board.getBoard()[x][y] == null) {
-				board.PlacePiece(currentPiece, x, y);
-				return;
+		if (board.getPieces().size() > 12) {
+			while (true) {
+				int x = (int) (Math.floor(Math.random() * 4));
+				int y = (int) (Math.floor(Math.random() * 4));
+				if (board.getBoard()[x][y] == null) {
+					board.PlacePiece(currentPiece, x, y);
+					return;
+				}
 			}
 		}
 

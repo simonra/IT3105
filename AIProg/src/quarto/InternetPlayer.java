@@ -7,7 +7,7 @@ public class InternetPlayer implements MeteorGameObserver {
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 	private MeteorGame game;
 	private Board board = new Board();
-	private Piece piece;
+	private Piece currentPiece;
 	Player aiForThisGame;
 	private Move move;
 	private NovicePlayer novicePlayer = new NovicePlayer();
@@ -57,14 +57,25 @@ public class InternetPlayer implements MeteorGameObserver {
 		// System.out.println("Velg neste piece: ");
 		// int selectedPiece = s.nextInt();
 
-		int selectedPos = placePiece(board, piece);
-		aiForThisGame.selectPiece(board);
+		int selectedPos = placePiece(board, currentPiece);
+		int selectPieceIndex = selectPiece(board);
+		currentPiece = board.selectPiece(selectPieceIndex);
+
+		int selectedPiece = InternetConvert
+				.selectPieceToNetCommand(currentPiece);
 
 		game.doMove(selectedPos, selectedPiece);
 	}
 
 	@Override
 	public void moveDone(int positionIndex, int pieceIndex) {
+		int x = InternetConvert.getXY(positionIndex, 0);
+		int y = InternetConvert.getXY(positionIndex, 1);
+
+		// hente piece fra pieceindex
+
+		// plassere piece via board.placePiece
+		// fjerne piece fra board.pieces
 		System.out.println("Du mottok dette movet:" + positionIndex
 				+ " og spiller valgte denne brikkken:" + pieceIndex);
 	}
@@ -74,7 +85,7 @@ public class InternetPlayer implements MeteorGameObserver {
 	}
 
 	public int placePiece(Board board, Piece currentPiece) {
-		if (board.getPieces().size() > 12) {
+		if (board.getPieces().size() > 0) {
 			while (true) {
 				int x = (int) (Math.floor(Math.random() * 4));
 				int y = (int) (Math.floor(Math.random() * 4));
@@ -91,11 +102,10 @@ public class InternetPlayer implements MeteorGameObserver {
 	}
 
 	public int selectPiece(Board board) {
-		if (board.getPieces().size() > 12) {
-			return novicePlayer.selectPiece(board);
-		}
-
-		return board.getPieces().indexOf(move.givePiece);
+		int pieceIndex = (int) Math.floor(Math.random()
+				* board.getPieces().size());
+		return pieceIndex;
+		// return board.getPieces().indexOf(move.givePiece);
 
 	}
 

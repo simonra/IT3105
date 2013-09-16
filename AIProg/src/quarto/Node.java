@@ -103,9 +103,9 @@ public class Node {
 			certainThreeInARow++;
 
 		if (maximizer)
-			return certainThreeInARow;
+			return 10 * certainThreeInARow;
 		else {
-			return -certainThreeInARow;
+			return -certainThreeInARow * 10;
 		}
 	}
 
