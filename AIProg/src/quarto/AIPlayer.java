@@ -40,7 +40,6 @@ public class AIPlayer implements Player {
 		}
 
 		return board.getPieces().indexOf(move.givePiece);
-
 	}
 
 	@Override

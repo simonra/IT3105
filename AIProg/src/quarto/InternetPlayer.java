@@ -11,6 +11,7 @@ public class InternetPlayer implements MeteorGameObserver {
 	Player aiForThisGame;
 	private Move move;
 	private NovicePlayer novicePlayer = new NovicePlayer();
+	private AIPlayer ai2 = new AIPlayer(2);
 
 	public InternetPlayer() {
 		game = new MeteorGame(this);
@@ -82,6 +83,7 @@ public class InternetPlayer implements MeteorGameObserver {
 		int x = positionIndex % 4;
 		int y = (int) Math.floor(positionIndex / 4);
 
+		System.out.println("Position index: " + positionIndex);
 		board.PlacePiece(currentPiece, x, y);
 		board.RemovePieceFromPool(currentPiece);
 
@@ -93,7 +95,8 @@ public class InternetPlayer implements MeteorGameObserver {
 	}
 
 	public int placePiece(Board board, Piece currentPiece) {
-		if (board.getPieces().size() > 0) {
+		// Hvis det er de første 8 trekkene, spill som novice
+		if (board.getPieces().size() > 13) {
 			while (true) {
 				int x = (int) (Math.floor(Math.random() * 4));
 				int y = (int) (Math.floor(Math.random() * 4));
@@ -104,15 +107,21 @@ public class InternetPlayer implements MeteorGameObserver {
 			}
 		}
 
-		move = ab.getNextMove(board, currentPiece, 4);
+		move = ab.getNextMove(board, currentPiece, 2);
 		board.PlacePiece(currentPiece, move.x, move.y);
 		return move.x + move.y * 4;
 	}
 
 	public int selectPiece(Board board) {
-		int pieceIndex = (int) Math.floor(Math.random()
-				* board.getPieces().size());
-		return pieceIndex;
+		if (board.getPieces().size() > 13) {
+			return novicePlayer.selectPiece(board);
+		}
+
+		return board.getPieces().indexOf(move.givePiece);
+
+		// int pieceIndex = (int) Math.floor(Math.random()
+		// * board.getPieces().size());
+		// return pieceIndex;
 		// return board.getPieces().indexOf(move.givePiece);
 
 	}
