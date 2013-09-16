@@ -51,4 +51,60 @@ public class InternetConvert {
 		String s = "" + positionIndex;
 		return Integer.parseInt("" + s.charAt(pos));
 	}
+	
+	public static int getPieceFromNet(int pieceInt) {
+		Piece p;
+		switch (pieceInt) {
+		case 0:
+			return p = new Piece(Color.RED, Height.SHORT, Shape.CIRCLE,
+					Solidity.SOLID);
+		case 1:
+			return p = new Piece(Color.RED, Height.SHORT, Shape.CIRCLE,
+					Solidity.HOLLOW);
+		case 2:
+			return p = new Piece(Color.RED, Height.TALL, Shape.CIRCLE,
+					Solidity.SOLID);
+		case 3:
+			return p = new Piece(Color.RED, Height.TALL, Shape.CIRCLE,
+					Solidity.HOLLOW);
+		case 4:
+			return p = new Piece(Color.RED, Height.SHORT, Shape.SQUARE,
+					Solidity.SOLID);
+		case 5:
+			return p = new Piece(Color.RED, Height.SHORT, Shape.SQUARE,
+					Solidity.HOLLOW);
+		case 6:
+			return p = new Piece(Color.RED, Height.TALL, Shape.SQUARE,
+					Solidity.SOLID);
+		case 7:
+			return p = new Piece(Color.RED, Height.TALL, Shape.SQUARE,
+					Solidity.HOLLOW);
+		case 8:
+			return p = new Piece(Color.BLUE, Height.SHORT, Shape.CIRCLE,
+					Solidity.SOLID);
+		case 9:
+			return p = new Piece(Color.BLUE, Height.SHORT, Shape.CIRCLE,
+					Solidity.HOLLOW);
+		case 10:
+			return p = new Piece(Color.BLUE, Height.TALL, Shape.CIRCLE,
+					Solidity.SOLID);
+		case 11:
+			return p = new Piece(Color.BLUE, Height.TALL, Shape.CIRCLE,
+					Solidity.HOLLOW);
+		case 12:
+			return p = new Piece(Color.BLUE, Height.SHORT, Shape.SQUARE,
+					Solidity.SOLID);
+		case 13:
+			return p = new Piece(Color.BLUE, Height.SHORT, Shape.SQUARE,
+					Solidity.HOLLOW);
+		case 14:
+			return p = new Piece(Color.BLUE, Height.TALL, Shape.SQUARE,
+					Solidity.SOLID);
+		case 15:
+			return p = new Piece(Color.BLUE, Height.TALL, Shape.SQUARE,
+					Solidity.HOLLOW);
+		default:
+			return null;
+		}
+	}
 }
