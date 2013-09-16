@@ -6,12 +6,21 @@ public class AI4ABPruning {
 	private Node bestNodeForNextMove;
 	private Move bestNextMove;
 	private double bestAlphaSeenSoFar;
+	
+	private Board originalDepth0Board;
+	private Board giveToChildDepth0Board;
+	private Board originalDepth1Board;
+	private Board giveToChildDepth1Board;
+	private Board originalDepth2Board;
+	private Board giveToChildDepth2Board;
+	private Board originalDepth3Board;
+	private Board giveToChildDepth3Board;
 
 	public Move getNextMove(Board board, Piece currentPiece, int depth) {
 		this.originalDepth = depth;
 		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
 		Move rootMove = new Move(currentPiece, -1, -1, null);
-		Node node = new Node(true, board, rootMove);
+		AI4Node node = new AI4Node(true, board, rootMove);
 
 		alphabeta(node, depth, Double.NEGATIVE_INFINITY,
 				Double.POSITIVE_INFINITY, true);
@@ -29,13 +38,13 @@ public class AI4ABPruning {
 		originalDepth = depth;
 		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
 
-		Node node = new Node(true, board, null);
+		AI4Node node = new AI4Node(true, board, null);
 		double ab = alphabeta(node, depth, Double.NEGATIVE_INFINITY,
 				Double.POSITIVE_INFINITY, true);
 		return bestNodeForNextMove;
 	}
 
-	private double alphabeta(Node node, int depth, double alpha, double beta,
+	private double alphabeta(AI4Node node, int depth, double alpha, double beta,
 			boolean maximizingPlayer) {
 		// If we have reached the limit of our search-depth or the node is
 		// terminal (won, lost, drawn), return the heuristic
@@ -52,27 +61,34 @@ public class AI4ABPruning {
 			 * thus there is no need to check it's children further (It's parent
 			 * minimizer would never choose its branch anyway) )
 			 */
-			for (Node childNode : node.getChildren()) {
+			while(node.hasNetxChild()){
+				
 				alpha = Math.max(
 						alpha,
-						alphabeta(childNode, depth - 1, alpha, beta,
+						alphabeta(node.getChild(), depth - 1, alpha, beta,
 								!maximizingPlayer));
-				/*
-				 * Sjekker om vi er rotnoden og oppdaterer alfaen (beste
-				 * trekket). Hvis man gjÃ¸r det, oppdater det beste barnet man
-				 * tar vare pÃ¥. (Ã… lagre den beste alfaverdien er en
-				 * legacy-feature jeg ikke vet om brekker noe hvis fjernes)
-				 * ^Nvm, må lagres for at det beste trekket skal kunne velges
-				 * (letteste variablen å lagre for sjekking)
-				 */
-				if (depth == originalDepth && alpha > bestAlphaSeenSoFar) {
-					bestAlphaSeenSoFar = alpha;
-					// saveMoveOrBoardStateThatWouldLeadToThis();
-					bestNextMove = childNode.move;
-				}
-				if (beta <= alpha)
-					return alpha;
 			}
+//			for (Node childNode : node.getChildren()) {
+//				alpha = Math.max(
+//						alpha,
+//						alphabeta(childNode, depth - 1, alpha, beta,
+//								!maximizingPlayer));
+//				/*
+//				 * Sjekker om vi er rotnoden og oppdaterer alfaen (beste
+//				 * trekket). Hvis man gjÃ¸r det, oppdater det beste barnet man
+//				 * tar vare pÃ¥. (Ã… lagre den beste alfaverdien er en
+//				 * legacy-feature jeg ikke vet om brekker noe hvis fjernes)
+//				 * ^Nvm, må lagres for at det beste trekket skal kunne velges
+//				 * (letteste variablen å lagre for sjekking)
+//				 */
+//				if (depth == originalDepth && alpha > bestAlphaSeenSoFar) {
+//					bestAlphaSeenSoFar = alpha;
+//					// saveMoveOrBoardStateThatWouldLeadToThis();
+//					bestNextMove = childNode.move;
+//				}
+//				if (beta <= alpha)
+//					return alpha;
+//			}
 			return alpha;
 		}
 		// Do alphabeta for minimizing player
@@ -84,14 +100,14 @@ public class AI4ABPruning {
 			 * need to check it's children further (It's parent maximizer would
 			 * never choose its branch anyway) )
 			 */
-			for (Node childNode : node.getChildren()) {
-				beta = Math.min(
-						beta,
-						alphabeta(childNode, depth - 1, alpha, beta,
-								!maximizingPlayer));
-				if (beta <= alpha)
-					break;
-			}
+//			for (Node childNode : node.getChildren()) {
+//				beta = Math.min(
+//						beta,
+//						alphabeta(childNode, depth - 1, alpha, beta,
+//								!maximizingPlayer));
+//				if (beta <= alpha)
+//					break;
+//			}
 			return beta;
 		}
 	}

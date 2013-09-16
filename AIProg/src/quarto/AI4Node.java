@@ -15,10 +15,9 @@ public class AI4Node {
 	public Piece pieceToPlace;
 	public Piece pieceToGive;
 	public Move move;
-	/** The children of this node (they are nodes) */
-	private ArrayList<AI4Node> children;
-	/** The board corresponding to this node */
-	private Board board;
+	private Board currentBoard;
+	private Board originalBoard;
+	private int currentChild;
 	/** Whether this node is a terminal node or not (won, lost, drawn, etc.) */
 	public boolean terminal;
 
@@ -45,26 +44,22 @@ public class AI4Node {
 	 * @param pieceToGive
 	 *            The piece that one gives to the children of this node to place
 	 */
-	public AI4Node(boolean maximizer, Board board, Move move) {
+	public AI4Node(boolean maximizer, Board originalBoard, Board boardToPassToChildren, Move move) {
 		this.move = move;
 		this.maximizer = maximizer;
-		this.board = new Board(board);
+		this.originalBoard = originalBoard;
+		this.currentBoard = boardToPassToChildren;
+		this.currentChild = 1;
+		
 		this.terminal = false;
-
 		terminalCheck();
 	}
 
-	public ArrayList<AI4Node> getChildren() {
-		if (children == null) {
-			generateChildren();
-		}
-		return children;
-	}
 
 	/** Calculates and returns the heuristic of this node (if requested) */
 	public double getHeuristic() {
 		// The obvious condittion for what value should be returned
-		if (Logic.isWon(board)) {
+		if (Logic.isWon(originalBoard)) {
 			if (maximizer) {
 				return -100;
 			} else {
@@ -79,27 +74,27 @@ public class AI4Node {
 	private double someHeuristic() {
 		int certainThreeInARow = 0;
 		for (int i = 0; i < 4; i++) {
-			if (board.getBoard()[0][i] == null ^ board.getBoard()[1][i] == null
-					^ board.getBoard()[2][i] == null
-					^ board.getBoard()[3][i] == null)
+			if (originalBoard.getBoard()[0][i] == null ^ originalBoard.getBoard()[1][i] == null
+					^ originalBoard.getBoard()[2][i] == null
+					^ originalBoard.getBoard()[3][i] == null)
 				certainThreeInARow++;
 		}
 
 		for (int i = 0; i < 4; i++) {
-			if (board.getBoard()[i][0] == null ^ board.getBoard()[i][1] == null
-					^ board.getBoard()[i][2] == null
-					^ board.getBoard()[i][3] == null)
+			if (originalBoard.getBoard()[i][0] == null ^ originalBoard.getBoard()[i][1] == null
+					^ originalBoard.getBoard()[i][2] == null
+					^ originalBoard.getBoard()[i][3] == null)
 				certainThreeInARow++;
 		}
 
-		if (board.getBoard()[0][0] == null ^ board.getBoard()[1][1] == null
-				^ board.getBoard()[2][2] == null
-				^ board.getBoard()[3][3] == null)
+		if (originalBoard.getBoard()[0][0] == null ^ originalBoard.getBoard()[1][1] == null
+				^ originalBoard.getBoard()[2][2] == null
+				^ originalBoard.getBoard()[3][3] == null)
 			certainThreeInARow++;
 
-		if (board.getBoard()[3][0] == null ^ board.getBoard()[2][1] == null
-				^ board.getBoard()[1][2] == null
-				^ board.getBoard()[0][3] == null)
+		if (originalBoard.getBoard()[3][0] == null ^ originalBoard.getBoard()[2][1] == null
+				^ originalBoard.getBoard()[1][2] == null
+				^ originalBoard.getBoard()[0][3] == null)
 			certainThreeInARow++;
 
 		if (maximizer)
@@ -111,46 +106,30 @@ public class AI4Node {
 
 	/** Checks if this node is a terminal node or not, i.e. won or drawn */
 	public void terminalCheck() {
-		if (board.getPieces().size() == 0)
+		if (originalBoard.getPieces().size() == 0)
 			terminal = true;
-		if (Logic.isWon(board))
+		if (Logic.isWon(originalBoard))
 			terminal = true;
 	}
 
-	/** Generates the children of this node */
-	private void generateChildren() {
-		if (terminal)
-			return;
+	public boolean hasNetxChild() {
+		if ( currentChild < originalBoard.getPieces().size() )
+			return true;
+		return false;
+	}
 
-		children = new ArrayList<>();
-
+	public AI4Node getChild() {
+		int iterator = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-
-				if (board.getBoard()[i][j] != null)
-					continue;
-
-				if (move.givePiece == null) {
-					for (Piece childGivePiece : board.getPieces()) {
-
-						Move childMove = new Move(move.currentPiece, i, j,
-								childGivePiece);
-						Board childBoard = new Board(board);
-						childBoard.PlacePiece(childMove);
-						AI4Node childNode = new AI4Node(!maximizer, childBoard,
-								childMove);
-						children.add(childNode);
-					}
-					continue;
+				if(originalBoard.getBoard()[i][j] == null)
+					iterator++;
+				if(iterator == currentChild){
+					
 				}
-				for (Piece childPiece : board.getPieces()) {
-					Move childMove = new Move(move.givePiece, i, j, childPiece);
-					Board childBoard = new Board(board);
-					childBoard.PlacePiece(childMove);
-					AI4Node childNode = new AI4Node(!maximizer, childBoard, childMove);
-					children.add(childNode);
-				}
+					
 			}
 		}
+		return null;
 	}
 }
