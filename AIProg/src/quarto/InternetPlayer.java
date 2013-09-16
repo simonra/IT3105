@@ -4,9 +4,9 @@ public class InternetPlayer implements MeteorGameObserver {
 	private static final String PLAYER_NAME = "detteErUnikt";
 	private static final String GAME_ID = "testGame";
 	private String name = "internetPlayer";
-	private AlphaBetaPruning ab = new AlphaBetaPruning();
+	private AlphaBetaPruning ab;
 	private MeteorGame game;
-	private Board board = new Board();
+	private Board board;
 	private Piece currentPiece;
 	Player aiForThisGame;
 	private Move move;
@@ -38,6 +38,9 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	@Override
 	public void startGame() {
+		ab = new AlphaBetaPruning();
+		currentPiece = null;
+		board = new Board();
 		System.out
 				.println("Server sier fra at spillet kan startes, init spill brett her");
 	}
@@ -56,8 +59,13 @@ public class InternetPlayer implements MeteorGameObserver {
 		// int selectedPos = s.nextInt();
 		// System.out.println("Velg neste piece: ");
 		// int selectedPiece = s.nextInt();
+		int selectedPos;
+		if (currentPiece == null) {
+			selectedPos = -1;
+		} else {
+			selectedPos = placePiece(board, currentPiece);
+		}
 
-		int selectedPos = placePiece(board, currentPiece);
 		int selectPieceIndex = selectPiece(board);
 		currentPiece = board.selectPiece(selectPieceIndex);
 
