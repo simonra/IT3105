@@ -61,17 +61,23 @@ public class InternetPlayer implements MeteorGameObserver {
 		// System.out.println("Velg neste piece: ");
 		// int selectedPiece = s.nextInt();
 		int selectedPos;
+		int selectedPiece;
 		if (currentPiece == null) {
 			selectedPos = -1;
 		} else {
 			selectedPos = placePiece(board, currentPiece);
+
 		}
 
 		int selectPieceIndex = selectPiece(board);
 		currentPiece = board.selectPiece(selectPieceIndex);
 
-		int selectedPiece = InternetConvert
-				.selectPieceToNetCommand(currentPiece);
+		if (Logic.isWon(board)) {
+			selectedPiece = -1;
+		} else {
+			selectedPiece = InternetConvert
+					.selectPieceToNetCommand(currentPiece);
+		}
 
 		game.doMove(selectedPos, selectedPiece);
 	}
