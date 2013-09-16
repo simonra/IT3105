@@ -2,8 +2,7 @@ package quarto;
 
 public class InternetConvert {
 	public static int selectPosToNetCommand(Move move) {
-		String s = "" + move.x + move.y;
-		return Integer.parseInt(s);
+		return move.x + move.y;
 	}
 
 	public static int selectPieceToNetCommand(Piece piece) {
