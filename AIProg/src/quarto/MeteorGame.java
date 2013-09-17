@@ -16,8 +16,8 @@ import java.util.Observer;
  * To change this template use File | Settings | File Templates.
  */
 public class MeteorGame {
-    private final String URL = "quarto.meteor.com";
-    private final int PORT = 80;
+    private final String URL = "78.91.19.139";
+    private final int PORT = 3000;
 
 
     private DdpClient ddp;

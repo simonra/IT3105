@@ -15,9 +15,9 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	public InternetPlayer() {
 		game = new MeteorGame(this);
+		aiForThisGame = new NovicePlayer();
 		game.connect();
 
-		aiForThisGame = new NovicePlayer();
 
 	}
 
@@ -54,7 +54,7 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	@Override
 	public void doMove() {
-		// System.out.println("Din tur til å gjøre et move");
+		 System.out.println("Din tur til å gjøre et move");
 		// Scanner s = new Scanner(System.in);
 		// System.out.println("Velg board position: ");
 		// int selectedPos = s.nextInt();
