@@ -23,7 +23,8 @@ public class NewNode {
 		this.depth = depth;
 		this.board = new Board(board);
 		this.move = move;
-		this.lastMoveUsedToGenerateAChild = null;
+		lastMoveUsedToGenerateAChild = new Move(null, 0, 0, null);
+//		clearMove(lastMoveUsedToGenerateAChild);
 		this.lastNullIndex = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -56,8 +57,8 @@ public class NewNode {
 
 	private void clearMove(Move move) {
 		move.currentPiece = null;
-		move.x = -1;
-		move.y = -1;
+		move.x = 0;
+		move.y = 0;
 		move.givePiece = null;
 	}
 
@@ -88,22 +89,38 @@ public class NewNode {
 	 */
 	public boolean hasNextChild() {
 		// TODO: Må fiskes slik at current = siste OG give = nest siste
+		terminalCheck();
 		
 		if(this.isTerminal)
 			return false;
 		
-		
-		if(lastNullIndex == this.lastMoveUsedToGenerateAChild.x + 4 * this.lastMoveUsedToGenerateAChild.x)
+		if(lastNullIndex == this.lastMoveUsedToGenerateAChild.x + 4 * this.lastMoveUsedToGenerateAChild.y){
+			System.out.println("I never get to run ='( ***************************************************");
 			return false;
+		}
 		return true;
+	}
+	
+	public void selectNextPieceToGiveIfRoot(){
+		if(this.move.givePiece == null){
+//			if
+			//TODO
+		}
 	}
 
 	/** Selects the new piece(s) for lastMoveUsedToGenerateAChils */
 	public void selectNextPieces() {
-
+		
+		// If this is a child of the root node
+		
+		
 		// If this is a brand new node or we've reached a new square
 		if (lastMoveUsedToGenerateAChild.currentPiece == null) {
-			lastMoveUsedToGenerateAChild.currentPiece = this.move.givePiece;
+			//if it's a root node do fun stuff
+			if(this.move.givePiece == null){
+				lastMoveUsedToGenerateAChild.currentPiece = board.getPieces().get(0);
+			}else
+				lastMoveUsedToGenerateAChild.currentPiece = this.move.givePiece;
 			if (this.board.getPieces().indexOf(this.move.givePiece) == 0)
 				lastMoveUsedToGenerateAChild.givePiece = this.board.getPieces()
 						.get(1);
@@ -175,10 +192,13 @@ public class NewNode {
 						}
 						// If we haven't continues exploiting this square
 						selectNextPieces();
+						System.out.println(lastMoveUsedToGenerateAChild.x + ":x y:" + lastMoveUsedToGenerateAChild.y);
+						System.out.println(lastMoveUsedToGenerateAChild.currentPiece.pieceString() + ":c p:" + lastMoveUsedToGenerateAChild.givePiece.pieceString());
 						node.board.PlacePiece(lastMoveUsedToGenerateAChild);
 						node.depth = this.depth + 1;
 						node.isMaximizingNode = !this.isMaximizingNode;
 						copyMove(lastMoveUsedToGenerateAChild, node.move);
+//						System.out.println("I should be returning now");
 						return node;
 					}
 				}

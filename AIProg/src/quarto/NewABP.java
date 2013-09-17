@@ -12,11 +12,11 @@ public class NewABP {
 	public Move getNextMove(Board board, Piece currentPiece, int depth) {
 		this.originalDepth = depth;
 		bestAlphaSeenSoFar = Double.NEGATIVE_INFINITY;
-		Move rootMove = new Move(currentPiece, -1, -1, null);
+		Move rootMove = new Move(currentPiece, 0, 0, null);
 
 		nodes = new ArrayList<>();
 		for (int i = 0; i < depth + 1; i++) {
-			nodes.add(new NewNode(null, false, -1, null, null));
+			nodes.add(new NewNode(null, true, 0, new Board(board), rootMove));
 		}
 		NewNode node = nodes.get(depth);
 
@@ -30,8 +30,12 @@ public class NewABP {
 			double beta, boolean maximizingPlayer) {
 		// If we have reached the limit of our search-depth or the node is
 		// terminal (won, lost, drawn), return the heuristic
-		if (depth == 0 || node.isTerminal)
+//		System.out.println("I have run an itteration of ab-pruning");
+		System.out.println("depth: " + depth);
+		if (depth == 0 || node.isTerminal){
+			System.out.println("And I return at 0");
 			return node.getHeuristic();
+		}
 		// Do alphabeta for maximizing player
 		if (maximizingPlayer) {
 			/*

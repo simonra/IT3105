@@ -3,6 +3,7 @@ package quarto;
 public class AIPlayer implements Player {
 
 	private Move move;
+//	private NewABP ab = new NewABP();//TODO: eneste som må forandres hvis man skal bruke den nye abp-en
 	private AlphaBetaPruning ab = new AlphaBetaPruning();
 	private Player novicePlayer = new NovicePlayer();
 	private int depth;
@@ -27,7 +28,7 @@ public class AIPlayer implements Player {
 				}
 			}
 		}
-
+		
 		move = ab.getNextMove(board, currentPiece, depth);
 		board.PlacePiece(currentPiece, move.x, move.y);
 
