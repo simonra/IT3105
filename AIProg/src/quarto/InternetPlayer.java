@@ -2,7 +2,7 @@ package quarto;
 
 public class InternetPlayer implements MeteorGameObserver {
 	private static final String PLAYER_NAME = "detteErUnikt";
-	private static final String GAME_ID = "testGame";
+	private static final String GAME_ID = "password";
 	private String name = "internetPlayer";
 	private AlphaBetaPruning ab;
 	private MeteorGame game;
@@ -14,8 +14,9 @@ public class InternetPlayer implements MeteorGameObserver {
 	private AIPlayer ai2 = new AIPlayer(2);
 
 	public InternetPlayer() {
-		game = new MeteorGame(this);
+		
 		aiForThisGame = new NovicePlayer();
+		game = new MeteorGame(this);
 		game.connect();
 
 
@@ -122,8 +123,9 @@ public class InternetPlayer implements MeteorGameObserver {
 		if (board.getPieces().size() > 13) {
 			return novicePlayer.selectPiece(board);
 		}
-
-		return board.getPieces().indexOf(move.givePiece);
+		
+		return InternetConvert.selectPieceToNetCommand(move.givePiece);
+//		return board.getPieces().indexOf(move.givePiece);
 
 		// int pieceIndex = (int) Math.floor(Math.random()
 		// * board.getPieces().size());
