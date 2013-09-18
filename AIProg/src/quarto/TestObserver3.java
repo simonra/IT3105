@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Created with IntelliJ IDEA. User: thaffe Date: 11.09.13 Time: 12:12 To change
  * this template use File | Settings | File Templates.
  */
-public class TestObserver2 implements MeteorGameObserver {
+public class TestObserver3 implements MeteorGameObserver {
 	private static final String PLAYER_NAME = "SimonsPC";
 	private static final String GAME_ID = "password";
 
@@ -17,7 +17,7 @@ public class TestObserver2 implements MeteorGameObserver {
 	Move currentMove;
 	Piece currentPiece;
 
-	public TestObserver2() {
+	public TestObserver3() {
 		// Oppretter et nytt spill og connecter til server
 		game = new MeteorGame(this);
 		game.connect();
@@ -81,33 +81,50 @@ public class TestObserver2 implements MeteorGameObserver {
 			// currentPiece = currentMove.givePiece;
 			
 			// selectedPos =
-			while (true) {
-				int x = (int) (Math.floor(Math.random() * 4));
-				int y = (int) (Math.floor(Math.random() * 4));
-				if (board.getBoard()[y][x] == null) {
-					selectedPos = x  + y * 4;
-					break;
-				}
-			}
+//			while (true) {
+//				int x = (int) (Math.floor(Math.random() * 4));
+//				int y = (int) (Math.floor(Math.random() * 4));
+//				if (board.getBoard()[y][x] == null) {
+//					selectedPos = x  + y * 4;
+//					break;
+//				}
+//			}
 			
 			// TODO
+			selectedPos = 0;
+			currentMove = ab.getNextMove(board, currentPiece, 2);
+			selectedPos = currentMove.x + 4 * currentMove.y;
 			int i = (int) Math.floor(selectedPos / 4.0);
 			int j = selectedPos % 4;
+			if(board.getBoard()[i][j] != null){
+				for (int l = 0; l < 4; l++) {
+					for (int m = 0; m < 4; m++) {
+						if(board.getBoard()[l][m] == null){
+							selectedPos = m + 4 * l;
+							i = (int) Math.floor(selectedPos / 4.0);
+							j = selectedPos % 4;
+						}
+					}
+				}
+			}
 			board.getBoard()[i][j] = currentPiece;
 			
 			//random:
-			int randomPieceIndex = (int) Math.floor(Math.random() * board.getPieces().size()); 
-			currentPiece = board.getPieces().get(randomPieceIndex);
-					
+//			int randomPieceIndex = (int) Math.floor(Math.random() * board.getPieces().size()); 
+//			currentPiece = board.getPieces().get(randomPieceIndex);
+			currentPiece = currentMove.givePiece;
+			
 			board.getPieces().remove(currentPiece);
 			selectedPiece = InternetConvert.selectPieceToNetCommand(currentPiece);
 		}
 
 		if (Logic.isWon(board)) {
+			board.PrintBoard();
+			System.out.println("Jeg vant");
 			game.doMove(selectedPos, -1);
 			return;
 		}
-//		board.PrintBoard();
+		board.PrintBoard();
 //		System.out.println("brikken vi sender");
 //		System.out.println(currentPiece.pieceString());
 		System.out.println("selectedPos= " + selectedPos
