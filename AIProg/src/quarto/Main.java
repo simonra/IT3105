@@ -3,6 +3,7 @@ package quarto;
 public class Main {
 	public static void main(String[] args) {
 		new InternetPlayer();
+		// new TestObserver2();
 		// Game game = new Game();
 		// Tournament tournament = new Tournament();
 		//

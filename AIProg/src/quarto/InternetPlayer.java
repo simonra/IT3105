@@ -14,11 +14,10 @@ public class InternetPlayer implements MeteorGameObserver {
 	private AIPlayer ai2 = new AIPlayer(2);
 
 	public InternetPlayer() {
-		
+
 		aiForThisGame = new NovicePlayer();
 		game = new MeteorGame(this);
 		game.connect();
-
 
 	}
 
@@ -55,7 +54,7 @@ public class InternetPlayer implements MeteorGameObserver {
 
 	@Override
 	public void doMove() {
-		 System.out.println("Din tur til Ã¥ gjÃ¸re et move");
+		System.out.println("Din tur til Ã¥ gjÃ¸re et move");
 		// Scanner s = new Scanner(System.in);
 		// System.out.println("Velg board position: ");
 		// int selectedPos = s.nextInt();
@@ -69,17 +68,22 @@ public class InternetPlayer implements MeteorGameObserver {
 			selectedPos = placePiece(board, currentPiece);
 
 		}
-
+		
 		int selectPieceIndex = selectPiece(board);
-		currentPiece = board.selectPiece(selectPieceIndex);
+		currentPiece = board.selectPiece(selectPieceIndex); //Kræsjer på -1. Når får man -1?
 
 		if (Logic.isWon(board)) {
+			System.out.println("I won with this board:");
+			board.PrintBoard();
+			System.out.println("The piece I placed was:");
+			System.out.println(currentPiece.pieceString());
 			selectedPiece = -1;
 		} else {
 			selectedPiece = InternetConvert
 					.selectPieceToNetCommand(currentPiece);
 		}
-
+		System.out.println("Do Move");
+		board.PrintBoard();
 		game.doMove(selectedPos, selectedPiece);
 	}
 
@@ -87,13 +91,19 @@ public class InternetPlayer implements MeteorGameObserver {
 	public void moveDone(int positionIndex, int pieceIndex) {
 		System.out.println("Position Index:" + positionIndex);
 		System.out.println("Piece Index: " + pieceIndex);
-		int x = positionIndex % 4;
-		int y = (int) Math.floor(positionIndex / 4);
+		if (positionIndex == -1) {
+			currentPiece = InternetConvert.getPieceFromNet(pieceIndex);
+			return;
+		}
+		int y = positionIndex % 4;
+		int x = (int) Math.floor(positionIndex / 4);
 
 		System.out.println("Position index: " + positionIndex);
 		board.PlacePiece(currentPiece, x, y);
 		board.RemovePieceFromPool(currentPiece);
 
+		System.out.println("Move done");
+		board.PrintBoard();
 		currentPiece = InternetConvert.getPieceFromNet(pieceIndex);
 	}
 
@@ -116,16 +126,16 @@ public class InternetPlayer implements MeteorGameObserver {
 
 		move = ab.getNextMove(board, currentPiece, 2);
 		board.PlacePiece(currentPiece, move.x, move.y);
-		return move.x + move.y * 4;
+		return move.x  * 4 + move.y;
 	}
 
 	public int selectPiece(Board board) {
 		if (board.getPieces().size() > 13) {
 			return novicePlayer.selectPiece(board);
 		}
-		
-		return InternetConvert.selectPieceToNetCommand(move.givePiece);
-//		return board.getPieces().indexOf(move.givePiece);
+
+		return board.getPieces().indexOf(move.givePiece);
+		// return board.getPieces().indexOf(move.givePiece);
 
 		// int pieceIndex = (int) Math.floor(Math.random()
 		// * board.getPieces().size());
