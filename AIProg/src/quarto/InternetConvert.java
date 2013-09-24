@@ -46,12 +46,6 @@ public class InternetConvert {
 		return 0;
 	}
 
-	public static int getXY(int positionIndex, int pos) {
-		String s = "" + positionIndex;
-		System.out.println(s);
-		return Integer.parseInt("" + s.charAt(pos));
-	}
-
 	public static Piece getPieceFromNet(int pieceInt) {
 		Piece p;
 		switch (pieceInt) {

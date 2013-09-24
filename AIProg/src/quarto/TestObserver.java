@@ -8,9 +8,11 @@ import java.util.Scanner;
  */
 public class TestObserver implements MeteorGameObserver {
 	private static final String PLAYER_NAME = "unikIdForSpiller";
-	private static final String GAME_ID = "testGame";
+	private static final String GAME_ID = "password";
 
 	private MeteorGame game;
+	
+	
 
 	public TestObserver() {
 		// Oppretter et nytt spill og connecter til server
@@ -47,13 +49,15 @@ public class TestObserver implements MeteorGameObserver {
 
 	@Override
 	public void doMove() {
-		System.out.println("Din tur til å gjøre et move");
-		Scanner s = new Scanner(System.in);
-		System.out.println("Velg board position: ");
-		int selectedPos = s.nextInt();
-		System.out.println("Velg neste piece: ");
-		int selectedPiece = s.nextInt();
-
+		// System.out.println("Din tur til å gjøre et move");
+		// Scanner s = new Scanner(System.in);
+		// System.out.println("Velg board position: ");
+		// int selectedPos = s.nextInt();
+		// System.out.println("Velg neste piece: ");
+		// int selectedPiece = s.nextInt();
+		int selectedPos = -1;
+		int selectedPiece = -1;
+		
 		game.doMove(selectedPos, selectedPiece);
 	}
 

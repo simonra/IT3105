@@ -70,12 +70,12 @@ public class Board {
 		this.board = board;
 	}
 
-	public void PlacePiece(Piece piece, int x, int y) {
-		board[x][y] = piece;
+	public void PlacePiece(Piece piece, int i, int j) {
+		board[i][j] = piece;
 	}
 
 	public void PlacePiece(Move move) {
-		PlacePiece(move.currentPiece, move.x, move.y);
+		PlacePiece(move.currentPiece, move.y, move.x);
 		RemovePieceFromPool(move.currentPiece);
 	}
 

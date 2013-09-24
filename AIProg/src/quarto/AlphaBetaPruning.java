@@ -41,10 +41,10 @@ public class AlphaBetaPruning {
 		// terminal (won, lost, drawn), return the heuristic
 		if (depth == 0 || node.terminal)
 			return node.getHeuristic();
-		// Do alphabeta for maximizing player
+		// Do alpha-beta for maximizing player
 		if (maximizingPlayer) {
 			/*
-			 * Iterate through each child-node. In each itteration sets the
+			 * Iterate through each child-node. In each iteration sets the
 			 * alpha to the maximum of the current alpha or the beta value of
 			 * the child node. If the beta is less than or equal to the alpha,
 			 * we prune the branch. (We can guarantee that that this node is
