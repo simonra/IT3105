@@ -23,9 +23,9 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
  * @return 
  * */
 	//StartingPoint sp = new StartingPoint();
-	ArrayList<LocalStateManager> neighbors;
-	public LocalStateManager saSearch(LocalStateManager localStateManager, double initialTemperature, double deltaTemp){
-		LocalStateManager lsm = localStateManager;
+	ArrayList<SimulatedAnnealingStateManager> neighbors;
+	public SimulatedAnnealingStateManager saSearch(SimulatedAnnealingStateManager localStateManager, double initialTemperature, double deltaTemp){
+		SimulatedAnnealingStateManager lsm = localStateManager;
 		double temp = initialTemperature;
 		double dt = deltaTemp;
 		double targetOFuncValue = lsm.getTargetObjectiveFunctionValue();
@@ -35,7 +35,7 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
 				return lsm;
 			neighbors = lsm.getNeighbors();
 	//		Collections.sort(neighbors, new saLocalStateComparator());
-			LocalStateManager bestNeighbor = Collections.max(neighbors, new saLocalStateComparator());
+			SimulatedAnnealingStateManager bestNeighbor = Collections.max(neighbors, new saLocalStateComparator());
 			double q = (bestNeighbor.objectiveValue() - oFuncValue) / oFuncValue;
 			double p = Math.min(1, Math.pow(Math.E, (-q) / temp ) );
 			double x = Math.random();
@@ -49,9 +49,9 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
 }
 
 
-	class saLocalStateComparator implements Comparator<LocalStateManager>{
+	class saLocalStateComparator implements Comparator<SimulatedAnnealingStateManager>{
 	@Override
-	public int compare(LocalStateManager lsm1, LocalStateManager lsm2){
+	public int compare(SimulatedAnnealingStateManager lsm1, SimulatedAnnealingStateManager lsm2){
 		if( lsm1.objectiveValue() > lsm2.objectiveValue() )
 			return 1;
 		if( lsm1.objectiveValue() < lsm2.objectiveValue() )
