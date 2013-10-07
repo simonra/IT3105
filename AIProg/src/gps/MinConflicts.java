@@ -14,17 +14,21 @@ public class MinConflicts {
 		ArrayList<int[]> swaps = new ArrayList<>();
 		int randomPos;
 		int selectedSwapPos;
+		int selectedSwapConflicts;
 		while(true){
 			if(lsm.getConflicts() == 0)
 				return lsm;
 			positions = lsm.getPositions();
 			randomPos = (int) Math.floor( positions * Math.random());
-			selectedSwapPos = Integer.MAX_VALUE;
+			selectedSwapPos = -1;
+			selectedSwapConflicts = Integer.MAX_VALUE;
 			swaps.clear();
 			for (int i = 0; i < positions; i++) {
 				swaps.add(new int[]{i, lsm.getConflictValueForSwap(i, randomPos)} );
-				if(swaps.get( swaps.size() - 1 )[1] < selectedSwapPos)
-					selectedSwapPos = swaps.get( swaps.size() - 1 )[1]; 
+				if(swaps.get( swaps.size() - 1 )[1] < selectedSwapConflicts){
+					selectedSwapPos = swaps.get( swaps.size() - 1 )[0]; 
+					selectedSwapConflicts = swaps.get( swaps.size() - 1 )[1];
+				}
 			}
 			lsm.swap(randomPos, selectedSwapPos);
 		}
