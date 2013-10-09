@@ -9,7 +9,6 @@ public interface SAStateManager {
 	public double getTargetObjectiveFunctionValue();
 
 	public ArrayList<SAStateManager> getNeighbors();
-	
-	@Override
+
 	public String toString();
 }

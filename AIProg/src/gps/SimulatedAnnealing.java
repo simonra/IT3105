@@ -5,56 +5,42 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class SimulatedAnnealing {
-/**
- *  1 - Begin at start point P (either user-selected or randomly-generated)
- *  2 - Set the temperature, T, to it's starting value: Tmax
- *  3 - Evaluate P with an objective function, F. This yields the value F(P)
- *  4 - If F(P) >= Ftarget then return P as the solution, else continue
- *  5 - Generate n neighbors of P in the search space: (P1, P2, .. , Pn)
- *  6 - Evaluate each neighbor, yielding (F(P1), F(P2), .. , F(Pn))
- *  7 - Let Pmax be the neighbor with the highest evaluation
- *  8 - Let q = (F(Pmax)-F(P)) / F(P)
- *  9 - Let p = min [1, e^(-q / T)]
- * 10 - Generate x, a random real number in the closed range [0, 1]
- * 11 - If x > p then P <- Pmax ;; (Exploiting)
- * 12 - Else P <- a random choice among the n neighbors ;; (Exploring)
- * 13 - T <- T -dT
- * 14 - GOTO step 4
- * @return 
- * */
-	//StartingPoint sp = new StartingPoint();
 	ArrayList<SAStateManager> neighbors;
-	public SAStateManager saSearch(SAStateManager localStateManager, double initialTemperature, double deltaTemp){
-		SAStateManager lsm = localStateManager;
-		double temp = initialTemperature;
-		double dt = deltaTemp;
-		double targetOFuncValue = lsm.getTargetObjectiveFunctionValue();
-		while(true){
-			double oFuncValue = lsm.objectiveValue();
-			if(oFuncValue >= targetOFuncValue)
-				return lsm;
-			neighbors = lsm.getNeighbors();
-	//		Collections.sort(neighbors, new saLocalStateComparator());
-			SAStateManager bestNeighbor = Collections.max(neighbors, new saLocalStateComparator());
-			double q = (bestNeighbor.objectiveValue() - oFuncValue) / oFuncValue;
-			double p = Math.min(1, Math.pow(Math.E, (-q) / temp ) );
+
+	public SAStateManager saSearch(SAStateManager lsm,
+			double initialTemperature, double deltaTemp) {
+		SAStateManager localStateManager = lsm;
+		double temperature = initialTemperature;
+		double deltaTemperature = deltaTemp;
+		double targetOFuncValue = localStateManager
+				.getTargetObjectiveFunctionValue();
+		while (true) {
+			double objectiveFunctionValue = localStateManager.objectiveValue();
+			if (objectiveFunctionValue >= targetOFuncValue)
+				return localStateManager;
+			neighbors = localStateManager.getNeighbors();
+			SAStateManager bestNeighbor = Collections.max(neighbors,
+					new saLocalStateComparator());
+			double q = (bestNeighbor.objectiveValue() - objectiveFunctionValue)
+					/ objectiveFunctionValue;
+			double p = Math.min(1, Math.pow(Math.E, (-q) / temperature));
 			double x = Math.random();
-			if(x > p)
-				lsm = bestNeighbor;
+			if (x > p)
+				localStateManager = bestNeighbor;
 			else
-				lsm = neighbors.get((int) Math.floor( Math.random() * neighbors.size() ) );
-			temp -= dt;
+				localStateManager = neighbors.get((int) Math.floor(Math
+						.random() * neighbors.size()));
+			temperature -= deltaTemperature;
 		}
 	}
 }
 
-
-	class saLocalStateComparator implements Comparator<SAStateManager>{
+class saLocalStateComparator implements Comparator<SAStateManager> {
 	@Override
-	public int compare(SAStateManager lsm1, SAStateManager lsm2){
-		if( lsm1.objectiveValue() > lsm2.objectiveValue() )
+	public int compare(SAStateManager lsm1, SAStateManager lsm2) {
+		if (lsm1.objectiveValue() > lsm2.objectiveValue())
 			return 1;
-		if( lsm1.objectiveValue() < lsm2.objectiveValue() )
+		if (lsm1.objectiveValue() < lsm2.objectiveValue())
 			return -1;
 		return 0;
 	}
