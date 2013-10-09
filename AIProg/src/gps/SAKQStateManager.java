@@ -16,7 +16,10 @@ public class SAKQStateManager implements SAStateManager {
 
 	public SAKQStateManager(int k, int[] queens) {
 		this.k = k;
-		this.queens = queens;
+		this.queens = new int[k];
+		for (int j = 0; j < k; j++) {
+			this.queens[j] = queens[j];
+		}
 
 	}
 
@@ -25,18 +28,14 @@ public class SAKQStateManager implements SAStateManager {
 		int conflicts = 0;
 
 		for (int i = 0; i < k; i++) {
-			for (int j = i; j < k; j++) {
-				if (queens[i] == queens[j])
-					conflicts++;
-
-				if (queens[i] == queens[j] + Math.abs(j - i))
-					conflicts++;
-
-				if (queens[i] == queens[j] - Math.abs(j - i))
+			for (int j = i + 1; j < k; j++) {
+				if (queens[i] == queens[j]
+						|| queens[i] == queens[j] + Math.abs(j - i)
+						|| queens[i] == queens[j] - Math.abs(j - i))
 					conflicts++;
 			}
 		}
-		return conflicts;
+		return 0 - conflicts;
 	}
 
 	@Override
@@ -46,24 +45,21 @@ public class SAKQStateManager implements SAStateManager {
 
 	@Override
 	public ArrayList<SAStateManager> getNeighbors() {
+
 		ArrayList<SAStateManager> returnList = new ArrayList<>();
 		int[] tempQueens = new int[k];
 
-		int iterable = k;
+		int randomQueen = (int) Math.floor(Math.random() * k);
 
-		if (k > 100)
-			iterable = 100;
-
-		for (int i = 0; i < iterable; i++) {
+		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
 				tempQueens[j] = queens[j];
 			}
 
-			tempQueens[(int) Math.floor(Math.random() * k)] = (int) Math
-					.floor(Math.random() * k);
-
+			tempQueens[randomQueen] = (tempQueens[randomQueen] + i) % k;
 			returnList.add(new SAKQStateManager(k, tempQueens));
 		}
+
 		return returnList;
 	}
 
@@ -72,13 +68,14 @@ public class SAKQStateManager implements SAStateManager {
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
 				if (queens[i] == j) {
-					string += "Q";
+					string += "X ";
 				} else {
-					string += " ";
+					string += "O ";
 				}
 			}
 			string += "\n";
 		}
+		string += "Conflicts: " + (int) Math.abs(objectiveValue());
 		return string;
 	}
 }

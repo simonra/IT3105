@@ -5,7 +5,7 @@ public class GPSMain {
 		SAStateManager manager = new SAKQStateManager(8);
 		SimulatedAnnealing sa = new SimulatedAnnealing();
 
-		manager = sa.saSearch(manager, 100, 1);
+		manager = sa.saSearch(manager, 200000, 1);
 		System.out.println(manager.toString());
 	}
 }

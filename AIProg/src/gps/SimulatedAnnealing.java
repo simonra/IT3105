@@ -14,9 +14,11 @@ public class SimulatedAnnealing {
 		double deltaTemperature = deltaTemp;
 		double targetOFuncValue = localStateManager
 				.getTargetObjectiveFunctionValue();
+		int maxIterations = 500000;
 		while (true) {
 			double objectiveFunctionValue = localStateManager.objectiveValue();
-			if (objectiveFunctionValue >= targetOFuncValue)
+			if (objectiveFunctionValue >= targetOFuncValue
+					|| maxIterations == 0)
 				return localStateManager;
 			neighbors = localStateManager.getNeighbors();
 			SAStateManager bestNeighbor = Collections.max(neighbors,
@@ -30,7 +32,12 @@ public class SimulatedAnnealing {
 			else
 				localStateManager = neighbors.get((int) Math.floor(Math
 						.random() * neighbors.size()));
-			temperature -= deltaTemperature;
+			temperature -= Math.max(deltaTemperature, 0);
+			maxIterations--;
+			if (maxIterations % 1000 == 0) {
+				System.out.println(maxIterations);
+			}
+			// System.out.println(localStateManager.toString());
 		}
 	}
 }
