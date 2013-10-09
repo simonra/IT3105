@@ -2,7 +2,7 @@ package gps;
 
 import java.util.ArrayList;
 
-public class KQueensStateManager implements SimulatedAnnealingStateManager {
+public class SAGCStateManager implements SAStateManager {
 
 	@Override
 	public double objectiveValue() {
@@ -17,7 +17,7 @@ public class KQueensStateManager implements SimulatedAnnealingStateManager {
 	}
 
 	@Override
-	public ArrayList<SimulatedAnnealingStateManager> getNeighbors() {
+	public ArrayList<SAStateManager> getNeighbors() {
 		// TODO Auto-generated method stub
 		return null;
 	}

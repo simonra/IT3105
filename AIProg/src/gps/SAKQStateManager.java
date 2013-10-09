@@ -2,7 +2,7 @@ package gps;
 
 import java.util.ArrayList;
 
-public class GraphColorStateManager implements SimulatedAnnealingStateManager {
+public class SAKQStateManager implements SAStateManager {
 
 	@Override
 	public double objectiveValue() {
@@ -17,7 +17,7 @@ public class GraphColorStateManager implements SimulatedAnnealingStateManager {
 	}
 
 	@Override
-	public ArrayList<SimulatedAnnealingStateManager> getNeighbors() {
+	public ArrayList<SAStateManager> getNeighbors() {
 		// TODO Auto-generated method stub
 		return null;
 	}

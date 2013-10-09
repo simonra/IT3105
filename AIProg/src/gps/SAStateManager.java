@@ -2,13 +2,13 @@ package gps;
 
 import java.util.ArrayList;
 
-public interface SimulatedAnnealingStateManager {
+public interface SAStateManager {
 
 	public double objectiveValue();
 
 	public double getTargetObjectiveFunctionValue();
 
-	public ArrayList<SimulatedAnnealingStateManager> getNeighbors();
+	public ArrayList<SAStateManager> getNeighbors();
 	
 	@Override
 	public String toString();

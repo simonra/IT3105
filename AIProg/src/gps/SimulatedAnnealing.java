@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
+public class SimulatedAnnealing {
 /**
  *  1 - Begin at start point P (either user-selected or randomly-generated)
  *  2 - Set the temperature, T, to it's starting value: Tmax
@@ -23,9 +23,9 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
  * @return 
  * */
 	//StartingPoint sp = new StartingPoint();
-	ArrayList<SimulatedAnnealingStateManager> neighbors;
-	public SimulatedAnnealingStateManager saSearch(SimulatedAnnealingStateManager localStateManager, double initialTemperature, double deltaTemp){
-		SimulatedAnnealingStateManager lsm = localStateManager;
+	ArrayList<SAStateManager> neighbors;
+	public SAStateManager saSearch(SAStateManager localStateManager, double initialTemperature, double deltaTemp){
+		SAStateManager lsm = localStateManager;
 		double temp = initialTemperature;
 		double dt = deltaTemp;
 		double targetOFuncValue = lsm.getTargetObjectiveFunctionValue();
@@ -35,7 +35,7 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
 				return lsm;
 			neighbors = lsm.getNeighbors();
 	//		Collections.sort(neighbors, new saLocalStateComparator());
-			SimulatedAnnealingStateManager bestNeighbor = Collections.max(neighbors, new saLocalStateComparator());
+			SAStateManager bestNeighbor = Collections.max(neighbors, new saLocalStateComparator());
 			double q = (bestNeighbor.objectiveValue() - oFuncValue) / oFuncValue;
 			double p = Math.min(1, Math.pow(Math.E, (-q) / temp ) );
 			double x = Math.random();
@@ -49,9 +49,9 @@ public class SimulatedAnnealing extends ConstraintBasedLocalSearch {
 }
 
 
-	class saLocalStateComparator implements Comparator<SimulatedAnnealingStateManager>{
+	class saLocalStateComparator implements Comparator<SAStateManager>{
 	@Override
-	public int compare(SimulatedAnnealingStateManager lsm1, SimulatedAnnealingStateManager lsm2){
+	public int compare(SAStateManager lsm1, SAStateManager lsm2){
 		if( lsm1.objectiveValue() > lsm2.objectiveValue() )
 			return 1;
 		if( lsm1.objectiveValue() < lsm2.objectiveValue() )

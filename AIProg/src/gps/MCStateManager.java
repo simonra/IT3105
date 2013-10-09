@@ -1,6 +1,6 @@
 package gps;
 
-public interface MinConflictsStateManager {
+public interface MCStateManager {
 
 	/** Calculate and return the number of conflicts in the current state */
 	int getConflicts();

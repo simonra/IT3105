@@ -8,8 +8,8 @@ public class MinConflicts {
  * 2 - Assign V the new value a, where a is the value that produces the fewest number of conflicts
  * */
 	
-	public MinConflictsStateManager mcSearch(MinConflictsStateManager localStateManager){
-		MinConflictsStateManager lsm = localStateManager;
+	public MCStateManager mcSearch(MCStateManager localStateManager){
+		MCStateManager lsm = localStateManager;
 		int positions;
 		ArrayList<int[]> swaps = new ArrayList<>();
 		int randomPos;
