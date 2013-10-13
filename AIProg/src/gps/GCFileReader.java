@@ -27,13 +27,27 @@ public class GCFileReader {
 	}
 	
 	/**Skal hente ut matrisen fra filen man leser inn*/
-	public static boolean[][] getNeighbourMatrix(String gcText){
-		for (int i = 0; i < gcText.split("\n").length; i++) {
-			
+	public static boolean[][] getNeighborMatrix(String gcText){
+		String[] gcEdgeArray = gcText.split("\n");
+		int numberOfVerices = Integer.parseInt(gcEdgeArray[0].split(" ")[0]);
+		boolean[][] neighborMatrix = new boolean[numberOfVerices][numberOfVerices];
+		int currentNode1;
+		int currentNode2;
+		for (int i = 1; i < gcEdgeArray.length; i++) {
+			currentNode1 = Integer.parseInt(gcEdgeArray[i].split(" ")[0]);
+			currentNode2 = Integer.parseInt(gcEdgeArray[i].split(" ")[1]);
+			neighborMatrix[currentNode1][currentNode2] = true;
 		}
-		return null;
+		return neighborMatrix;
 	}
 	public static void main(String[] args) {
-		System.out.println(readFile("Files/GCinput1"));
+//		System.out.println(readFile("Files/GCinput1"));
+		boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput1")); 
+		for (int i = 0; i < testMatrix.length; i++) {
+			for (int j = 0; j < testMatrix.length; j++) {
+				System.out.print(testMatrix[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 }
