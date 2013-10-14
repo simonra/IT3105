@@ -1,18 +1,17 @@
 package gps;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class GCFileReader {
-	
-	public static String readFile(String fileUrl){
+
+	public static String readFile(String fileUrl) {
 		String everyThing = "";
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileUrl));
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();
-			while(line != null){
+			while (line != null) {
 				sb.append(line);
 				sb.append('\n');
 				line = br.readLine();
@@ -25,9 +24,9 @@ public class GCFileReader {
 		}
 		return everyThing;
 	}
-	
-	/**Skal hente ut matrisen fra filen man leser inn*/
-	public static boolean[][] getNeighborMatrix(String gcText){
+
+	/** Skal hente ut matrisen fra filen man leser inn */
+	public static boolean[][] getNeighborMatrix(String gcText) {
 		String[] gcEdgeArray = gcText.split("\n");
 		int numberOfVerices = Integer.parseInt(gcEdgeArray[0].split(" ")[0]);
 		boolean[][] neighborMatrix = new boolean[numberOfVerices][numberOfVerices];
@@ -41,14 +40,14 @@ public class GCFileReader {
 		}
 		return neighborMatrix;
 	}
-	public static void main(String[] args) {
-//		System.out.println(readFile("Files/GCinput1"));
-		boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput2")); 
-		for (int i = 0; i < testMatrix.length; i++) {
-			for (int j = 0; j < testMatrix.length; j++) {
-				System.out.print(testMatrix[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
+	// public static void main(String[] args) {
+	// // System.out.println(readFile("Files/GCinput1"));
+	// boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput2"));
+	// for (int i = 0; i < testMatrix.length; i++) {
+	// for (int j = 0; j < testMatrix.length; j++) {
+	// System.out.print(testMatrix[i][j] + " ");
+	// }
+	// System.out.println();
+	// }
+	// }
 }

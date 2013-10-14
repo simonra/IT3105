@@ -1,10 +1,21 @@
 package gps;
 
 public class GPSMain {
-	public static void main(String[] args) {
+	private static String fileName = "Files/GCInput3";
 
+	public static void main(String[] args) {
+		minConflictsGC();
+		// simulatedAnnealingGC();
 		// simulatedAnnealingKQ();
 		// minConflictsKQ();
+	}
+
+	private static void minConflictsGC() {
+		MCStateManager manager = new MCGCStateManager(fileName);
+		MinConflicts mc = new MinConflicts();
+
+		manager = mc.mcSearch(manager);
+		System.out.println(manager.toString());
 	}
 
 	private static void minConflictsKQ() {
@@ -13,6 +24,15 @@ public class GPSMain {
 
 		manager = mc.mcSearch(manager);
 		System.out.println(manager.toString());
+	}
+
+	private static void simulatedAnnealingGC() {
+		SAStateManager manager = new SAGCStateManager(fileName);
+		SimulatedAnnealing sa = new SimulatedAnnealing();
+
+		manager = sa.saSearch(manager, 20000, 1);
+		System.out.println(manager.toString());
+
 	}
 
 	private static void simulatedAnnealingKQ() {
