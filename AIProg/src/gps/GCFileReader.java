@@ -37,12 +37,13 @@ public class GCFileReader {
 			currentNode1 = Integer.parseInt(gcEdgeArray[i].split(" ")[0]);
 			currentNode2 = Integer.parseInt(gcEdgeArray[i].split(" ")[1]);
 			neighborMatrix[currentNode1][currentNode2] = true;
+			neighborMatrix[currentNode2][currentNode1] = true;
 		}
 		return neighborMatrix;
 	}
 	public static void main(String[] args) {
 //		System.out.println(readFile("Files/GCinput1"));
-		boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput1")); 
+		boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput2")); 
 		for (int i = 0; i < testMatrix.length; i++) {
 			for (int j = 0; j < testMatrix.length; j++) {
 				System.out.print(testMatrix[i][j] + " ");
