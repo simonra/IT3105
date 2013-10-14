@@ -34,9 +34,9 @@ public class SimulatedAnnealing {
 						.random() * neighbors.size()));
 			temperature -= Math.max(deltaTemperature, 0);
 			maxIterations--;
-			if (maxIterations % 1000 == 0) {
-				System.out.println(maxIterations);
-			}
+			// if (maxIterations % 100 == 0) {
+			// System.out.println(maxIterations);
+			// }
 			// System.out.println(localStateManager.toString());
 		}
 	}
