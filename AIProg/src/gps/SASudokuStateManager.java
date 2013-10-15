@@ -53,6 +53,8 @@ public class SASudokuStateManager implements SAStateManager {
 			}
 		}
 
+		int[] totalNumbers = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 		for (int i = 0; i < 9; i++) {
 			int[] rowList = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			int[] columnList = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -65,25 +67,30 @@ public class SASudokuStateManager implements SAStateManager {
 				columnList[tempPuzzle[i + (j * 9)] - 1] += 1;
 				boxList[tempPuzzle[(27 * (i / 3)) + ((i % 3) * 3) + j
 						+ ((j / 3) * 6)] - 1] += 1;
+				totalNumbers[tempPuzzle[i * 9 + j] - 1] += 1;
 			}
 
 			for (int j = 0; j < 9; j++) {
 				if (rowList[j] > 1) {
-					conflicts += rowList[j];
+					conflicts += Math.pow(rowList[j] - 1, 2);
 				}
 
 				if (columnList[j] > 1) {
-					conflicts += columnList[j];
+					conflicts += Math.pow(columnList[j] - 1, 2);
 				}
 
 				if (boxList[j] > 1) {
-					conflicts += boxList[j];
+					conflicts += Math.pow(boxList[j] - 1, 2);
 				}
 			}
 		}
 
+		// for (int i = 0; i < totalNumbers.length; i++) {
+		// conflicts += Math.abs(totalNumbers[i] - 9);
+		// }
+
 		// TODO Auto-generated method stub
-		System.out.println(conflicts);
+		// System.out.println(conflicts);
 
 		return 0 - conflicts;
 	}
@@ -96,10 +103,10 @@ public class SASudokuStateManager implements SAStateManager {
 	@Override
 	public ArrayList<SAStateManager> getNeighbors() {
 		ArrayList<SAStateManager> returnList = new ArrayList<>();
-
+		int randomNumber = (int) Math.floor(Math.random() * 9) + 1;
 		for (int i = 0; i < currentPieces.length; i++) {
 			int tempPiece = currentPieces[i];
-			currentPieces[i] = (int) Math.floor(Math.random() * 9) + 1;
+			currentPieces[i] = randomNumber;
 			returnList.add(new SASudokuStateManager(originalPuzzle,
 					currentPieces));
 			currentPieces[i] = tempPiece;
