@@ -6,6 +6,8 @@ public class GPSMain {
 	private static String testSudoku2 = "000000000000942080160000029000000008906000001400250000004000000020008090050000700";
 	private static String testSudoku3 = "390600000002000000010030870000005000030010060000400000064090030000000600000007052";
 	private static String solvedSudoku = "248395716571628349936741582682539174359174628714862953863417295195286437427953861";
+	private static String solvedSudoku2 = "248395700071628349930001580682530004359074000014862953863417295195286437427953861";
+	private static String emptySoduko = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 	private static String fileName = "Files/GCInput3";
 
 	public static void main(String[] args) {
@@ -18,7 +20,7 @@ public class GPSMain {
 	}
 
 	private static void minConflictsSudoku() {
-		MCStateManager manager = new MCSudokuStateManager(testSudoku2);
+		MCStateManager manager = new MCSudokuStateManager(emptySoduko);
 		MinConflicts mc = new MinConflicts();
 
 		manager = mc.mcSearch(manager);
