@@ -12,13 +12,22 @@ public class GPSMain {
 
 	public static void main(String[] args) {
 		// simulatedAnnealingS();
-		minConflictsSudoku();
+//		minConflictsSudoku();
+		minConflictsSudoku2();
 		// minConflictsGC();
 		// simulatedAnnealingGC();
 		// simulatedAnnealingKQ();
 		// minConflictsKQ();
 	}
 
+	private static void minConflictsSudoku2() {
+		MCStateManager manager = new MCSudokuStateManager(emptySoduko);
+		MinConflictsSuDoKu mc = new MinConflictsSuDoKu();
+
+		manager = mc.mcSearch(manager);
+		System.out.println(manager.toString());
+	}
+	
 	private static void minConflictsSudoku() {
 		MCStateManager manager = new MCSudokuStateManager(emptySoduko);
 		MinConflicts mc = new MinConflicts();
