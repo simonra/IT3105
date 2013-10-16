@@ -2,7 +2,7 @@ package gps;
 
 import java.util.ArrayList;
 
-public class MinConflictsSuDoKu {
+public class MinConflictsBest {
 	/**
 	 * 1 - Randomly chose any variable, V, that is involved in at least one
 	 * conflict (i.e., violated constaint) 2 - Assign V the new value a, where a
@@ -17,7 +17,7 @@ public class MinConflictsSuDoKu {
 		int selectedSwapPos;
 		int selectedSwapConflicts;
 		int testCounter = 0;
-		int ammountOfSameNumberOfConflicts = 0;
+		int amountOfSameNumberOfConflicts = 0;
 		int numberOfConflictsLastRound = -1;
 		int conflicts = Integer.MAX_VALUE;
 		while (true) {
@@ -39,18 +39,18 @@ public class MinConflictsSuDoKu {
 						break;
 				}
 			}
-			if(numberOfConflictsLastRound == conflicts)
-				ammountOfSameNumberOfConflicts++;
+			if (numberOfConflictsLastRound == conflicts)
+				amountOfSameNumberOfConflicts++;
 			else
-				ammountOfSameNumberOfConflicts = 0;
-			if(ammountOfSameNumberOfConflicts >= 100){
+				amountOfSameNumberOfConflicts = 0;
+			if (amountOfSameNumberOfConflicts >= 100) {
 				selectedSwapPos = (int) Math.floor(positions * Math.random());
-				ammountOfSameNumberOfConflicts = 0;
+				amountOfSameNumberOfConflicts = 0;
 			}
 			lsm.swap(randomPos, selectedSwapPos);
 			testCounter++;
-			if (testCounter % 50 == 0)
-				System.out.println(selectedSwapConflicts);
+			// if (testCounter % 2 == 0)
+			// System.out.println(selectedSwapConflicts);
 			numberOfConflictsLastRound = conflicts;
 		}
 	}

@@ -4,26 +4,32 @@ public class MCGCStateManager implements MCStateManager {
 
 	boolean[][] neighbourMatrix;
 
-	int[] colorOfNodeN;
+	/** The index is the nodes ID, with the color being the value */
+	int[] colors;
 
 	public MCGCStateManager(String fileName) {
+		// Reads in the GCproblem and puts it in a neighbourMatrix
 		neighbourMatrix = GCFileReader.getNeighborMatrix(GCFileReader
 				.readFile(fileName));
-		colorOfNodeN = new int[neighbourMatrix.length];
 
+		colors = new int[neighbourMatrix.length];
+
+		// Assign a random color to every node
 		for (int i = 0; i < neighbourMatrix.length; i++) {
 			int randomNumber = (int) Math.floor(Math.random() * 4);
-			colorOfNodeN[i] = randomNumber;
+			colors[i] = randomNumber;
 		}
 	}
 
 	@Override
 	public int getConflicts() {
+		// Iterates through the neighbourMatrix, counting how often neighbours
+		// have the same color
 		int conflicts = 0;
 		for (int i = 0; i < neighbourMatrix.length - 1; i++) {
 			for (int j = i + 1; j < neighbourMatrix.length; j++) {
 				if (neighbourMatrix[i][j]) {
-					if (colorOfNodeN[i] == colorOfNodeN[j]) {
+					if (colors[i] == colors[j]) {
 						conflicts++;
 					}
 				}
@@ -35,32 +41,33 @@ public class MCGCStateManager implements MCStateManager {
 
 	@Override
 	public int getPositions() {
-		return colorOfNodeN.length;
+		return colors.length;
 	}
 
 	@Override
 	public int getConflictValueForSwap(int color, int nodeNumber) {
-		int originalColor = colorOfNodeN[nodeNumber];
-		colorOfNodeN[nodeNumber] = color;
+		int originalColor = colors[nodeNumber];
+		colors[nodeNumber] = color;
 
 		int conflicts = getConflicts();
-		colorOfNodeN[nodeNumber] = originalColor;
+		colors[nodeNumber] = originalColor;
 
 		return conflicts;
 	}
 
 	@Override
 	public void swap(int nodeNumber, int color) {
-		colorOfNodeN[nodeNumber] = color;
+		colors[nodeNumber] = color;
 	}
 
 	public String toString() {
+		// Prints the neighbourMatrix
 		String s = "";
 
 		for (int i = 0; i < neighbourMatrix.length; i++) {
 			for (int j = 0; j < neighbourMatrix.length; j++) {
 				if (neighbourMatrix[i][j]) {
-					s += "[" + colorOfNodeN[i] + " - " + colorOfNodeN[j] + "]";
+					s += "[" + colors[i] + " - " + colors[j] + "]";
 				} else {
 					s += "[     ]";
 				}

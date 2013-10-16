@@ -3,44 +3,48 @@ package gps;
 import java.util.ArrayList;
 
 public class SAGCStateManager implements SAStateManager {
-	/** The name says it all */
+
 	boolean[][] neighbourMatrix;
 
-	/**
-	 * The int color value of the node of the index value (ex: colorOfNode[nodes
-	 * number/id] = nodes color value)
-	 */
-	int[] colorOfNodeN;
+	/** The index is the nodes ID, with the color being the value */
+	int[] colors;
 
-	/** Instansierer matrisene, tar inn filer, lager matrisestuff */
 	public SAGCStateManager(String fileName) {
+		// Reads in the GCproblem and puts it in a neighbourMatrix
 		neighbourMatrix = GCFileReader.getNeighborMatrix(GCFileReader
 				.readFile(fileName));
-		colorOfNodeN = new int[neighbourMatrix.length];
 
+		colors = new int[neighbourMatrix.length];
+
+		// Assign a random color to every node
 		for (int i = 0; i < neighbourMatrix.length; i++) {
 			int randomNumber = (int) Math.floor(Math.random() * 4);
-			colorOfNodeN[i] = randomNumber;
+			colors[i] = randomNumber;
 		}
 	}
 
-	public SAGCStateManager(boolean[][] neighbourMatrix, int[] colorOfNodeN,
+	/**
+	 * Takes all the necessary parameters from a previous state manager to
+	 * duplicate it with a single node having a different color
+	 */
+	public SAGCStateManager(boolean[][] neighbourMatrix, int[] colors,
 			int colorChange) {
 
 		this.neighbourMatrix = new boolean[neighbourMatrix.length][neighbourMatrix.length];
-		this.colorOfNodeN = new int[neighbourMatrix.length];
+		this.colors = new int[neighbourMatrix.length];
 
 		for (int i = 0; i < neighbourMatrix.length; i++) {
 			for (int j = 0; j < neighbourMatrix.length; j++) {
 				this.neighbourMatrix[i][j] = neighbourMatrix[i][j];
 			}
-			this.colorOfNodeN[i] = colorOfNodeN[i];
+			this.colors[i] = colors[i];
 		}
 
+		// Randomly changes the color of a node
 		while (true) {
 			int number = (int) Math.floor(Math.random() * 4);
-			if (number != this.colorOfNodeN[colorChange]) {
-				this.colorOfNodeN[colorChange] = number;
+			if (number != this.colors[colorChange]) {
+				this.colors[colorChange] = number;
 				break;
 			}
 		}
@@ -48,11 +52,13 @@ public class SAGCStateManager implements SAStateManager {
 
 	@Override
 	public double objectiveValue() {
+		// Iterates through the neighbourMatrix, counting how often neighbours
+		// have the same color
 		int conflicts = 0;
 		for (int i = 0; i < neighbourMatrix.length - 1; i++) {
 			for (int j = i + 1; j < neighbourMatrix.length; j++) {
 				if (neighbourMatrix[i][j]) {
-					if (colorOfNodeN[i] == colorOfNodeN[j]) {
+					if (colors[i] == colors[j]) {
 						conflicts++;
 					}
 				}
@@ -71,20 +77,20 @@ public class SAGCStateManager implements SAStateManager {
 		ArrayList<SAStateManager> returnList = new ArrayList<>();
 
 		for (int i = 0; i < neighbourMatrix.length; i++) {
-			returnList.add(new SAGCStateManager(neighbourMatrix, colorOfNodeN,
-					i));
+			returnList.add(new SAGCStateManager(neighbourMatrix, colors, i));
 		}
 
 		return returnList;
 	}
 
 	public String toString() {
+		// Prints the neighbourMatrix
 		String s = "";
 
 		for (int i = 0; i < neighbourMatrix.length; i++) {
 			for (int j = 0; j < neighbourMatrix.length; j++) {
 				if (neighbourMatrix[i][j]) {
-					s += "[" + colorOfNodeN[i] + " - " + colorOfNodeN[j] + "]";
+					s += "[" + colors[i] + " - " + colors[j] + "]";
 				} else {
 					s += "[     ]";
 				}

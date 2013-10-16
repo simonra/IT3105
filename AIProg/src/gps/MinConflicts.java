@@ -39,6 +39,7 @@ public class MinConflicts {
 			testCounter++;
 			if (testCounter % 2 == 0)
 				System.out.println(selectedSwapConflicts);
+			// System.out.println(lsm.toString());
 		}
 	}
 }

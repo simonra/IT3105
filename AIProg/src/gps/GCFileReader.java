@@ -3,8 +3,8 @@ package gps;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+//Reads files for graph color
 public class GCFileReader {
-
 	public static String readFile(String fileUrl) {
 		String everyThing = "";
 		try {
@@ -40,14 +40,4 @@ public class GCFileReader {
 		}
 		return neighborMatrix;
 	}
-	// public static void main(String[] args) {
-	// // System.out.println(readFile("Files/GCinput1"));
-	// boolean[][] testMatrix = getNeighborMatrix(readFile("Files/GCinput2"));
-	// for (int i = 0; i < testMatrix.length; i++) {
-	// for (int j = 0; j < testMatrix.length; j++) {
-	// System.out.print(testMatrix[i][j] + " ");
-	// }
-	// System.out.println();
-	// }
-	// }
 }

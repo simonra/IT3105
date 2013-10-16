@@ -1,8 +1,13 @@
 package gps;
 
 public class MCKQStateManager implements MCStateManager {
-
+	/** Number of Queens */
 	int k;
+
+	/**
+	 * List of every queens position in each row. The index represents the row,
+	 * the value represents the column.
+	 */
 	private int[] queens;
 
 	public MCKQStateManager(int k) {
@@ -15,6 +20,7 @@ public class MCKQStateManager implements MCStateManager {
 
 	@Override
 	public int getConflicts() {
+		// Checks every queen-pair, counting the number of conflicts
 		int conflicts = 0;
 
 		for (int i = 0; i < k; i++) {
@@ -35,7 +41,7 @@ public class MCKQStateManager implements MCStateManager {
 
 	@Override
 	public int getConflictValueForSwap(int pos0, int pos1) {
-		// TODO Auto-generated method stub
+		// Swaps two queens, finds conflict value, then swaps back
 		int conflictsToReturn = 0;
 		int originalValuePos0 = queens[pos0];
 		int originalValuePos1 = queens[pos1];
@@ -54,6 +60,7 @@ public class MCKQStateManager implements MCStateManager {
 		queens[pos1] = originalValuePos0;
 	}
 
+	// Prints the board
 	public String toString() {
 		String string = "";
 		for (int i = 0; i < k; i++) {

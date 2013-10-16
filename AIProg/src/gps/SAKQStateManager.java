@@ -3,8 +3,14 @@ package gps;
 import java.util.ArrayList;
 
 public class SAKQStateManager implements SAStateManager {
-	private int[] queens;
+	/** Number of Queens */
 	private int k;
+
+	/**
+	 * List of every queens position in each row. The index represents the row,
+	 * the value represents the column.
+	 */
+	private int[] queens;
 
 	public SAKQStateManager(int k) {
 		this.k = k;
@@ -25,6 +31,7 @@ public class SAKQStateManager implements SAStateManager {
 
 	@Override
 	public double objectiveValue() {
+		// Checks every queen-pair, counting the number of conflicts
 		int conflicts = 0;
 
 		for (int i = 0; i < k; i++) {
@@ -63,6 +70,7 @@ public class SAKQStateManager implements SAStateManager {
 		return returnList;
 	}
 
+	// Prints the board
 	public String toString() {
 		String string = "";
 		for (int i = 0; i < k; i++) {

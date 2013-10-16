@@ -1,57 +1,69 @@
 package gps;
 
 public class MCSudokuStateManager implements MCStateManager {
-
+	/** The original sudoku problem */
 	public int[] originalPuzzle;
-	public int[] currentPieces;
+
+	/** Numbers that needs to be assigned to solve the puzzle */
+	public int[] changeableNumbers;
 
 	public MCSudokuStateManager(String newPuzzle) {
 		originalPuzzle = new int[newPuzzle.length()];
-		int currentCounter = 0;
+
+		int changableNumbersCounter = 0;
+
+		// The index + 1 represents each number (1-9) that can occur in the
+		// puzzle. The value represents the amount of those numbers we need to
+		// complete the puzzle.
 		int[] totalNumbers = { 9, 9, 9, 9, 9, 9, 9, 9, 9 };
 
+		// Iterates over the original puzzle, parsing the string read from the
+		// file into originalPuzzle, in addition to counting how many zeroes
+		// there are. It also subtracts the numbers read from totalNumbers, for
+		// use later.
 		for (int i = 0; i < newPuzzle.length(); i++) {
 			int temp = (int) Integer.parseInt("" + newPuzzle.charAt(i));
 			originalPuzzle[i] = temp;
 
 			if (temp == 0)
-				currentCounter++;
+				changableNumbersCounter++;
 			else
 				totalNumbers[temp - 1] -= 1;
 		}
 
-		currentPieces = new int[currentCounter];
+		changeableNumbers = new int[changableNumbersCounter];
 
-		int temp2 = 0;
+		// Fills changeableNumbers with the numbers from totalNumbers
+		int changeableNumbersIndex = 0;
 		for (int i = 0; i < totalNumbers.length; i++) {
-			int temp = totalNumbers[i];
-			while (temp > 0) {
-				currentPieces[temp2] = i + 1;
-				temp--;
-				temp2++;
+			int remainingTotalNumbers = totalNumbers[i];
+			while (remainingTotalNumbers > 0) {
+				changeableNumbers[changeableNumbersIndex] = i + 1;
+				remainingTotalNumbers--;
+				changeableNumbersIndex++;
 			}
-
 		}
-		// System.out.println(toString());
 	}
 
 	@Override
 	public int getConflicts() {
 		int conflicts = 0;
 
+		// Used to fill the original puzzle with the remaining numbers in
+		// changeableNumbers
 		int[] tempPuzzle = new int[originalPuzzle.length];
 		int currentCounter = 0;
 		for (int i = 0; i < originalPuzzle.length; i++) {
 			if (originalPuzzle[i] == 0) {
-				tempPuzzle[i] = currentPieces[currentCounter];
+				tempPuzzle[i] = changeableNumbers[currentCounter];
 				currentCounter++;
 			} else {
 				tempPuzzle[i] = originalPuzzle[i];
 			}
 		}
 
-		int[] totalNumbers = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
+		// For each row, column and box; Checks how many numbers are in
+		// conflicts.
 		for (int i = 0; i < 9; i++) {
 			int[] rowList = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			int[] columnList = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -64,7 +76,6 @@ public class MCSudokuStateManager implements MCStateManager {
 				columnList[tempPuzzle[i + (j * 9)] - 1] += 1;
 				boxList[tempPuzzle[(27 * (i / 3)) + ((i % 3) * 3) + j
 						+ ((j / 3) * 6)] - 1] += 1;
-				totalNumbers[tempPuzzle[i * 9 + j] - 1] += 1;
 			}
 
 			for (int j = 0; j < 9; j++) {
@@ -81,39 +92,32 @@ public class MCSudokuStateManager implements MCStateManager {
 				}
 			}
 		}
-		for (int i = 0; i < totalNumbers.length; i++) {
-			conflicts += Math.abs(totalNumbers[i] - 9);
-		}
-
-		// TODO Auto-generated method stub
-		// System.out.println(conflicts);
 		return conflicts;
 	}
 
 	@Override
 	public int getPositions() {
-		return currentPieces.length;
+		return changeableNumbers.length;
 	}
 
 	@Override
 	public int getConflictValueForSwap(int pos0, int pos1) {
 		int conflictsToReturn = 0;
-		int originalValuePos0 = currentPieces[pos0];
-		int originalValuePos1 = currentPieces[pos1];
-		currentPieces[pos0] = originalValuePos1;
-		currentPieces[pos1] = originalValuePos0;
+		int originalValuePos0 = changeableNumbers[pos0];
+		int originalValuePos1 = changeableNumbers[pos1];
+		changeableNumbers[pos0] = originalValuePos1;
+		changeableNumbers[pos1] = originalValuePos0;
 		conflictsToReturn = getConflicts();
-		currentPieces[pos0] = originalValuePos0;
-		currentPieces[pos1] = originalValuePos1;
+		changeableNumbers[pos0] = originalValuePos0;
+		changeableNumbers[pos1] = originalValuePos1;
 		return conflictsToReturn;
 	}
 
 	@Override
 	public void swap(int pos0, int pos1) {
-		int tempPiece = currentPieces[pos0];
-		currentPieces[pos0] = currentPieces[pos1];
-		currentPieces[pos1] = tempPiece;
-		// System.out.println(toString());
+		int tempPiece = changeableNumbers[pos0];
+		changeableNumbers[pos0] = changeableNumbers[pos1];
+		changeableNumbers[pos1] = tempPiece;
 	}
 
 	@Override
@@ -122,7 +126,7 @@ public class MCSudokuStateManager implements MCStateManager {
 		int currentCounter = 0;
 		for (int i = 0; i < originalPuzzle.length; i++) {
 			if (originalPuzzle[i] == 0) {
-				tempPuzzle[i] = currentPieces[currentCounter];
+				tempPuzzle[i] = changeableNumbers[currentCounter];
 				currentCounter++;
 			} else {
 				tempPuzzle[i] = originalPuzzle[i];
@@ -131,8 +135,6 @@ public class MCSudokuStateManager implements MCStateManager {
 
 		String s = "";
 		for (int i = 0; i < tempPuzzle.length; i++) {
-			// if(i)
-			// s +="|";
 			if (i % 9 == 0)
 				s += "\n";
 			s += " " + tempPuzzle[i] + " ";
