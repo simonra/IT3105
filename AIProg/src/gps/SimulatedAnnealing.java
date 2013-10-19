@@ -6,7 +6,8 @@ import java.util.Comparator;
 
 public class SimulatedAnnealing {
 	ArrayList<SAStateManager> neighbors;
-
+	public int iterations = 0;
+	
 	public SAStateManager saSearch(SAStateManager lsm,
 			double initialTemperature, double deltaTemp) {
 		SAStateManager localStateManager = lsm;
@@ -14,12 +15,14 @@ public class SimulatedAnnealing {
 		double deltaTemperature = deltaTemp;
 		double targetOFuncValue = localStateManager
 				.getTargetObjectiveFunctionValue();
-		int maxIterations = 500000;
+		int maxIterations = 10000;
 		while (true) {
 			double objectiveFunctionValue = localStateManager.objectiveValue();
 			if (objectiveFunctionValue >= targetOFuncValue
-					|| maxIterations == 0)
+					|| maxIterations == 0){
+//				System.out.println("Iterations: " + iterations);
 				return localStateManager;
+			}
 			neighbors = localStateManager.getNeighbors();
 			SAStateManager bestNeighbor = Collections.max(neighbors,
 					new saLocalStateComparator());
@@ -34,11 +37,12 @@ public class SimulatedAnnealing {
 						.random() * neighbors.size()));
 			temperature -= Math.max(deltaTemperature, 0);
 			maxIterations--;
-			if (maxIterations % 1000 == 0) {
-				System.out.println("Iterations remaining: " + maxIterations
-						+ ", conflicts: " + objectiveFunctionValue);
-			}
+//			if (maxIterations % 1000 == 0) {
+//				System.out.println("Iterations remaining: " + maxIterations
+//						+ ", conflicts: " + objectiveFunctionValue);
+//			}
 			// System.out.println(localStateManager.toString());
+			iterations++;
 		}
 	}
 }

@@ -3,6 +3,7 @@ package gps;
 import java.util.ArrayList;
 
 public class MinConflictsBest {
+	public int iterations = 0;
 	/**
 	 * 1 - Randomly chose any variable, V, that is involved in at least one
 	 * conflict (i.e., violated constaint) 2 - Assign V the new value a, where a
@@ -22,7 +23,7 @@ public class MinConflictsBest {
 		int conflicts = Integer.MAX_VALUE;
 		while (true) {
 			conflicts = lsm.getConflicts();
-			if (conflicts == 0)
+			if (conflicts == 0 || iterations > 10000)
 				return lsm;
 			positions = lsm.getPositions();
 			randomPos = (int) Math.floor(positions * Math.random());
@@ -52,6 +53,7 @@ public class MinConflictsBest {
 			// if (testCounter % 2 == 0)
 			// System.out.println(selectedSwapConflicts);
 			numberOfConflictsLastRound = conflicts;
+			iterations++;
 		}
 	}
 }
