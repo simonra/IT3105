@@ -9,16 +9,16 @@ public class StatisticsGatherer {
 	private static String solvedSudoku2 = "219876435843591276765243891394157628127368954658429317482735169536914782971682543";
 	private static String emptySoduko = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 	private static String easySudoku = "219876435840001276765240001394157628127000954658429317482735160006914782971682543";
-	private static String mediumSudoku = "219876435840000006765243891000000628127300954658400310082735160036014002971600043";
-	private static String hardSudoku = "210876030803001276760203801300107600027368000608020317082730000036010782071682003";
+	private static String mediumSudoku = "210876030803001276760203801300107600027368000608020317082730000036010782071682003";
+	private static String hardSudoku = "219876435840000006765243891000000628127300954658400310082735160036014002971600043";
 
 	private static String fileName = "Files/GCInput3";
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 20; i++) {
-			simulatedAnnealingGC();
+			simulatedAnnealingSudoku();
 		}
-		// simulatedAnnealingSudoku();
+		// simulatedAnnealingGC();
 		// minConflictsSudoku();
 
 		// simulatedAnnealingGC();
@@ -30,7 +30,7 @@ public class StatisticsGatherer {
 
 	// Sudoku
 	private static void simulatedAnnealingSudoku() {
-		SAStateManager manager = new SASudokuStateManager(hardSudoku);
+		SAStateManager manager = new SASudokuStateManager(easySudoku);
 		SimulatedAnnealing sa = new SimulatedAnnealing();
 
 		manager = sa.saSearch(manager, 200000, 1);
@@ -40,7 +40,7 @@ public class StatisticsGatherer {
 	}
 
 	private static void minConflictsSudoku() {
-		MCStateManager manager = new MCSudokuStateManager(hardSudoku);
+		MCStateManager manager = new MCSudokuStateManager(easySudoku);
 		MinConflictsBest mc = new MinConflictsBest();
 
 		manager = mc.mcSearch(manager);
