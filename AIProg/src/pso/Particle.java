@@ -1,12 +1,14 @@
 package pso;
 
+import java.util.ArrayList;
+
 public class Particle {
 	Position position;
 	Velocity velocity;
 	double fitness;
 	
 	
-	public double getFitness(){
+	public double getFitness(ArrayList<PolynomialTerm> polynomial){
 		//TODO: find the fitness
 		
 		return fitness;
