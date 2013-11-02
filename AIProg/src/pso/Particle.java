@@ -34,6 +34,7 @@ public class Particle {
 				Constants.DIMENSIONS);
 	}
 
+	//
 	void evaluateFitness() {
 		fitness = 0;
 		for (Double position : positions) {
