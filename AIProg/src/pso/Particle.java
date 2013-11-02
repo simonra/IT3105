@@ -25,6 +25,7 @@ public class Particle {
 		}
 		evaluateFitness();
 		// Collections.copy(bestPositionKnownToMe, positions);
+		//
 	}
 
 	void evaluateFitness() {
