@@ -1,6 +1,5 @@
 package pso;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class NearestThreePsoMain {
@@ -30,37 +29,68 @@ public class NearestThreePsoMain {
 
 		while (conditions) {
 			for (Particle particle : particles) {
-				int[] neighboursIndex = new int[Constants.NCLOSESTNEIGHBOURS];
-				double[] distanceIndex = new double[Constants.NUMBEROFPARTICLES];
-				double[] sortedDistances = new double[Constants.NUMBEROFPARTICLES];
+				int firstIndex = -1;
+				int secondIndex = -1;
+				int thirdIndex = -1;
+
+				double firstDistance = Double.MAX_VALUE;
+				double secondDistance = Double.MAX_VALUE;
+				double thirdDistance = Double.MAX_VALUE;
+
 				localBestFitnessSeen = Double.MAX_VALUE;
 
-				// N nearest neighbors
 				for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 					double distance = 0;
 					for (int j = 0; j < Constants.DIMENSIONS; j++) {
 						distance += (particles[i].positions[j] - particle.positions[j])
 								* (particles[i].positions[j] - particle.positions[j]);
 					}
-					distanceIndex[i] = distance;
-				}
-				System.arraycopy(distanceIndex, 0, sortedDistances, 0,
-						Constants.NUMBEROFPARTICLES);
-				Arrays.sort(sortedDistances);
-				int bestNeighbor = -1;
-				for (int i = 0; i < Constants.NCLOSESTNEIGHBOURS; i++) {
-					neighboursIndex[i] = Arrays.asList(distanceIndex).indexOf(
-							sortedDistances[i + 1]);
 
-					System.out.println(Arrays.asList(distanceIndex).get(0)[0]);
+					if (particles[i].equals(particle))
+						continue;
 
-					if (particles[neighboursIndex[i]].fitness < localBestFitnessSeen) {
-						bestNeighbor = i;
-						localBestFitnessSeen = particles[neighboursIndex[i]].fitness;
+					if (firstDistance > distance) {
+						thirdDistance = secondDistance;
+						thirdIndex = secondIndex;
+
+						secondDistance = firstDistance;
+						secondIndex = firstIndex;
+
+						firstDistance = distance;
+						firstIndex = i;
+					}
+
+					if (secondDistance > distance) {
+						thirdDistance = secondDistance;
+						thirdIndex = secondIndex;
+
+						secondDistance = distance;
+						secondIndex = i;
+					}
+
+					if (thirdDistance > distance) {
+						thirdDistance = distance;
+						thirdIndex = i;
 					}
 				}
-				System.arraycopy(particles[bestNeighbor].positions, 0,
-						localBestSeenPosition, 0, Constants.DIMENSIONS);
+
+				if (particles[firstIndex].fitness < localBestFitnessSeen) {
+					localBestFitnessSeen = particles[firstIndex].fitness;
+					System.arraycopy(particles[firstIndex].positions, 0,
+							localBestSeenPosition, 0, Constants.DIMENSIONS);
+				}
+
+				if (particles[secondIndex].fitness < localBestFitnessSeen) {
+					localBestFitnessSeen = particles[secondIndex].fitness;
+					System.arraycopy(particles[secondIndex].positions, 0,
+							localBestSeenPosition, 0, Constants.DIMENSIONS);
+				}
+
+				if (particles[thirdIndex].fitness < localBestFitnessSeen) {
+					localBestFitnessSeen = particles[thirdIndex].fitness;
+					System.arraycopy(particles[thirdIndex].positions, 0,
+							localBestSeenPosition, 0, Constants.DIMENSIONS);
+				}
 
 				// Position and velocity:
 				particle.updateVelocity(localBestSeenPosition,

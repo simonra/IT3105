@@ -30,6 +30,7 @@ public class KnapsackParticle {
 			velocity[i] = randomNegativity2 * r.nextDouble() * 1;
 			// velocity[i] = 0.0;
 		}
+
 		evaluateFitness();
 		System.arraycopy(positions, 0, bestPositionKnownToMe, 0,
 				Constants.DIMENSIONS);
