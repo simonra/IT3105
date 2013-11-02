@@ -1,4 +1,4 @@
-package pso;
+package psoOld;
 
 public interface Constants {
 	int MAXITERATIONS = 1000;

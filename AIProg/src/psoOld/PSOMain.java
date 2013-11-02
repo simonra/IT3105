@@ -1,4 +1,4 @@
-package pso;
+package psoOld;
 
 public class PSOMain {
 	//http://gandhim.wordpress.com/2010/04/04/particle-swarm-optimization-pso-sample-code-using-java/

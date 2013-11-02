@@ -1,4 +1,4 @@
-package pso;
+package psoOld;
 
 public class PolynomialTerm {
 	private double coefficient;
