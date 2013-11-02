@@ -16,16 +16,16 @@ public class Particle {
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 		// set it's position randomly within given range
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			// double randomNegativity1 = Math.pow(-1,
-			// Math.floor(r.nextDouble() * 2));
+			double randomNegativity1 = Math.pow(-1,
+					Math.floor(r.nextDouble() * 2));
 			double randomNegativity2 = Math.pow(-1,
 					Math.floor(r.nextDouble() * 2));
-			// positions[i] = randomNegativity1 * r.nextDouble() * 1000;
-			positions[i] = 0
-					- Constants.CIRCLEPROBLEMRANGE
-					* (Constants.NUMBEROFPARTICLES / 2.0)
-					+ uniformSpreadCounter
-					* (Constants.CIRCLEPROBLEMRANGE / Constants.NUMBEROFPARTICLES);
+			positions[i] = randomNegativity1 * r.nextDouble() * 1000;
+			// positions[i] = 0
+			// - Constants.CIRCLEPROBLEMRANGE
+			// * (Constants.NUMBEROFPARTICLES / 2.0)
+			// + uniformSpreadCounter
+			// * (Constants.CIRCLEPROBLEMRANGE / Constants.NUMBEROFPARTICLES);
 			velocity[i] = randomNegativity2 * r.nextDouble() * 1;
 			// velocity[i] = 0.0;
 		}
@@ -34,7 +34,6 @@ public class Particle {
 				Constants.DIMENSIONS);
 	}
 
-	//
 	void evaluateFitness() {
 		fitness = 0;
 		for (Double position : positions) {
@@ -49,6 +48,14 @@ public class Particle {
 					* velocity[i]
 					+ (Constants.C1 * R1 * (bestPositionKnownToMe[i] - positions[i]))
 					+ (Constants.C2 * R2 * (bestPositionSeenInNeighborhood[i] - positions[i]));
+
+			if (velocity[i] > 50) {
+				velocity[i] = 50.0;
+			}
+
+			if (velocity[i] < -50) {
+				velocity[i] = -50.0;
+			}
 		}
 	}
 
