@@ -2,9 +2,9 @@ package pso;
 
 import java.util.Random;
 
-public class PsoMain {
+public class NearestThreePsoMain {
 
-	public static void PsoMainMethod() {
+	public static void NearestThreePsoMainMethod() {
 		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		Double[] bestSeenPosition = new Double[Constants.DIMENSIONS];
@@ -27,6 +27,18 @@ public class PsoMain {
 
 		while (conditions) {
 			for (Particle particle : particles) {
+				int[] neighboursIndex = new int[Constants.NCLOSESTNEIGHBOURS];
+				double[] distanceIndex = new double[Constants.NUMBEROFPARTICLES];
+
+				for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
+					double distance = 0;
+					for (int j = 0; j < Constants.DIMENSIONS; j++) {
+						distance += (particles[i].positions[j] - particle.positions[j])
+								* (particles[i].positions[j] - particle.positions[j]);
+					}
+					distanceIndex[i] = distance;
+				}
+
 				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
 						random.nextDouble());
 				particle.updatePosition();
