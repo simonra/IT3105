@@ -9,4 +9,5 @@ public interface Constants {
 	double C1 = 0.5; // Should be in the range [0,2>
 	double C2 = 1.5; // Should be in the range [0,2>
 	double INERTIA = 1;
+	double CIRCLEPROBLEMRANGE = 100;
 }

@@ -12,7 +12,7 @@ public class PsoMain {
 		int counter = 0;
 
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
-			Particle p = new Particle(random);
+			Particle p = new Particle(random, i);
 			particles[i] = p;
 			if (p.fitness < bestFitnessSeen) {
 				System.arraycopy(p.positions, 0, bestSeenPosition, 0,

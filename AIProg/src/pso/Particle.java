@@ -9,18 +9,23 @@ public class Particle {
 	public double fitness;
 	public double bestFitnessKnownToMe;
 
-	public Particle(Random r) {
+	public Particle(Random r, int uniformSpreadCounter) {
 		positions = new Double[Constants.DIMENSIONS];
 		velocity = new Double[Constants.DIMENSIONS];
 		bestPositionKnownToMe = new Double[Constants.DIMENSIONS];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 		// set it's position randomly within given range
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			double randomNegativity1 = Math.pow(-1,
-					Math.floor(r.nextDouble() * 2));
+			// double randomNegativity1 = Math.pow(-1,
+			// Math.floor(r.nextDouble() * 2));
 			double randomNegativity2 = Math.pow(-1,
 					Math.floor(r.nextDouble() * 2));
-			positions[i] = randomNegativity1 * r.nextDouble() * 1000;
+			// positions[i] = randomNegativity1 * r.nextDouble() * 1000;
+			positions[i] = 0
+					- Constants.CIRCLEPROBLEMRANGE
+					* (Constants.NUMBEROFPARTICLES / 2.0)
+					+ uniformSpreadCounter
+					* (Constants.CIRCLEPROBLEMRANGE / Constants.NUMBEROFPARTICLES);
 			velocity[i] = randomNegativity2 * r.nextDouble() * 1;
 			// velocity[i] = 0.0;
 		}
