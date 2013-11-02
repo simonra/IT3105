@@ -1,7 +1,5 @@
 package quarto;
 
-import java.util.ArrayList;
-
 /**
  * The node class used in the alpha-beta pruning algorithm
  * 

@@ -4,6 +4,7 @@ public class HumanPlayer implements Player {
 	private String name = "human";
 	UI ui = new UI();
 
+	@Override
 	public void placePiece(Board board, Piece currentPiece) {
 		String xy = ui.readCoordinates();
 		board.PlacePiece(currentPiece, Integer.parseInt("" + xy.charAt(0)),

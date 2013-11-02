@@ -59,7 +59,8 @@ public class MCGCStateManager implements MCStateManager {
 	public void swap(int nodeNumber, int color) {
 		colors[nodeNumber] = color;
 	}
-
+	
+	@Override
 	public String toString() {
 		// Prints the neighbourMatrix
 		String s = "";

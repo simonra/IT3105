@@ -71,6 +71,7 @@ public class SAKQStateManager implements SAStateManager {
 	}
 
 	// Prints the board
+	@Override
 	public String toString() {
 		String string = "";
 		for (int i = 0; i < k; i++) {

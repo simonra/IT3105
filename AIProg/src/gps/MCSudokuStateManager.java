@@ -22,7 +22,7 @@ public class MCSudokuStateManager implements MCStateManager {
 		// there are. It also subtracts the numbers read from totalNumbers, for
 		// use later.
 		for (int i = 0; i < newPuzzle.length(); i++) {
-			int temp = (int) Integer.parseInt("" + newPuzzle.charAt(i));
+			int temp = Integer.parseInt("" + newPuzzle.charAt(i));
 			originalPuzzle[i] = temp;
 
 			if (temp == 0)

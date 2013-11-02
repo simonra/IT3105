@@ -19,5 +19,6 @@ public interface MCStateManager {
 	void swap(int pos0, int pos1);
 	
 	/**Should be customized to generate the string that best represents the implemented mc-state*/
+	@Override
 	String toString();
 }

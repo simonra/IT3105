@@ -18,7 +18,7 @@ public class MinConflicts {
 		int selectedSwapConflicts;
 		int testCounter = 0;
 		while (true) {
-			if (lsm.getConflicts() == 0 || iterations > 10000){
+			if (lsm.getConflicts() == 0 || iterations > 500000){
 //				System.out.println("Iterations: " + iterations);
 				return lsm;
 			}

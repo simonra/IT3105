@@ -18,7 +18,7 @@ public class AIPlayer implements Player {
 	public void placePiece(Board board, Piece currentPiece) {
 
 		// Hvis det er de første 8 trekkene, spill som novice
-		if (board.getPieces().size() > 12) {
+		if (board.getPieces().size() > 8) {
 			while (true) {
 				int x = (int) (Math.floor(Math.random() * 4));
 				int y = (int) (Math.floor(Math.random() * 4));
@@ -36,7 +36,7 @@ public class AIPlayer implements Player {
 
 	@Override
 	public int selectPiece(Board board) {
-		if (board.getPieces().size() > 12) {
+		if (board.getPieces().size() > 8) {
 			return novicePlayer.selectPiece(board);
 		}
 

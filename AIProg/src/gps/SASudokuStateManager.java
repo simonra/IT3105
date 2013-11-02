@@ -17,7 +17,7 @@ public class SASudokuStateManager implements SAStateManager {
 		// file into originalPuzzle, in addition to counting how many zeroes
 		// there are.
 		for (int i = 0; i < newPuzzle.length(); i++) {
-			int temp = (int) Integer.parseInt("" + newPuzzle.charAt(i));
+			int temp = Integer.parseInt("" + newPuzzle.charAt(i));
 			originalPuzzle[i] = temp;
 
 			if (temp == 0)

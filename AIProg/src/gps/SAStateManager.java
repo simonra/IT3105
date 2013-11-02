@@ -13,5 +13,6 @@ public interface SAStateManager {
 	/** Generates neighbours for this state */
 	public ArrayList<SAStateManager> getNeighbors();
 
+	@Override
 	public String toString();
 }
