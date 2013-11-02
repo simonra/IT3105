@@ -9,15 +9,15 @@ public class PsoMain {
 	
 	
 	public static void main(String[] args) {
-		ArrayList<Particle> particles = new ArrayList<Particle>();
+		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		double averageFitness = 0;
-		ArrayList<Double> bestSeenPosition = new ArrayList<Double>();
+		Double[] bestSeenPosition = new Double[Constants.DIMENSIONS];
 		int counter = 0;
 
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			Particle p = new Particle(random);
-			particles.add(p);
+			particles[i] = p;
 			averageFitness += p.fitness;
 		}
 		averageFitness /= Constants.NUMBEROFPARTICLES;
@@ -33,7 +33,7 @@ public class PsoMain {
 				particle.updatePosition();
 				particle.evaluateFitness();
 				if(particle.fitness < particle.bestFitnessKnownToMe)
-					Collections.copy(particle.bestPositionKnownToMe, particle.positions);
+//					Collections.copy(particle.bestPositionKnownToMe, particle.positions);
 				
 			}
 			
