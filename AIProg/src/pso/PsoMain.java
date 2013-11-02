@@ -16,7 +16,7 @@ public class PsoMain {
 		int counter = 0;
 
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
-			Particle p = new Particle();
+			Particle p = new Particle(random);
 			particles.add(p);
 			averageFitness += p.fitness;
 		}
