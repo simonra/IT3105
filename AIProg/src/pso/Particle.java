@@ -16,37 +16,39 @@ public class Particle {
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 		// set it's position randomly within given range
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			double randomNegativity1 = Math.pow(Math.floor(r.nextDouble() * 2),
-					-1);
-			double randomNegativity2 = Math.pow(Math.floor(r.nextDouble() * 2),
-					-1);
-			positions[i] = randomNegativity1 * r.nextDouble() * 10000000000.0;
-			velocity[i] = randomNegativity2 * r.nextDouble() * 10000000;
+			double randomNegativity1 = Math.pow(-1,
+					Math.floor(r.nextDouble() * 2));
+			double randomNegativity2 = Math.pow(-1,
+					Math.floor(r.nextDouble() * 2));
+			positions[i] = randomNegativity1 * r.nextDouble() * 1000;
+			velocity[i] = randomNegativity2 * r.nextDouble() * 1;
+			// velocity[i] = 0.0;
 		}
 		evaluateFitness();
-		// Collections.copy(bestPositionKnownToMe, positions);
-		//
+		System.arraycopy(positions, 0, bestPositionKnownToMe, 0,
+				Constants.DIMENSIONS);
 	}
 
 	void evaluateFitness() {
+		fitness = 0;
 		for (Double position : positions) {
 			fitness += position * position;
 		}
-		fitness = Math.sqrt(fitness);
 	}
 
 	public void updateVelocity(Double[] bestPositionSeenInNeighborhood,
 			double R1, double R2) {
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			velocity[i] = (velocity[i]
-					+ (Constants.C1 * R1 * (bestPositionKnownToMe[i] - positions[i])) + (Constants.C2
-					* R2 * (bestPositionSeenInNeighborhood[i] - positions[i])));
+			velocity[i] = Constants.INERTIA
+					* velocity[i]
+					+ (Constants.C1 * R1 * (bestPositionKnownToMe[i] - positions[i]))
+					+ (Constants.C2 * R2 * (bestPositionSeenInNeighborhood[i] - positions[i]));
 		}
 	}
 
 	public void updatePosition() {
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			positions[i] = (positions[i] + velocity[i]);
+			positions[i] = positions[i] + velocity[i];
 		}
 	}
 }
