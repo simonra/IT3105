@@ -2,7 +2,6 @@ package gps;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class EveryLineCommentedSimulatedAnnealing {
 	/**Stores the neighbors of the current state manager*/

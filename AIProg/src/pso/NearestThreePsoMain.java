@@ -1,5 +1,6 @@
 package pso;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class NearestThreePsoMain {
@@ -7,29 +8,34 @@ public class NearestThreePsoMain {
 	public static void NearestThreePsoMainMethod() {
 		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
-		Double[] bestSeenPosition = new Double[Constants.DIMENSIONS];
-		double bestFitnessSeen = Double.MAX_VALUE;
+		Double[] localBestSeenPosition = new Double[Constants.DIMENSIONS];
+		Double[] globalBestSeenPosition = new Double[Constants.DIMENSIONS];
+		double localBestFitnessSeen = Double.MAX_VALUE;
+		double globalBestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			Particle p = new Particle(random, i);
 			particles[i] = p;
-			if (p.fitness < bestFitnessSeen) {
-				System.arraycopy(p.positions, 0, bestSeenPosition, 0,
+			if (p.fitness < globalBestFitnessSeen) {
+				System.arraycopy(p.positions, 0, globalBestSeenPosition, 0,
 						Constants.DIMENSIONS);
-				bestFitnessSeen = p.fitness;
+				globalBestFitnessSeen = p.fitness;
 			}
 		}
 
 		boolean conditions = true;
-		conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
+		conditions &= globalBestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 		conditions &= counter < Constants.MAXITERATIONS;
 
 		while (conditions) {
 			for (Particle particle : particles) {
 				int[] neighboursIndex = new int[Constants.NCLOSESTNEIGHBOURS];
 				double[] distanceIndex = new double[Constants.NUMBEROFPARTICLES];
+				double[] sortedDistances = new double[Constants.NUMBEROFPARTICLES];
+				localBestFitnessSeen = Double.MAX_VALUE;
 
+				// N nearest neighbors
 				for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 					double distance = 0;
 					for (int j = 0; j < Constants.DIMENSIONS; j++) {
@@ -38,9 +44,24 @@ public class NearestThreePsoMain {
 					}
 					distanceIndex[i] = distance;
 				}
+				System.arraycopy(distanceIndex, 0, sortedDistances, 0,
+						Constants.NUMBEROFPARTICLES);
+				Arrays.sort(sortedDistances);
+				int bestNeighbor = -1;
+				for (int i = 0; i < Constants.NCLOSESTNEIGHBOURS; i++) {
+					neighboursIndex[i] = Arrays.asList(distanceIndex).indexOf(
+							sortedDistances[i + 1]);
+					if (particles[neighboursIndex[i]].fitness < localBestFitnessSeen) {
+						bestNeighbor = i;
+						localBestFitnessSeen = particles[neighboursIndex[i]].fitness;
+					}
+				}
+				System.arraycopy(particles[bestNeighbor].positions, 0,
+						localBestSeenPosition, 0, Constants.DIMENSIONS);
 
-				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
-						random.nextDouble());
+				// Position and velocity:
+				particle.updateVelocity(localBestSeenPosition,
+						random.nextDouble(), random.nextDouble());
 				particle.updatePosition();
 				particle.evaluateFitness();
 				if (particle.fitness < particle.bestFitnessKnownToMe) {
@@ -49,21 +70,22 @@ public class NearestThreePsoMain {
 							Constants.DIMENSIONS);
 					particle.bestFitnessKnownToMe = particle.fitness;
 
-					if (particle.bestFitnessKnownToMe < bestFitnessSeen) {
+					if (particle.bestFitnessKnownToMe < globalBestFitnessSeen) {
 						System.arraycopy(particle.positions, 0,
-								bestSeenPosition, 0, Constants.DIMENSIONS);
-						bestFitnessSeen = particle.fitness;
+								globalBestSeenPosition, 0, Constants.DIMENSIONS);
+						globalBestFitnessSeen = particle.fitness;
 					}
 				}
 			}
 
 			counter++;
-			conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
+			conditions &= globalBestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 			conditions &= counter < Constants.MAXITERATIONS;
 
 			if (!conditions || counter % 10 == 0) {
 				System.out.println("This is iteration " + counter
-						+ " and the best fitness is " + bestFitnessSeen + ".");
+						+ " and the (global) best fitness is "
+						+ globalBestFitnessSeen + ".");
 				System.out.println("	The first particles position is: "
 						+ particles[0].positions[0] + ", and its velocity is: "
 						+ particles[0].velocity[0]);
