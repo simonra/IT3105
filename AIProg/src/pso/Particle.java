@@ -11,19 +11,17 @@ public class Particle {
 	public double fitness;
 	public double bestFitnessKnownToMe;
 	
-	public Particle(){
+	public Particle(Random r){
 		positions = new ArrayList<Double>();
 		velocity = new ArrayList<Double>();
 		bestPositionKnownToMe = new ArrayList<Double>();
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 		//set it's position randomly within given range
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
-			double random1 = Math.random();
-			double random2 = Math.random();
-			double randomNegativity1 = Math.pow(Math.floor(random1 * 2), -1);
-			double randomNegativity2 = Math.pow(Math.floor(random2 * 2), -1);
-			positions.add(randomNegativity1 * random2 * 10000000000.0);
-			velocity.add(randomNegativity2 * random1 * 10000000);
+			double randomNegativity1 = Math.pow(Math.floor(r.nextDouble() * 2), -1);
+			double randomNegativity2 = Math.pow(Math.floor(r.nextDouble() * 2), -1);
+			positions.add(randomNegativity1 * r.nextDouble() * 10000000000.0);
+			velocity.add(randomNegativity2 * r.nextDouble() * 10000000);
 		}
 		evaluateFitness();
 		Collections.copy(bestPositionKnownToMe, positions);
