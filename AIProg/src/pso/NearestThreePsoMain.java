@@ -51,6 +51,9 @@ public class NearestThreePsoMain {
 				for (int i = 0; i < Constants.NCLOSESTNEIGHBOURS; i++) {
 					neighboursIndex[i] = Arrays.asList(distanceIndex).indexOf(
 							sortedDistances[i + 1]);
+
+					System.out.println(Arrays.asList(distanceIndex).get(0)[0]);
+
 					if (particles[neighboursIndex[i]].fitness < localBestFitnessSeen) {
 						bestNeighbor = i;
 						localBestFitnessSeen = particles[neighboursIndex[i]].fitness;
