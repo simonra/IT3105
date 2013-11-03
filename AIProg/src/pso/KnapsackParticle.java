@@ -50,6 +50,10 @@ public class KnapsackParticle {
 	public void updateVelocity(boolean[] bestItemsSeenInNeighborhood,
 			double R1, double R2) {
 
+		// Lage binæraddisjon som looper ved 2000. Når man går tre skritt frem
+		// legger man til 3*true fra ene enden av items arrayet. Siden alt får
+		// definerte avstander til alt burde dette løse problemet vårt.
+
 		boolean b1 = Constants.C1 * R1 < 1;
 		boolean b2 = Constants.C2 * R2 < 1;
 
