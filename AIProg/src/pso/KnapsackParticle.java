@@ -4,22 +4,25 @@ import java.util.Random;
 
 public class KnapsackParticle {
 	public boolean[] items;
-	public boolean[] velocity;
 	public Double[][] solutionSpace;
+	public int velocity;
 	public boolean[] bestItemsKnownToMe;
 	public double fitness;
 	public double bestFitnessKnownToMe;
+	public int numberOfItems;
+	public double objectiveValue;
+	public double objectiveWeight;
 
 	public KnapsackParticle(Random r, Double[][] solutionSpace) {
 		this.solutionSpace = solutionSpace;
 		items = new boolean[Constants.KNAPSACKSIZE];
-		velocity = new boolean[Constants.KNAPSACKSIZE];
-		bestItemsKnownToMe = new boolean[Constants.DIMENSIONS];
+		// velocity = r.nextInt();
+		velocity = 50;
+		bestItemsKnownToMe = new boolean[Constants.KNAPSACKSIZE];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
 			items[i] = r.nextBoolean();
-			velocity[i] = r.nextBoolean();
 		}
 
 		System.arraycopy(items, 0, bestItemsKnownToMe, 0,
@@ -30,6 +33,8 @@ public class KnapsackParticle {
 
 	void evaluateFitness() {
 		fitness = 0;
+		numberOfItems = 0;
+
 		double value = 0;
 		double weight = 0;
 
@@ -37,11 +42,16 @@ public class KnapsackParticle {
 			if (items[i]) {
 				value += solutionSpace[i][0];
 				weight += solutionSpace[i][1];
+				numberOfItems += 1;
 			}
 		}
 
+		objectiveValue = value;
+		objectiveWeight = weight;
+
 		if (weight > Constants.MAXWEIGHT) {
-			value *= -weight;
+
+			value = -10;
 		}
 
 		fitness = Math.pow(2, -value);
@@ -50,28 +60,49 @@ public class KnapsackParticle {
 	public void updateVelocity(boolean[] bestItemsSeenInNeighborhood,
 			double R1, double R2) {
 
-		// Lage binæraddisjon som looper ved 2000. Når man går tre skritt frem
-		// legger man til 3*true fra ene enden av items arrayet. Siden alt får
-		// definerte avstander til alt burde dette løse problemet vårt.
+		double local = (Constants.C1 * R1 * (BinaryMath.findDifference(
+				bestItemsKnownToMe, items)));
 
-		boolean b1 = Constants.C1 * R1 < 1;
-		boolean b2 = Constants.C2 * R2 < 1;
+		double global = (Constants.C2 * R2 * (BinaryMath.findDifference(
+				bestItemsSeenInNeighborhood, items)));
 
-		boolean var1;
-		boolean var2;
+		int bounds = 100000000;
 
-		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
-			var1 = b1 && bestItemsKnownToMe[i];
-			var2 = b2 && bestItemsSeenInNeighborhood[i];
-			velocity[i] = velocity[i] || var1 || var2;
-
-			if (!var1 && !var2) {
-				velocity[i] = false;
-			}
+		if (local > bounds) {
+			local = bounds;
 		}
+
+		if (local < -bounds) {
+			local = -bounds;
+		}
+
+		if (global > bounds) {
+			global = bounds;
+		}
+
+		if (global < -bounds) {
+			global = -bounds;
+		}
+
+		velocity = (int) (Constants.INERTIA * velocity + local + global);
+
+		if (velocity > bounds) {
+			velocity = bounds;
+		}
+
+		if (velocity < -bounds) {
+			velocity = -bounds;
+		}
+
 	}
 
 	public void updatePosition() {
+		if (velocity > 0) {
+			BinaryMath.addBinary(items, velocity);
+		}
 
+		else {
+			BinaryMath.subtractBinary(items, -velocity);
+		}
 	}
 }

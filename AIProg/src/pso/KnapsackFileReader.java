@@ -29,8 +29,8 @@ public class KnapsackFileReader {
 	public static Double[][] standardKnapsack(String ksText, Random r) {
 		Double[][] solutionSpace = new Double[Constants.KNAPSACKSIZE][3];
 		String[] itemLines = ksText.split("\n");
-		System.out.println(itemLines[0]);
-		System.out.println(itemLines[0].split(",")[1]);
+		// System.out.println(itemLines[0]);
+		// System.out.println(itemLines[0].split(",")[1]);
 		for (int i = 0; i < itemLines.length; i++) {
 			solutionSpace[i][0] = Double
 					.parseDouble(itemLines[i].split(",")[0]);

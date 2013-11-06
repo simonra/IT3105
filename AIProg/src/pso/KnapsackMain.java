@@ -16,56 +16,59 @@ public class KnapsackMain {
 	 */
 
 	public static void KnapsackMainMethod() {
-		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
+		KnapsackParticle[] particles = new KnapsackParticle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
-		Double[] bestSeenPosition = new Double[Constants.DIMENSIONS];
+		boolean[] bestSeenPosition = new boolean[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 
+		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
+				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
+
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
-			Particle p = new Particle(random, i);
+			KnapsackParticle p = new KnapsackParticle(random, solutionSpace);
 			particles[i] = p;
 			if (p.fitness < bestFitnessSeen) {
-				System.arraycopy(p.positions, 0, bestSeenPosition, 0,
-						Constants.DIMENSIONS);
+				System.arraycopy(p.items, 0, bestSeenPosition, 0,
+						Constants.KNAPSACKSIZE);
 				bestFitnessSeen = p.fitness;
 			}
 		}
 
 		boolean conditions = true;
-		conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 		conditions &= counter < Constants.MAXITERATIONS;
-
+		System.out.println("while");
 		while (conditions) {
-			for (Particle particle : particles) {
+			for (KnapsackParticle particle : particles) {
 				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
 						random.nextDouble());
 				particle.updatePosition();
 				particle.evaluateFitness();
 				if (particle.fitness < particle.bestFitnessKnownToMe) {
-					System.arraycopy(particle.positions, 0,
-							particle.bestPositionKnownToMe, 0,
+					System.arraycopy(particle.items, 0,
+							particle.bestItemsKnownToMe, 0,
 							Constants.DIMENSIONS);
 					particle.bestFitnessKnownToMe = particle.fitness;
 
 					if (particle.bestFitnessKnownToMe < bestFitnessSeen) {
-						System.arraycopy(particle.positions, 0,
-								bestSeenPosition, 0, Constants.DIMENSIONS);
+						System.arraycopy(particle.items, 0, bestSeenPosition,
+								0, Constants.DIMENSIONS);
 						bestFitnessSeen = particle.fitness;
 					}
 				}
 			}
 
 			counter++;
-			conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 			conditions &= counter < Constants.MAXITERATIONS;
 
-			if (!conditions || counter % 10 == 0) {
+			if (!conditions || counter % 1 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the best fitness is " + bestFitnessSeen + ".");
-				System.out.println("	The first particles position is: "
-						+ particles[0].positions[0] + ", and its velocity is: "
-						+ particles[0].velocity[0]);
+				System.out.println("Items: " + particles[0].numberOfItems);
+				System.out.println("Value: " + particles[0].objectiveValue);
+				System.out.println("Weight: " + particles[0].objectiveWeight);
+				System.out.println("Fitness: " + particles[0].fitness);
+				System.out.println("Velocity: " + particles[0].velocity);
 			}
 		}
 	}
