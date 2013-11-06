@@ -1,11 +1,14 @@
 package pso;
 
+import java.math.BigInteger;
+
 public class BinaryMath {
 
 	//For å finne int subtraction bruk:
 	//Arrays.equals(array1, array2)
 	
-	public static int findDifference(boolean[] minuend, boolean[] subtrahend){
+	//Må returne double, da double kan ha verdien double.positive/negative_infinity
+	public static double findDifference(boolean[] minuend, boolean[] subtrahend){
 		boolean[] difference = new boolean[Constants.KNAPSACKSIZE];
 		boolean carry = false;
 		//Twos complement:
@@ -54,7 +57,7 @@ public class BinaryMath {
 		addBinaryOne(difference);
 		
 		//get the resulting int:
-		int result = 0;
+		double result = 0;
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
 			if(difference[i])
 				result += Math.pow(2, i);
