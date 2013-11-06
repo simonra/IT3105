@@ -6,9 +6,16 @@ public class BinaryMath {
 	//Arrays.equals(array1, array2)
 	
 	public static void addBinary(boolean[] binaryBoolean, int numberToAdd){
-		//Add 1 binary convertNumber times
+		//Add 1 binary numberToAdd times
 		for (int i = 0; i < numberToAdd; i++) {
 			addBinaryOne(binaryBoolean);
+		}
+	}
+	
+	public static void subtractBinary(boolean[] binaryBoolean, int numberToSubtract){
+		//Subtract 1 binary numberToSubtract times
+		for (int i = 0; i < numberToSubtract; i++) {
+			subtractBinaryOne(binaryBoolean);
 		}
 	}
 	
