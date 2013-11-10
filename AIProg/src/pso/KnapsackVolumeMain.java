@@ -2,7 +2,7 @@ package pso;
 
 import java.util.Random;
 
-public class KnapsackMain {
+public class KnapsackVolumeMain {
 
 	/*
 	 * A small container has a weight limit of 1000kg. A package has a weight
@@ -16,23 +16,24 @@ public class KnapsackMain {
 	 */
 
 	public static double[] KnapsackMainMethod() {
-		KnapsackParticle[] particles = new KnapsackParticle[Constants.NUMBEROFPARTICLES];
+		KnapsackParticleVolume[] particles = new KnapsackParticleVolume[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		double[] bestSeenPosition = new double[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 		
-		KnapsackParticle bestParticle = null;
+		KnapsackParticleVolume bestParticle = null;
 		double bestValue = 0;
 		double bestWeight = 0;
 		double bestNumberOfItems = 0;
 		double bestPFitness = 0;
+		double bestVolume = 0;
 		
 		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
 				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
 
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
-			KnapsackParticle p = new KnapsackParticle(random, solutionSpace);
+			KnapsackParticleVolume p = new KnapsackParticleVolume(random, solutionSpace);
 			particles[i] = p;
 			if (p.fitness < bestFitnessSeen) {
 				System.arraycopy(p.position, 0, bestSeenPosition, 0,
@@ -42,6 +43,7 @@ public class KnapsackMain {
 				bestParticle = p;
 				bestValue = p.objectiveValue;
 				bestWeight = p.objectiveWeight;
+				bestVolume = p.objectiveVolume;
 				bestNumberOfItems = p.numberOfItems;
 				bestPFitness = p.fitness;
 			}
@@ -51,7 +53,7 @@ public class KnapsackMain {
 		conditions &= counter < Constants.MAXITERATIONS;
 //		System.out.println("while");
 		while (conditions) {
-			for (KnapsackParticle particle : particles) {
+			for (KnapsackParticleVolume particle : particles) {
 				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
 						random.nextDouble());
 				particle.updatePosition();
@@ -70,6 +72,7 @@ public class KnapsackMain {
 						bestParticle = particle;
 						bestValue = particle.objectiveValue;
 						bestWeight = particle.objectiveWeight;
+						bestVolume = particle.objectiveVolume;
 						bestNumberOfItems = particle.numberOfItems ;
 						bestPFitness = particle.fitness;
 					}
@@ -79,19 +82,20 @@ public class KnapsackMain {
 			counter++;
 			conditions &= counter < Constants.MAXITERATIONS;
 
-//			if (!conditions || counter % 500 == 0) {
-//				System.out.println("This is iteration " + counter
-//						+ " and the best fitness is " + bestFitnessSeen + ".");
-////				System.out.println("Items: " + bestParticle.numberOfItems);
-////				System.out.println("Value: " + bestParticle.objectiveValue);
-////				System.out.println("Weight: " + bestParticle.objectiveWeight);
-////				System.out.println("Fitness: " + bestParticle.fitness);
-//				
-//				System.out.println("Items: " + bestNumberOfItems);
-//				System.out.println("Value: " + bestValue);
-//				System.out.println("Weight: " + bestWeight);
-//				System.out.println("Fitness: " + bestPFitness);
-//			}
+			if (!conditions || counter % 500 == 0) {
+				System.out.println("This is iteration " + counter
+						+ " and the best fitness is " + bestFitnessSeen + ".");
+//				System.out.println("Items: " + bestParticle.numberOfItems);
+//				System.out.println("Value: " + bestParticle.objectiveValue);
+//				System.out.println("Weight: " + bestParticle.objectiveWeight);
+//				System.out.println("Fitness: " + bestParticle.fitness);
+				
+				System.out.println("Items: " + bestNumberOfItems);
+				System.out.println("Value: " + bestValue);
+				System.out.println("Weight: " + bestWeight);
+				System.out.println("Volume: " + bestVolume);
+				System.out.println("Fitness: " + bestPFitness);
+			}
 		}
 		return new double[]{bestFitnessSeen, (double)bestNumberOfItems, bestWeight};
 	}
