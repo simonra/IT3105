@@ -29,7 +29,7 @@ public class KnapsackMain {
 			KnapsackParticle p = new KnapsackParticle(random, solutionSpace);
 			particles[i] = p;
 			if (p.fitness < bestFitnessSeen) {
-				System.arraycopy(p.items, 0, bestSeenPosition, 0,
+				System.arraycopy(p.position, 0, bestSeenPosition, 0,
 						Constants.KNAPSACKSIZE);
 				bestFitnessSeen = p.fitness;
 			}
@@ -45,13 +45,13 @@ public class KnapsackMain {
 				particle.updatePosition();
 				particle.evaluateFitness();
 				if (particle.fitness < particle.bestFitnessKnownToMe) {
-					System.arraycopy(particle.items, 0,
+					System.arraycopy(particle.position, 0,
 							particle.bestItemsKnownToMe, 0,
 							Constants.DIMENSIONS);
 					particle.bestFitnessKnownToMe = particle.fitness;
 
 					if (particle.bestFitnessKnownToMe < bestFitnessSeen) {
-						System.arraycopy(particle.items, 0, bestSeenPosition,
+						System.arraycopy(particle.position, 0, bestSeenPosition,
 								0, Constants.DIMENSIONS);
 						bestFitnessSeen = particle.fitness;
 					}

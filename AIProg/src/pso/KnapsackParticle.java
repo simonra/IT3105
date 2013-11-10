@@ -3,29 +3,31 @@ package pso;
 import java.util.Random;
 
 public class KnapsackParticle {
-	public boolean[] items;
+	public double[] position;
 	public Double[][] solutionSpace;
-	public int velocity;
-	public boolean[] bestItemsKnownToMe;
+	public double[] velocity;
+	public double[] bestItemsKnownToMe;
 	public double fitness;
 	public double bestFitnessKnownToMe;
+	
 	public int numberOfItems;
 	public double objectiveValue;
 	public double objectiveWeight;
 
 	public KnapsackParticle(Random r, Double[][] solutionSpace) {
 		this.solutionSpace = solutionSpace;
-		items = new boolean[Constants.KNAPSACKSIZE];
+		position = new double[Constants.KNAPSACKSIZE];
 		// velocity = r.nextInt();
-		velocity = 50;
-		bestItemsKnownToMe = new boolean[Constants.KNAPSACKSIZE];
+		velocity = new double[Constants.KNAPSACKSIZE];
+		bestItemsKnownToMe = new double[Constants.KNAPSACKSIZE];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
-			items[i] = r.nextBoolean();
+			position[i] = r.nextDouble();
+			velocity[i] = r.nextDouble();
 		}
 
-		System.arraycopy(items, 0, bestItemsKnownToMe, 0,
+		System.arraycopy(position, 0, bestItemsKnownToMe, 0,
 				Constants.KNAPSACKSIZE);
 
 		evaluateFitness();
@@ -39,7 +41,7 @@ public class KnapsackParticle {
 		double weight = 0;
 
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
-			if (items[i]) {
+			if (position[i] > Constants.KNAPSACKVALUETRESHOLD) {
 				value += solutionSpace[i][0];
 				weight += solutionSpace[i][1];
 				numberOfItems += 1;
@@ -61,10 +63,10 @@ public class KnapsackParticle {
 			double R1, double R2) {
 
 		double local = (Constants.C1 * R1 * (BinaryMath.findDifference(
-				bestItemsKnownToMe, items)));
+				bestItemsKnownToMe, position)));
 
 		double global = (Constants.C2 * R2 * (BinaryMath.findDifference(
-				bestItemsSeenInNeighborhood, items)));
+				bestItemsSeenInNeighborhood, position)));
 
 		int bounds = 100000000;
 
@@ -98,11 +100,11 @@ public class KnapsackParticle {
 
 	public void updatePosition() {
 		if (velocity > 0) {
-			BinaryMath.addBinary(items, velocity);
+			BinaryMath.addBinary(position, velocity);
 		}
 
 		else {
-			BinaryMath.subtractBinary(items, -velocity);
+			BinaryMath.subtractBinary(position, -velocity);
 		}
 	}
 }

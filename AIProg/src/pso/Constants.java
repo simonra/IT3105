@@ -14,5 +14,6 @@ public interface Constants {
 	double C2 = 1; // Should be in the range [0,2>
 	double INERTIA = 1;
 	double CIRCLEPROBLEMRANGE = 1234;
+	double KNAPSACKVALUETRESHOLD = 0.7;
 	String KNAPSACKURL = "src/pso/pso-packages.txt";
 }
