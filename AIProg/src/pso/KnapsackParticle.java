@@ -6,10 +6,10 @@ public class KnapsackParticle {
 	public double[] position;
 	public Double[][] solutionSpace;
 	public double[] velocity;
-	public double[] bestItemsKnownToMe;
+	public double[] bestPositionKnownToMe;
 	public double fitness;
 	public double bestFitnessKnownToMe;
-	
+
 	public int numberOfItems;
 	public double objectiveValue;
 	public double objectiveWeight;
@@ -19,7 +19,7 @@ public class KnapsackParticle {
 		position = new double[Constants.KNAPSACKSIZE];
 		// velocity = r.nextInt();
 		velocity = new double[Constants.KNAPSACKSIZE];
-		bestItemsKnownToMe = new double[Constants.KNAPSACKSIZE];
+		bestPositionKnownToMe = new double[Constants.KNAPSACKSIZE];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
@@ -27,7 +27,7 @@ public class KnapsackParticle {
 			velocity[i] = r.nextDouble();
 		}
 
-		System.arraycopy(position, 0, bestItemsKnownToMe, 0,
+		System.arraycopy(position, 0, bestPositionKnownToMe, 0,
 				Constants.KNAPSACKSIZE);
 
 		evaluateFitness();
@@ -52,59 +52,36 @@ public class KnapsackParticle {
 		objectiveWeight = weight;
 
 		if (weight > Constants.MAXWEIGHT) {
-
-			value = -10;
+			fitness = 1000 + weight;
+		} else {
+			fitness = -value;
 		}
-
-		fitness = Math.pow(2, -value);
 	}
 
-	public void updateVelocity(boolean[] bestItemsSeenInNeighborhood,
+	public void updateVelocity(double[] bestPositionSeenInNeighborhood,
 			double R1, double R2) {
+		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
+			velocity[i] = Constants.INERTIA
+					* velocity[i]
+					+ (Constants.C1 * R1 * (bestPositionKnownToMe[i] - position[i]))
+					+ (Constants.C2 * R2 * (bestPositionSeenInNeighborhood[i] - position[i]));
 
-		double local = (Constants.C1 * R1 * (BinaryMath.findDifference(
-				bestItemsKnownToMe, position)));
+			if (velocity[i] > 0.005) {
+				velocity[i] = 0.005;
+			}
 
-		double global = (Constants.C2 * R2 * (BinaryMath.findDifference(
-				bestItemsSeenInNeighborhood, position)));
-
-		int bounds = 100000000;
-
-		if (local > bounds) {
-			local = bounds;
-		}
-
-		if (local < -bounds) {
-			local = -bounds;
-		}
-
-		if (global > bounds) {
-			global = bounds;
-		}
-
-		if (global < -bounds) {
-			global = -bounds;
-		}
-
-		velocity = (int) (Constants.INERTIA * velocity + local + global);
-
-		if (velocity > bounds) {
-			velocity = bounds;
-		}
-
-		if (velocity < -bounds) {
-			velocity = -bounds;
+			if (velocity[i] < -0.005) {
+				velocity[i] = -0.005;
+			}
 		}
 
 	}
 
 	public void updatePosition() {
-		if (velocity > 0) {
-			BinaryMath.addBinary(position, velocity);
-		}
-
-		else {
-			BinaryMath.subtractBinary(position, -velocity);
+		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
+			position[i] = position[i] + velocity[i];
+			if(position[i] > 1) position[i] = 1;
+			if(position[i] < 0) position[i] = 0;
 		}
 	}
 }

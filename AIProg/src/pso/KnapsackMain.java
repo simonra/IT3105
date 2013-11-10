@@ -18,10 +18,16 @@ public class KnapsackMain {
 	public static void KnapsackMainMethod() {
 		KnapsackParticle[] particles = new KnapsackParticle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
-		boolean[] bestSeenPosition = new boolean[Constants.KNAPSACKSIZE];
+		double[] bestSeenPosition = new double[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
-
+		
+		KnapsackParticle bestParticle = null;
+		double bestValue = 0;
+		double bestWeight = 0;
+		double bestNumberOfItems = 0;
+		double bestPFitness = 0;
+		
 		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
 				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
 
@@ -32,6 +38,12 @@ public class KnapsackMain {
 				System.arraycopy(p.position, 0, bestSeenPosition, 0,
 						Constants.KNAPSACKSIZE);
 				bestFitnessSeen = p.fitness;
+				
+				bestParticle = p;
+				bestValue = p.objectiveValue;
+				bestWeight = p.objectiveWeight;
+				bestNumberOfItems = p.numberOfItems;
+				bestPFitness = p.fitness;
 			}
 		}
 
@@ -46,14 +58,20 @@ public class KnapsackMain {
 				particle.evaluateFitness();
 				if (particle.fitness < particle.bestFitnessKnownToMe) {
 					System.arraycopy(particle.position, 0,
-							particle.bestItemsKnownToMe, 0,
-							Constants.DIMENSIONS);
+							particle.bestPositionKnownToMe, 0,
+							Constants.KNAPSACKSIZE);
 					particle.bestFitnessKnownToMe = particle.fitness;
 
 					if (particle.bestFitnessKnownToMe < bestFitnessSeen) {
 						System.arraycopy(particle.position, 0, bestSeenPosition,
-								0, Constants.DIMENSIONS);
+								0, Constants.KNAPSACKSIZE);
 						bestFitnessSeen = particle.fitness;
+						
+						bestParticle = particle;
+						bestValue = particle.objectiveValue;
+						bestWeight = particle.objectiveWeight;
+						bestNumberOfItems = particle.numberOfItems ;
+						bestPFitness = particle.fitness;
 					}
 				}
 			}
@@ -61,14 +79,18 @@ public class KnapsackMain {
 			counter++;
 			conditions &= counter < Constants.MAXITERATIONS;
 
-			if (!conditions || counter % 1 == 0) {
+			if (!conditions || counter % 3 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the best fitness is " + bestFitnessSeen + ".");
-				System.out.println("Items: " + particles[0].numberOfItems);
-				System.out.println("Value: " + particles[0].objectiveValue);
-				System.out.println("Weight: " + particles[0].objectiveWeight);
-				System.out.println("Fitness: " + particles[0].fitness);
-				System.out.println("Velocity: " + particles[0].velocity);
+//				System.out.println("Items: " + bestParticle.numberOfItems);
+//				System.out.println("Value: " + bestParticle.objectiveValue);
+//				System.out.println("Weight: " + bestParticle.objectiveWeight);
+//				System.out.println("Fitness: " + bestParticle.fitness);
+				
+				System.out.println("Items: " + bestNumberOfItems);
+				System.out.println("Value: " + bestValue);
+				System.out.println("Weight: " + bestWeight);
+				System.out.println("Fitness: " + bestPFitness);
 			}
 		}
 	}
