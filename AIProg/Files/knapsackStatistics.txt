@@ -1,0 +1,195 @@
+
+ Number of particles is varied below:
+
+
+Number of particles: 1000, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.2978404003201, Number of Items: 40.0, Value: -281.06845981958
+
+
+Number of particles: 1150, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 992.7407665615231, Number of Items: 45.0, Value: -292.486265666511
+
+
+Number of particles: 1300, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 987.8039531446352, Number of Items: 42.0, Value: -283.07944143580994
+
+
+Number of particles: 1450, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 982.441840433945, Number of Items: 36.0, Value: -243.75217878639992
+
+
+Number of particles: 1600, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 995.996887137592, Number of Items: 37.0, Value: -270.2702788253601
+
+
+Number of particles: 1750, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.5683615769459, Number of Items: 48.0, Value: -340.601549592565
+
+
+Number of particles: 1900, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.4242223196312, Number of Items: 42.0, Value: -277.27136559258
+
+
+Number of particles: 2050, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.0920200858482, Number of Items: 40.0, Value: -288.76797193926996
+
+
+Number of particles: 2200, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.3840798064982, Number of Items: 49.0, Value: -315.40850318303296
+
+
+Number of particles: 2350, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.701516276295, Number of Items: 41.0, Value: -263.086388060705
+
+
+Number of particles: 2500, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 989.8958894448699, Number of Items: 42.0, Value: -272.669142999713
+
+
+Number of particles: 2650, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.3339116007259, Number of Items: 43.0, Value: -293.25807527019305
+
+
+Number of particles: 2800, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.89751451357, Number of Items: 37.0, Value: -254.71705799383992
+
+
+Number of particles: 2950, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 990.0882309391254, Number of Items: 37.0, Value: -276.2011077427499
+
+
+Number of particles: 3100, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.417827665949, Number of Items: 42.0, Value: -299.0376862872099
+
+
+Number of particles: 3250, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 991.652862623475, Number of Items: 42.0, Value: -260.89208044096705
+
+
+Number of particles: 3400, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 991.8894304492242, Number of Items: 42.0, Value: -290.78477875755004
+
+
+Number of particles: 3550, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.720089571935, Number of Items: 44.0, Value: -289.45173671615987
+
+
+Number of particles: 3700, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 995.88119868838, Number of Items: 38.0, Value: -287.369484477315
+
+
+Number of particles: 3850, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.5908331548443, Number of Items: 48.0, Value: -309.9826315148049
+
+
+Number of particles: 4000, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.42535850568, Number of Items: 37.0, Value: -275.946450778617
+
+
+ C1 is varied below:
+
+Number of particles: 2000, C1: 0.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 987.5174773464812, Number of Items: 44.0, Value: -292.14418924092195
+
+
+Number of particles: 2000, C1: 0.1, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.723214674608, Number of Items: 44.0, Value: -293.46843570105005
+
+
+Number of particles: 2000, C1: 0.2, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 989.6675761873448, Number of Items: 39.0, Value: -277.85790317369504
+
+
+Number of particles: 2000, C1: 0.30000000000000004, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.338816189774, Number of Items: 47.0, Value: -336.04091213909
+
+
+Number of particles: 2000, C1: 0.4, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.6346439643389, Number of Items: 40.0, Value: -296.9231032509801
+
+
+Number of particles: 2000, C1: 0.5, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 992.7838194586843, Number of Items: 44.0, Value: -286.79125952204004
+
+
+Number of particles: 2000, C1: 0.6000000000000001, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.1917905807971, Number of Items: 51.0, Value: -307.37052297954494
+
+
+Number of particles: 2000, C1: 0.7000000000000001, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 998.2171643570406, Number of Items: 43.0, Value: -263.56375960824994
+
+
+Number of particles: 2000, C1: 0.8, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.3479210408314, Number of Items: 47.0, Value: -323.7880131465299
+
+
+Number of particles: 2000, C1: 0.9, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.4370267535819, Number of Items: 45.0, Value: -267.83095594515896
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.3793289316069, Number of Items: 37.0, Value: -264.3274993055801
+
+
+Number of particles: 2000, C1: 1.1, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.89201143845, Number of Items: 45.0, Value: -281.562064827773
+
+
+Number of particles: 2000, C1: 1.2000000000000002, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 995.2244240035078, Number of Items: 42.0, Value: -274.14872740591295
+
+
+Number of particles: 2000, C1: 1.3, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.5202738383512, Number of Items: 41.0, Value: -278.40440785875
+
+
+Number of particles: 2000, C1: 1.4000000000000001, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 990.127526076778, Number of Items: 41.0, Value: -270.86284089680095
+
+
+Number of particles: 2000, C1: 1.5, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 988.6436860627057, Number of Items: 42.0, Value: -266.4173149277099
+
+
+Number of particles: 2000, C1: 1.6, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 992.2720052253567, Number of Items: 41.0, Value: -284.00323370621976
+
+
+Number of particles: 2000, C1: 1.7000000000000002, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 998.6940377847154, Number of Items: 38.0, Value: -261.0823671782
+
+
+Number of particles: 2000, C1: 1.8, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 994.9197295512105, Number of Items: 46.0, Value: -293.4576598879116
+
+
+Number of particles: 2000, C1: 1.9000000000000001, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 988.719040793955, Number of Items: 41.0, Value: -273.64191928785533
+
+
+Number of particles: 2000, C1: 2.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.986575612198, Number of Items: 45.0, Value: -286.92929823370997
+
+
+ C2 is varied below:
+
+Number of particles: 2000, C1: 1.0, C2: 0.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 961.85538983385, Number of Items: 25.0, Value: -183.11983623433
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.1, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 992.417456582, Number of Items: 35.0, Value: -225.56652304263
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.2, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 978.461959411836, Number of Items: 38.0, Value: -245.77991173841264
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.30000000000000004, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 990.75216875069, Number of Items: 38.0, Value: -251.49142765278899
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.4, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.5526147267278, Number of Items: 36.0, Value: -266.80263778046003
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.5, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.2547053023297, Number of Items: 37.0, Value: -282.06801151123
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.6000000000000001, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 981.1534443148021, Number of Items: 42.0, Value: -272.083862595115
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.7000000000000001, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.9686132273273, Number of Items: 47.0, Value: -315.1758183236501
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.8, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.6721943297423, Number of Items: 43.0, Value: -285.15002730669
+
+
+Number of particles: 2000, C1: 1.0, C2: 0.9, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 991.4988502940784, Number of Items: 42.0, Value: -284.0354377090571
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.3265759704624, Number of Items: 46.0, Value: -282.70905315962494
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.1, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.555250282656, Number of Items: 44.0, Value: -287.18523976634697
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.2000000000000002, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 993.8429920834641, Number of Items: 37.0, Value: -263.169129895495
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.3, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.472085059257, Number of Items: 43.0, Value: -312.41202055972695
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.4000000000000001, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 997.7394559483005, Number of Items: 48.0, Value: -305.38283221381107
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.5, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 991.6845874067989, Number of Items: 47.0, Value: -295.20210056243604
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.6, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 996.3918646936539, Number of Items: 36.0, Value: -258.1033861752184
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.7000000000000002, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 989.316368489181, Number of Items: 43.0, Value: -292.95987987534994
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.8, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 994.2678313901962, Number of Items: 39.0, Value: -255.1351273945134
+
+
+Number of particles: 2000, C1: 1.0, C2: 1.9000000000000001, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 986.3863133168273, Number of Items: 43.0, Value: -299.25731713276997
+
+
+Number of particles: 2000, C1: 1.0, C2: 2.0, Inertia: 1.0, Knapsack treshold: 0.7, Weight: 999.289841928871, Number of Items: 47.0, Value: -319.9100338671299

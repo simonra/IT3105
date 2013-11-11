@@ -13,30 +13,30 @@ public class InfiniteKnapsackStatistics {
 	
 	public static void main(String[] args) {
 		int numberOfRuns = 21;
-		int satisticsSize = 100;
-		writeToFile("\n Number of particles is varied below:\n");
-		for (int i = 0; i < numberOfRuns; i++) {
-			findStatistics(1000 + i*150, 1, 1, 1, 0.7, satisticsSize);
-			System.out.println("Iteration "+i+" done");
-		}
-		writeToFile("\n C1 is varied below:");
-		for (int i = 0; i < numberOfRuns; i++) {
-			findStatistics(2000, 0 + i*0.1, 1, 1, 0.7, satisticsSize);
-			System.out.println("Iteration "+i+" done");
-		}
-		writeToFile("\n C2 is varied below:");
-		for (int i = 0; i < numberOfRuns; i++) {
-			findStatistics(2000, 1, 0 + i*0.1, 1, 0.7, satisticsSize);
-			System.out.println("Iteration "+i+" done");
-		}
+		int satisticsSize = 30;
+//		writeToFile("\n Number of particles is varied below:\n");
+//		for (int i = 0; i < numberOfRuns; i++) {
+//			findStatistics(1000 + i*150, 1, 1, 1, 0.7, satisticsSize);
+//			System.out.println("Iteration "+i+" done");
+//		}
+//		writeToFile("\n C1 is varied below:");
+//		for (int i = 0; i < numberOfRuns; i++) {
+//			findStatistics(2000, 0 + i*0.1, 1, 1, 0.7, satisticsSize);
+//			System.out.println("Iteration "+i+" done");
+//		}
+//		writeToFile("\n C2 is varied below:");
+//		for (int i = 0; i < numberOfRuns; i++) {
+//			findStatistics(2000, 1, 0 + i*0.1, 1, 0.7, satisticsSize);
+//			System.out.println("Iteration "+i+" done");
+//		}
 		writeToFile("\n Inertia is varied below:");
 		for (int i = 0; i < numberOfRuns; i++) {
-			findStatistics(2000, 1, 1, 1, 0.7, satisticsSize);
+			findStatistics(2000, 1, 1, 1 + i*2.45, 0.7, satisticsSize);
 			System.out.println("Iteration "+i+" done");
 		}
 		writeToFile("\n treshold is varied below:");
 		for (int i = 0; i < numberOfRuns; i++) {
-			findStatistics(2000, 1, 1, 1 + i*2.45, 0.4 + i*0.02, satisticsSize);
+			findStatistics(2000, 1, 1, 1, 0.4 + i*0.02, satisticsSize);
 			System.out.println("Iteration "+i+" done");
 		}
 	}
@@ -56,8 +56,8 @@ public class InfiniteKnapsackStatistics {
 			if(tempArray[0] < bestValues[0]){
 				System.arraycopy(tempArray, 0, bestValues, 0, 3);
 			}
-			writeToFile(makeString(bestValues));
 		}
+		writeToFile(makeString(bestValues));
 	}
 	
 	static String makeString(double[] iterationResult){
