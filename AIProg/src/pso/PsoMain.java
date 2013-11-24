@@ -4,17 +4,19 @@ import java.util.Random;
 
 public class PsoMain {
 
-	/**Has a swarm of particles in an array, for each particle,
-	 updates its velocity and position, and checks its fitness*/
+	/**
+	 * Has a swarm of particles in an array, for each particle, updates its
+	 * velocity and position, and checks its fitness
+	 */
 	public static void PsoMainMethod() {
-		//The fields making up the swarm
+		// The fields making up the swarm
 		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		Double[] bestSeenPosition = new Double[Constants.DIMENSIONS];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 
-		//Finds the best fitness
+		// Finds the best fitness
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			Particle p = new Particle(random, i);
 			particles[i] = p;
@@ -25,13 +27,14 @@ public class PsoMain {
 			}
 		}
 
-		//Runs the swarm
+		// Runs the swarm
 		boolean conditions = true;
 		conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 		conditions &= counter < Constants.MAXITERATIONS;
 
 		while (conditions) {
-			//For each particle, updates its velocity and position, and updates fitness globally and for each particle
+			// For each particle, updates its velocity and position, and updates
+			// fitness globally and for each particle
 			for (Particle particle : particles) {
 				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
 						random.nextDouble());
@@ -51,12 +54,12 @@ public class PsoMain {
 				}
 			}
 
-			//Updates the condtittions for running
+			// Updates the condtittions for running
 			counter++;
 			conditions &= bestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 			conditions &= counter < Constants.MAXITERATIONS;
 
-			//For making running larger things less visually boring
+			// For making running larger things less visually boring
 			if (!conditions || counter % 10 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the best fitness is " + bestFitnessSeen + ".");

@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.Random;
 
 public class KnapsackFileReader {
-	//reads the file to a string
+
 	public static String readFile(String fileUrl) {
 		String everyThing = "";
 		try {
@@ -26,7 +26,6 @@ public class KnapsackFileReader {
 		return everyThing;
 	}
 
-	//Takes a knapsack-string and makes a knapsack solution space
 	public static Double[][] standardKnapsack(String ksText, Random r) {
 		Double[][] solutionSpace = new Double[Constants.KNAPSACKSIZE][3];
 		String[] itemLines = ksText.split("\n");

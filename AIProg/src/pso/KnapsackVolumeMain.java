@@ -15,37 +15,40 @@ public class KnapsackVolumeMain {
 	 * Demonstrate a run of your algorithm that terminates after 500 iterations.
 	 */
 
-	/**Has a swarm of particles in an array, for each particle,
-	 updates its velocity and position, and checks its fitness*/
+	/**
+	 * Has a swarm of particles in an array, for each particle, updates its
+	 * velocity and position, and checks its fitness
+	 */
 	public static double[] KnapsackMainMethod() {
-		//The fields making up the swarm
+		// The fields making up the swarm
 		KnapsackParticleVolume[] particles = new KnapsackParticleVolume[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		double[] bestSeenPosition = new double[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
-		
-		//Fileds for managing the best particle (using the object didn't work)
+
+		// Fileds for managing the best particle (using the object didn't work)
 		KnapsackParticleVolume bestParticle = null;
 		double bestValue = 0;
 		double bestWeight = 0;
 		double bestNumberOfItems = 0;
 		double bestPFitness = 0;
 		double bestVolume = 0;
-		
+
 		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
 				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
 
-		//Initiates the swarm
+		// Initiates the swarm
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
-			KnapsackParticleVolume p = new KnapsackParticleVolume(random, solutionSpace);
+			KnapsackParticleVolume p = new KnapsackParticleVolume(random,
+					solutionSpace);
 			particles[i] = p;
-			//Updates the best seen particle
+			// Updates the best seen particle
 			if (p.fitness < bestFitnessSeen) {
 				System.arraycopy(p.position, 0, bestSeenPosition, 0,
 						Constants.KNAPSACKSIZE);
 				bestFitnessSeen = p.fitness;
-				
+
 				bestParticle = p;
 				bestValue = p.objectiveValue;
 				bestWeight = p.objectiveWeight;
@@ -55,10 +58,10 @@ public class KnapsackVolumeMain {
 			}
 		}
 
-		//Executes the swarm
+		// Executes the swarm
 		boolean conditions = true;
 		conditions &= counter < Constants.MAXITERATIONS;
-//		System.out.println("while");
+		// System.out.println("while");
 		while (conditions) {
 			for (KnapsackParticleVolume particle : particles) {
 				particle.updateVelocity(bestSeenPosition, random.nextDouble(),
@@ -72,33 +75,40 @@ public class KnapsackVolumeMain {
 					particle.bestFitnessKnownToMe = particle.fitness;
 
 					if (particle.bestFitnessKnownToMe < bestFitnessSeen) {
-						System.arraycopy(particle.position, 0, bestSeenPosition,
-								0, Constants.KNAPSACKSIZE);
+						System.arraycopy(particle.position, 0,
+								bestSeenPosition, 0, Constants.KNAPSACKSIZE);
 						bestFitnessSeen = particle.fitness;
-						
+
 						bestParticle = particle;
 						bestValue = particle.objectiveValue;
 						bestWeight = particle.objectiveWeight;
 						bestVolume = particle.objectiveVolume;
-						bestNumberOfItems = particle.numberOfItems ;
+						bestNumberOfItems = particle.numberOfItems;
 						bestPFitness = particle.fitness;
 					}
 				}
 			}
 
-			//Updates the condtittions for running
+			if (Constants.decreaseInertia) {
+				if (Constants.INERTIA >= 0.4) {
+					Constants.INERTIA -= 0.002;
+				}
+			}
+
+			// Updates the condtittions for running
 			counter++;
 			conditions &= counter < Constants.MAXITERATIONS;
 
-			//For making running larger things less visually boring
+			// For making running larger things less visually boring
 			if (!conditions || counter % 500 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the best fitness is " + bestFitnessSeen + ".");
-//				System.out.println("Items: " + bestParticle.numberOfItems);
-//				System.out.println("Value: " + bestParticle.objectiveValue);
-//				System.out.println("Weight: " + bestParticle.objectiveWeight);
-//				System.out.println("Fitness: " + bestParticle.fitness);
-				
+				// System.out.println("Items: " + bestParticle.numberOfItems);
+				// System.out.println("Value: " + bestParticle.objectiveValue);
+				// System.out.println("Weight: " +
+				// bestParticle.objectiveWeight);
+				// System.out.println("Fitness: " + bestParticle.fitness);
+
 				System.out.println("Items: " + bestNumberOfItems);
 				System.out.println("Value: " + bestValue);
 				System.out.println("Weight: " + bestWeight);
@@ -106,7 +116,8 @@ public class KnapsackVolumeMain {
 				System.out.println("Fitness: " + bestPFitness);
 			}
 		}
-		//returns after the while is ower
-		return new double[]{bestFitnessSeen, (double)bestNumberOfItems, bestWeight};
+		// returns after the while is ower
+		return new double[] { bestFitnessSeen, (double) bestNumberOfItems,
+				bestWeight };
 	}
 }
