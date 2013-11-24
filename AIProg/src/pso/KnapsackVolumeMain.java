@@ -15,13 +15,17 @@ public class KnapsackVolumeMain {
 	 * Demonstrate a run of your algorithm that terminates after 500 iterations.
 	 */
 
+	/**Has a swarm of particles in an array, for each particle,
+	 updates its velocity and position, and checks its fitness*/
 	public static double[] KnapsackMainMethod() {
+		//The fields making up the swarm
 		KnapsackParticleVolume[] particles = new KnapsackParticleVolume[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		double[] bestSeenPosition = new double[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 		
+		//Fileds for managing the best particle (using the object didn't work)
 		KnapsackParticleVolume bestParticle = null;
 		double bestValue = 0;
 		double bestWeight = 0;
@@ -32,9 +36,11 @@ public class KnapsackVolumeMain {
 		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
 				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
 
+		//Initiates the swarm
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			KnapsackParticleVolume p = new KnapsackParticleVolume(random, solutionSpace);
 			particles[i] = p;
+			//Updates the best seen particle
 			if (p.fitness < bestFitnessSeen) {
 				System.arraycopy(p.position, 0, bestSeenPosition, 0,
 						Constants.KNAPSACKSIZE);
@@ -49,6 +55,7 @@ public class KnapsackVolumeMain {
 			}
 		}
 
+		//Executes the swarm
 		boolean conditions = true;
 		conditions &= counter < Constants.MAXITERATIONS;
 //		System.out.println("while");
@@ -79,9 +86,11 @@ public class KnapsackVolumeMain {
 				}
 			}
 
+			//Updates the condtittions for running
 			counter++;
 			conditions &= counter < Constants.MAXITERATIONS;
 
+			//For making running larger things less visually boring
 			if (!conditions || counter % 500 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the best fitness is " + bestFitnessSeen + ".");
@@ -97,6 +106,7 @@ public class KnapsackVolumeMain {
 				System.out.println("Fitness: " + bestPFitness);
 			}
 		}
+		//returns after the while is ower
 		return new double[]{bestFitnessSeen, (double)bestNumberOfItems, bestWeight};
 	}
 }

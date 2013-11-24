@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**Class responsible for running the knapsack problem many times with many settings. Basis of our hughe file, otherwise not really interesting*/
 public class InfiniteKnapsackStatistics {
 
 	

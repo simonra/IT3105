@@ -4,7 +4,7 @@ public class KnapsackStatistics {
 
 	
 	
-	
+	/**Simple method for gathering statistics over several runs of the knapsack algorithm*/
 	public static void main(String[] args) {
 		Constants.NUMBEROFPARTICLES = 2000;
 		Constants.C1 = 1; // Should be in the range [0,2>	//Personal

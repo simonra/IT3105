@@ -2,19 +2,23 @@ package pso;
 
 import java.util.Random;
 
+/**1d and 2d particle*/
 public class Particle {
+	//Misc variables related to the particles relation to the solution space
 	public Double[] positions;
 	public Double[] velocity;
 	public Double[] bestPositionKnownToMe;
 	public double fitness;
 	public double bestFitnessKnownToMe;
 
+	//Constructor
 	public Particle(Random r, int uniformSpreadCounter) {
+		//Initializes fiels
 		positions = new Double[Constants.DIMENSIONS];
 		velocity = new Double[Constants.DIMENSIONS];
 		bestPositionKnownToMe = new Double[Constants.DIMENSIONS];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
-		// set it's position randomly within given range
+		//Sets random initial position and velocity
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {
 			double randomNegativity1 = Math.pow(-1,
 					Math.floor(r.nextDouble() * 2));
@@ -34,6 +38,7 @@ public class Particle {
 				Constants.DIMENSIONS);
 	}
 
+	//Calculates the fitness for this particle
 	void evaluateFitness() {
 		fitness = 0;
 		for (Double position : positions) {
@@ -41,6 +46,7 @@ public class Particle {
 		}
 	}
 
+	//Sets new, bounded velocity
 	public void updateVelocity(Double[] bestPositionSeenInNeighborhood,
 			double R1, double R2) {
 		for (int i = 0; i < Constants.DIMENSIONS; i++) {

@@ -15,13 +15,17 @@ public class KnapsackMain {
 	 * Demonstrate a run of your algorithm that terminates after 500 iterations.
 	 */
 
+	/**Has a swarm of particles in an array, for each particle,
+	 updates its velocity and position, and checks its fitness*/
 	public static double[] KnapsackMainMethod() {
+		//The fields making up the swarm
 		KnapsackParticle[] particles = new KnapsackParticle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		double[] bestSeenPosition = new double[Constants.KNAPSACKSIZE];
 		double bestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 		
+		//Fileds for managing the best particle (using the object didn't work)
 		KnapsackParticle bestParticle = null;
 		double bestValue = 0;
 		double bestWeight = 0;
@@ -31,9 +35,11 @@ public class KnapsackMain {
 		Double[][] solutionSpace = KnapsackFileReader.standardKnapsack(
 				KnapsackFileReader.readFile(Constants.KNAPSACKURL), random);
 
+		//Initiates the swarm
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			KnapsackParticle p = new KnapsackParticle(random, solutionSpace);
 			particles[i] = p;
+			//Updates the best seen particle
 			if (p.fitness < bestFitnessSeen) {
 				System.arraycopy(p.position, 0, bestSeenPosition, 0,
 						Constants.KNAPSACKSIZE);
@@ -47,6 +53,7 @@ public class KnapsackMain {
 			}
 		}
 
+		//Executes the swarm
 		boolean conditions = true;
 		conditions &= counter < Constants.MAXITERATIONS;
 //		System.out.println("while");
@@ -76,9 +83,11 @@ public class KnapsackMain {
 				}
 			}
 
+			//Updates the condtittions for running
 			counter++;
 			conditions &= counter < Constants.MAXITERATIONS;
 
+			//For making running larger things less visually boring
 //			if (!conditions || counter % 500 == 0) {
 //				System.out.println("This is iteration " + counter
 //						+ " and the best fitness is " + bestFitnessSeen + ".");
@@ -93,6 +102,7 @@ public class KnapsackMain {
 //				System.out.println("Fitness: " + bestPFitness);
 //			}
 		}
+		//returns after the while is ower
 		return new double[]{bestFitnessSeen, (double)bestNumberOfItems, bestWeight};
 	}
 }

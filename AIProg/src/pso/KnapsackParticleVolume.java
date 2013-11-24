@@ -3,6 +3,7 @@ package pso;
 import java.util.Random;
 
 public class KnapsackParticleVolume {
+	//Misc variables related to the particles relation to the solution space
 	public double[] position;
 	public Double[][] solutionSpace;
 	public double[] velocity;
@@ -10,11 +11,13 @@ public class KnapsackParticleVolume {
 	public double fitness;
 	public double bestFitnessKnownToMe;
 
+	//Variables for keeping track of current state
 	public int numberOfItems;
 	public double objectiveValue;
 	public double objectiveWeight;
 	public double objectiveVolume;
 
+	//Constructor
 	public KnapsackParticleVolume(Random r, Double[][] solutionSpace) {
 		this.solutionSpace = solutionSpace;
 		position = new double[Constants.KNAPSACKSIZE];
@@ -23,6 +26,7 @@ public class KnapsackParticleVolume {
 		bestPositionKnownToMe = new double[Constants.KNAPSACKSIZE];
 		bestFitnessKnownToMe = Double.MAX_VALUE;
 
+		//Sets random initial position and velocity
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
 			position[i] = r.nextDouble();
 			velocity[i] = r.nextDouble();
@@ -34,6 +38,7 @@ public class KnapsackParticleVolume {
 		evaluateFitness();
 	}
 
+	//Calculates the fitness for this particle
 	void evaluateFitness() {
 		fitness = 0;
 		numberOfItems = 0;
@@ -66,6 +71,7 @@ public class KnapsackParticleVolume {
 		}
 	}
 
+	//Sets new, bounded velocity
 	public void updateVelocity(double[] bestPositionSeenInNeighborhood,
 			double R1, double R2) {
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
@@ -85,6 +91,7 @@ public class KnapsackParticleVolume {
 
 	}
 
+	//Updates the position in the 0 - 1 search space
 	public void updatePosition() {
 		for (int i = 0; i < Constants.KNAPSACKSIZE; i++) {
 			position[i] = position[i] + velocity[i];

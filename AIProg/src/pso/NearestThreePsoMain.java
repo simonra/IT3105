@@ -4,7 +4,10 @@ import java.util.Random;
 
 public class NearestThreePsoMain {
 
+	/**Has a swarm of particles in an array, for each particle,
+	 updates its velocity and position, and checks its fitness*/
 	public static void NearestThreePsoMainMethod() {
+		//The fields making up the swarm
 		Particle[] particles = new Particle[Constants.NUMBEROFPARTICLES];
 		Random random = new Random();
 		Double[] localBestSeenPosition = new Double[Constants.DIMENSIONS];
@@ -13,9 +16,11 @@ public class NearestThreePsoMain {
 		double globalBestFitnessSeen = Double.MAX_VALUE;
 		int counter = 0;
 
+		//Initiates the swarm
 		for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 			Particle p = new Particle(random, i);
 			particles[i] = p;
+			//Updates the best seen particle
 			if (p.fitness < globalBestFitnessSeen) {
 				System.arraycopy(p.positions, 0, globalBestSeenPosition, 0,
 						Constants.DIMENSIONS);
@@ -23,6 +28,7 @@ public class NearestThreePsoMain {
 			}
 		}
 
+		//Executes the swarm
 		boolean conditions = true;
 		conditions &= globalBestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 		conditions &= counter < Constants.MAXITERATIONS;
@@ -39,6 +45,7 @@ public class NearestThreePsoMain {
 
 				localBestFitnessSeen = Double.MAX_VALUE;
 
+				//Checks which particles are the neares neighbors
 				for (int i = 0; i < Constants.NUMBEROFPARTICLES; i++) {
 					double distance = 0;
 					for (int j = 0; j < Constants.DIMENSIONS; j++) {
@@ -74,6 +81,7 @@ public class NearestThreePsoMain {
 					}
 				}
 
+				//Sets the best seen fitness in the neighborhood
 				if (particles[firstIndex].fitness < localBestFitnessSeen) {
 					localBestFitnessSeen = particles[firstIndex].fitness;
 					System.arraycopy(particles[firstIndex].positions, 0,
@@ -92,7 +100,7 @@ public class NearestThreePsoMain {
 							localBestSeenPosition, 0, Constants.DIMENSIONS);
 				}
 
-				// Position and velocity:
+				// Updates the position and velocity
 				particle.updateVelocity(localBestSeenPosition,
 						random.nextDouble(), random.nextDouble());
 				particle.updatePosition();
@@ -111,10 +119,12 @@ public class NearestThreePsoMain {
 				}
 			}
 
+			//Updates the condtittions for running
 			counter++;
 			conditions &= globalBestFitnessSeen > Constants.GLOBALFITNESSGOAL;
 			conditions &= counter < Constants.MAXITERATIONS;
 
+			//For making running larger things less visually boring
 			if (!conditions || counter % 10 == 0) {
 				System.out.println("This is iteration " + counter
 						+ " and the (global) best fitness is "
